@@ -8,7 +8,7 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="한빔한복 공식 홈페이지">
     <meta property="og:description" content="대한민국 한복의 기준, 한빔한복 전지점 안내 및 2026 룩북">
-    <meta property="og:image" content="https://vmann0113.github.io/hanbeam_main/assets/img/headimg.webp?v=1"> 
+    <meta property="og:image" content="https://vmann0113.github.io/hanbeam_main/img/headimg.webp?v=1"> 
     <meta property="og:url" content="https://vmann0113.github.io/hanbeam_main/">
     
     <title>한빔한복 공식 홈페이지</title>
@@ -57,12 +57,12 @@
         .sidebar-header { padding: 30px 25px 10px; text-align: right; }
         .sidebar-header h2 { font-size: 1.4rem; margin: 0; color: var(--hb-navy); }
         .branch-list { flex: 1; overflow-y: hidden; }
-        .branch-item { padding: 12px 25px; cursor: pointer; text-align: right; border-bottom: 1px solid #f9f9f9; transition: 0.2s; }
+        .branch-item { padding: 10px 25px; cursor: pointer; text-align: right; border-bottom: 1px solid #f9f9f9; transition: 0.2s; }
         .branch-item h3 { margin: 0; font-size: 1.05rem; font-weight: 400; color: #888; }
-        .branch-item.active { background: var(--hb-navy); padding-right: 35px; color:#fff; }
+        .branch-item.active { background: var(--hb-navy); color: #fff; }
         .branch-item.active h3 { color: #fff; font-weight: 700; }
         .detail-area { flex: 1; background: var(--hb-bg); padding: 30px; }
-        #naverMap { width: 100%; height: 400px; border-radius: 12px; margin-bottom: 20px; border: 1px solid #ddd; }
+        #naverMap { width: 100%; height: 400px; border-radius: 12px; margin-bottom: 20px; border: 1px solid #ddd; background: #eee; }
         
         .biz-card { background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); text-align: left; }
         .biz-card h2 { font-size: 2rem; color: var(--hb-navy); border-bottom: 2px solid var(--hb-gold); padding-bottom: 10px; margin-bottom: 20px; }
@@ -83,11 +83,12 @@
             .main-store p { font-size: 1.1rem; }
             .album-viewport { height: 450px; margin: 20px auto; }
             .finder-sec { flex-direction: column; min-height: auto; }
-            .sidebar { width: 100%; border-right: none; }
+            .sidebar { width: 100%; }
             .branch-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 15px; overflow-y: visible; }
             .branch-item { padding: 12px 5px; text-align: center; border: 1px solid #eee; border-radius: 8px; }
             .branch-item.active { padding-right: 5px; }
             #naverMap { height: 300px; }
+            .btn-row { display: grid; grid-template-columns: 1fr 1fr; }
         }
     </style>
 </head>
@@ -152,7 +153,7 @@
         }
     });
 
-    /* 3. 룩북 로직 (수정 완료) */
+    /* 3. 룩북 로직 (고정/무한루프/터치 해결) */
     const ALBUM_CONFIG = {
         wedding: { path: "assets/img/lookbook/wedding/wedding_", count: 5 },
         mother: { path: "assets/img/lookbook/mother/mother_", count: 6 }
