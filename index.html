@@ -2,271 +2,134 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>한빔한복 무료상담</title>
-<link rel="stylesheet" href="/style.css?v=20260309-hotfix1">
-</head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>한빔한복 공식 홈페이지 - 전국 11개 지점 네트워크</title>
+<style>
+    :root { 
+        --hb-navy: #1A3A5F; 
+        --hb-gold: #B8977E;
+        --hb-gray: #F8F5F2;
+    }
+    body { margin: 0; font-family: 'Pretendard', sans-serif; color: #333; background: #fff; line-height: 1.6; word-break: keep-all; }
+    
+    /* 1. 통합 히어로: 브랜드 규모감 강조 */
+    .hero { 
+        height: 65vh; background: var(--hb-navy); 
+        display: flex; flex-direction: column; justify-content: center; align-items: center;
+        color: #fff; text-align: center; padding: 20px;
+    }
+    .hero .logo-top { font-size: 1rem; letter-spacing: 0.4em; margin-bottom: 15px; opacity: 0.7; }
+    .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); margin: 0; font-weight: 700; }
+    .hero h1 b { color: var(--hb-gold); }
+    .hero .network-count { margin-top: 20px; font-size: 1.2rem; background: rgba(255,255,255,0.1); padding: 10px 25px; border-radius: 50px; border: 1px solid var(--hb-gold); }
 
+    /* 2. 전지점 안내 섹션 (핵심) */
+    .branch-section { padding: 80px 20px; max-width: 1200px; margin: 0 auto; }
+    .section-header { text-align: center; margin-bottom: 50px; }
+    .section-header h2 { font-size: 2rem; color: var(--hb-navy); margin-bottom: 10px; }
+    .section-header p { color: #888; }
+
+    /* 지점 그리드 UI */
+    .branch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+    .branch-card { 
+        border: 1px solid #eee; border-radius: 12px; padding: 25px; 
+        background: #fff; transition: all 0.3s ease; cursor: pointer;
+        display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .branch-card:hover { border-color: var(--hb-gold); transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+    .branch-card h3 { margin: 0 0 10px 0; font-size: 1.3rem; color: var(--hb-navy); display: flex; align-items: center; gap: 8px; }
+    .branch-card h3::before { content: '●'; color: var(--hb-gold); font-size: 0.8rem; }
+    .branch-card .addr { font-size: 0.9rem; color: #777; margin-bottom: 20px; min-height: 45px; }
+    
+    .branch-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .mini-btn { padding: 10px; text-align: center; border-radius: 6px; font-size: 0.85rem; font-weight: 600; text-decoration: none; }
+    .btn-kakao { background: #FEE500; color: #3C1E1E; }
+    .btn-res { background: #03C75A; color: #fff; }
+
+    /* 3. 본점(부산) 프라이드 섹션 */
+    .main-hq { background: var(--hb-gray); padding: 80px 20px; text-align: center; }
+    .hq-content { max-width: 800px; margin: 0 auto; }
+    .hq-tag { color: var(--hb-gold); font-weight: 700; letter-spacing: 2px; }
+
+    /* 4. 플로팅 예약 바 */
+    .cta-fixed { 
+        position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+        width: 90%; max-width: 500px; background: var(--hb-navy); color: #fff;
+        padding: 15px 25px; border-radius: 50px; display: flex; justify-content: space-between;
+        align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 2000;
+    }
+    .cta-fixed span { font-weight: 600; }
+    .cta-fixed a { background: var(--hb-gold); color: #fff; padding: 8px 20px; border-radius: 25px; font-size: 0.9rem; font-weight: 700; text-decoration: none; }
+
+    @media (max-width: 768px) {
+        .branch-grid { grid-template-columns: 1fr; }
+        .hero h1 { font-size: 2.2rem; }
+    }
+</style>
+</head>
 <body>
 
-<main class="landing">
-
-<section class="block">
-<img src="/assets/01_hero.webp">
+<section class="hero">
+    <div class="logo-top">HANBEAM HANBOK</div>
+    <h1>전통을 짓다, <b>전국을 잇다</b></h1>
+    <div class="network-count">대한민국 NO.1 네트워크 <b>11개 지점</b></div>
 </section>
 
-<section class="block short">
-<img src="/assets/03_store_intro.webp">
+<section class="main-hq">
+    <div class="hq-content">
+        <div class="hq-tag">HEADQUARTER</div>
+        <h2 style="font-size: 2rem; margin: 15px 0;">한빔한복 부산 본점</h2>
+        <p>부산 범일동에서 시작된 한빔의 장인정신은 이제 전국 11개 지점에서 동일한 고품격 서비스로 이어집니다. 본점은 전 지점의 디자인과 품질을 총괄하는 컨트롤 타워입니다.</p>
+    </div>
 </section>
 
-<section class="block short">
-<img src="/assets/01_design.webp">
+<section class="branch-section">
+    <div class="section-header">
+        <h2>지점 안내</h2>
+        <p>가까운 한빔한복 매장에서 직접 피팅해보세요.</p>
+    </div>
+
+    <div class="branch-grid" id="branchGrid">
+        </div>
 </section>
 
-<section class="block short">
-<img src="/assets/01_accesary.webp">
-</section>
+<div style="height: 100px;"></div>
 
-<section class="block short">
-<img src="/assets/01_cs.webp">
-</section>
-
-<section class="block block-overlay naver-grid">
-<img src="/assets/08_naver_links.webp">
-<div class="overlay-layer" id="naverOverlay"></div>
-</section>
-
-<section class="block">
-<img src="/assets/09_footer.webp">
-</section>
-
-</main>
-
-<div id="toast"></div>
-
-<div class="hb-fixed-cta" id="hbFixedCta">
-
-<button class="hb-branchBtn" id="hbOpenBranch">
-<span id="hbBranchText">가까운 지점 선택하기</span>
-</button>
-
-<div class="hb-actionPanel">
-
-<a class="hb-action" id="hbBtnCall">
-<span class="hb-ico" style="background-image:url('/assets/btn-call.png')"></span>
-<span class="hb-lbl">전화문의</span>
-</a>
-
-<a class="hb-action" id="hbBtnKakao">
-<span class="hb-ico" style="background-image:url('/assets/btn-kakao.png')"></span>
-<span class="hb-lbl">카톡문의</span>
-</a>
-
-<a class="hb-action" id="hbBtnReserve">
-<span class="hb-ico" style="background-image:url('/assets/btn-reserve.png')"></span>
-<span class="hb-lbl">네이버예약</span>
-</a>
-
-<a class="hb-action" id="hbBtnMore" href="https://hanbeam.co.kr/9">
-<span class="hb-ico" style="background-image:url('/assets/btn-more.png')"></span>
-<span class="hb-lbl">더 알아보기</span>
-</a>
-
-</div>
-</div>
-
-<div class="hb-branchBackdrop" id="hbBranchBackdrop">
-<div class="hb-modal">
-
-<div class="hb-modalHead">
-<div>지점 선택</div>
-<button id="hbCloseBranch">닫기</button>
-</div>
-
-<div class="hb-modalBody" id="hbBranchList"></div>
-
-</div>
+<div class="cta-fixed">
+    <span>가까운 지점을 찾으시나요?</span>
+    <a href="#branchGrid">지점찾기</a>
 </div>
 
 <script>
+    const branches = [
+        {name:"부산본점", addr:"부산 동구 조방로 123", res:"https://m.booking.naver.com/booking/6/bizes/661812", kakao:"https://open.kakao.com/o/soq7Ns4d"},
+        {name:"센텀점", addr:"부산 해운대구 센텀중앙로", res:"https://booking.naver.com/booking/6/bizes/1577219", kakao:"#"},
+        {name:"인천점", addr:"인천 남동구 인하로", res:"https://m.booking.naver.com/booking/13/bizes/1039475", kakao:"https://open.kakao.com/o/sIrXajUf"},
+        {name:"대구점", addr:"대구 중구 달구벌대로", res:"https://m.place.naver.com/place/2043617700/ticket", kakao:"#"},
+        {name:"창원점", addr:"경남 창원시 성산구", res:"https://booking.naver.com/booking/6/bizes/843111", kakao:"https://open.kakao.com/o/sdcvbh5e"},
+        {name:"울산점", addr:"울산 남구 삼산로", res:"https://booking.naver.com/booking/6/bizes/1534767", kakao:"https://open.kakao.com/o/sKjCbA0h"},
+        {name:"김해점", addr:"경남 김해시 김해대로", res:"https://booking.naver.com/booking/6/bizes/1402679", kakao:"https://open.kakao.com/o/sHM2wwsh"},
+        {name:"양산점", addr:"경남 양산시 물금읍", res:"https://booking.naver.com/booking/13/bizes/868629", kakao:"https://open.kakao.com/o/sp44Hxaf"},
+        {name:"진주점", addr:"경남 진주시 강남로", res:"https://m.booking.naver.com/booking/6/bizes/1485854", kakao:"https://open.kakao.com/o/sbxBToNh"},
+        {name:"안산점", addr:"경기 안산시 단원구", res:"https://m.booking.naver.com/booking/6/bizes/1500008", kakao:"https://open.kakao.com/o/sqRSjaRh"},
+        {name:"마산점", addr:"경남 창원시 마산회원구", res:"https://booking.naver.com/booking/6/bizes/1526541", kakao:"https://open.kakao.com/o/ssWvuvYh"}
+    ];
 
-const GAS_WEBAPP_URL="https://script.google.com/macros/s/AKfycbyiPaERPD1ZUBNO7T40wR5Tcy0jU0qtw5SRwBylCHAvRSjafqHOLGkAWGhxKyUgCerM/exec"
-
-function sid(){
-let v=localStorage.getItem("HB_LSID")
-if(!v){
-v=Date.now()+Math.random()
-localStorage.setItem("HB_LSID",v)
-}
-return v
-}
-
-function log(action,branch){
-fetch(GAS_WEBAPP_URL,{
-method:"POST",
-headers:{'Content-Type':'application/json'},
-body:JSON.stringify({
-type:"click",
-action:action,
-branch:branch||"",
-sessionId:sid(),
-page:location.pathname,
-ts:Date.now()
-})
-})
-}
-
-/* CTA 지점 */
-
-const HB_CTA_BRANCHES=[
-{name:"부산점",phone:"0516342325",reserve:"https://m.booking.naver.com/booking/6/bizes/661812",kakao:"https://open.kakao.com/o/soq7Ns4d"},
-{name:"센텀점",phone:"01030522325",reserve:"https://booking.naver.com/booking/6/bizes/1577219",kakao:null},
-{name:"김해점",phone:"01080652325",reserve:"https://booking.naver.com/booking/6/bizes/1402679",kakao:"https://open.kakao.com/o/sHM2wwsh"},
-{name:"창원점",phone:"0552632325",reserve:"https://booking.naver.com/booking/6/bizes/843111",kakao:"https://open.kakao.com/o/sdcvbh5e"},
-{name:"양산점",phone:"0559120425",reserve:"https://booking.naver.com/booking/13/bizes/868629",kakao:"https://open.kakao.com/o/sp44Hxaf"},
-{name:"진주점",phone:"01056542407",reserve:"https://m.booking.naver.com/booking/6/bizes/1485854",kakao:"https://open.kakao.com/o/sbxBToNh"},
-{name:"인천점",phone:"0322832325",reserve:"https://m.booking.naver.com/booking/13/bizes/1039475",kakao:"https://open.kakao.com/o/sIrXajUf"},
-{name:"안산점",phone:"01065912322",reserve:"https://m.booking.naver.com/booking/6/bizes/1500008",kakao:"https://open.kakao.com/o/sqRSjaRh"},
-{name:"마산점",phone:"01088322325",reserve:"https://booking.naver.com/booking/6/bizes/1526541",kakao:"https://open.kakao.com/o/ssWvuvYh"},
-{name:"울산점",phone:"01098072325",reserve:"https://booking.naver.com/booking/6/bizes/1534767",kakao:"https://open.kakao.com/o/sKjCbA0h"},
-{name:"대구점",phone:"01084922328",reserve:"https://m.place.naver.com/place/2043617700/ticket",kakao:null}
-]
-
-const state={branch:null}
-
-const openBtn=document.getElementById("hbOpenBranch")
-const closeBtn=document.getElementById("hbCloseBranch")
-const list=document.getElementById("hbBranchList")
-const bd=document.getElementById("hbBranchBackdrop")
-
-const btnCall=document.getElementById("hbBtnCall")
-const btnKakao=document.getElementById("hbBtnKakao")
-const btnReserve=document.getElementById("hbBtnReserve")
-
-function renderList(){
-list.innerHTML=""
-HB_CTA_BRANCHES.forEach(b=>{
-const row=document.createElement("div")
-row.className="hb-item"
-row.innerText=b.name
-row.onclick=()=>{
-state.branch=b
-document.getElementById("hbBranchText").innerText=b.name+" 선택됨"
-bd.classList.remove("open")
-}
-list.appendChild(row)
-})
-}
-
-function openModal(){bd.classList.add("open")}
-function closeModal(){bd.classList.remove("open")}
-
-openBtn.onclick=openModal
-closeBtn.onclick=closeModal
-
-btnCall.onclick=()=>{
-if(!state.branch)return openModal()
-log("call",state.branch.name)
-location.href="tel:"+state.branch.phone
-}
-
-btnKakao.onclick=()=>{
-if(!state.branch)return openModal()
-if(!state.branch.kakao)return alert("준비중입니다.")
-log("kakao",state.branch.name)
-window.open(state.branch.kakao)
-}
-
-btnReserve.onclick=()=>{
-if(!state.branch)return openModal()
-log("reserve",state.branch.name)
-window.open(state.branch.reserve)
-}
-
-renderList()
-
-/* ===== 12지점 오버레이 ===== */
-
-const BRANCHES=[
-{key:"busan",name:"부산점",url:"https://m.booking.naver.com/booking/6/bizes/661812"},
-{key:"centum",name:"센텀점",url:"https://booking.naver.com/booking/6/bizes/1577219"},
-{key:"ulsan",name:"울산점",url:"https://booking.naver.com/booking/6/bizes/1534767"},
-{key:"gimhae",name:"김해점",url:"https://booking.naver.com/booking/6/bizes/1402679"},
-{key:"yangsan",name:"양산점",url:"https://booking.naver.com/booking/13/bizes/868629"},
-{key:"changwon",name:"창원점",url:"https://booking.naver.com/booking/6/bizes/843111"},
-{key:"masan",name:"마산점",url:"https://booking.naver.com/booking/6/bizes/1526541"},
-{key:"jinju",name:"진주점",url:"https://m.booking.naver.com/booking/6/bizes/1485854"},
-{key:"incheon",name:"인천점",url:"https://m.booking.naver.com/booking/13/bizes/1039475"},
-{key:"ansan",name:"안산점",url:"https://m.booking.naver.com/booking/6/bizes/1500008"},
-{key:"daegu",name:"대구점",url:"https://m.booking.naver.com/booking/6/bizes/1600152"}
-]
-
-const NAVER_BASE_W=1080
-const NAVER_BASE_H=937.2
-
-const NAVER_RECTS={
-busan:{x:69,y:225,w:292,h:146},
-centum:{x:394,y:225,w:292,h:146},
-ulsan:{x:719,y:225,w:292,h:146},
-gimhae:{x:69,y:395,w:292,h:146},
-yangsan:{x:394,y:395,w:292,h:146},
-changwon:{x:719,y:395,w:292,h:146},
-masan:{x:69,y:565,w:292,h:146},
-jinju:{x:394,y:565,w:292,h:146},
-incheon:{x:719,y:565,w:292,h:146},
-ansan:{x:69,y:734,w:292,h:146},
-daegu:{x:394,y:734,w:292,h:146}
-}
-
-function buildOverlays(){
-
-const overlay=document.getElementById("naverOverlay")
-overlay.innerHTML=""
-
-BRANCHES.forEach(b=>{
-const r=NAVER_RECTS[b.key]
-if(!r)return
-
-const a=document.createElement("a")
-a.className="ov"
-a.href=b.url
-a.target="_blank"
-
-a.dataset.x=r.x
-a.dataset.y=r.y
-a.dataset.w=r.w
-a.dataset.h=r.h
-
-a.onclick=()=>log("reserve",b.name)
-
-overlay.appendChild(a)
-})
-
-applyRects()
-}
-
-function applyRects(){
-
-const sec=document.querySelector(".naver-grid")
-const img=sec.querySelector("img")
-const overlay=document.getElementById("naverOverlay")
-
-const sx=img.clientWidth/NAVER_BASE_W
-const sy=img.clientHeight/NAVER_BASE_H
-
-overlay.querySelectorAll(".ov").forEach(el=>{
-
-el.style.left=(el.dataset.x*sx)+"px"
-el.style.top=(el.dataset.y*sy)+"px"
-el.style.width=(el.dataset.w*sx)+"px"
-el.style.height=(el.dataset.h*sy)+"px"
-
-})
-}
-
-window.addEventListener("load",buildOverlays)
-window.addEventListener("resize",applyRects)
-
+    const grid = document.getElementById('branchGrid');
+    branches.forEach(b => {
+        grid.innerHTML += `
+            <div class="branch-card">
+                <div>
+                    <h3>${b.name}</h3>
+                    <p class="addr">${b.addr}</p>
+                </div>
+                <div class="branch-btns">
+                    <a href="${b.kakao}" class="mini-btn btn-kakao" target="_blank">카톡</a>
+                    <a href="${b.res}" class="mini-btn btn-res" target="_blank">예약</a>
+                </div>
+            </div>
+        `;
+    });
 </script>
 
 </body>
