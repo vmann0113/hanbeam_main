@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>지도 인증 테스트</title>
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=90rd8k25s2"></script>
+</head>
+<body>
+    <div id="map" style="width:100%;height:400px;"></div>
+    <script>
+        var map = new naver.maps.Map('map', {
+            center: new naver.maps.LatLng(37.3595704, 127.105399),
+            zoom: 15
+        });
+    </script>
+</body>
+</html>
