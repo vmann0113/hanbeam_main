@@ -1,5 +1,5 @@
 /**
- * 한빔한복 지점 안내 및 네이버 지도 로직 (독립 실행형)
+ * 한빔한복 지점 안내 및 네이버 지도 로직
  */
 const branches = [
     {name:"부산점", phone:"051-634-2325", addr:"부산 동구 조방로 123", reserve:"https://m.booking.naver.com/booking/6/bizes/661812", kakao:"https://open.kakao.com/o/soq7Ns4d", lat:35.1381, lng:129.0621},
@@ -18,16 +18,10 @@ const branches = [
 let mapObj = null;
 let marker = null;
 
-// [독립 실행] index.html에서 호출하지 않아도 스스로 실행됩니다.
-window.addEventListener('load', () => {
-    // 0.5초 정도 지연을 주어 DOM과 네이버 인증이 완벽히 끝난 후 첫 지점을 그립니다.
-    setTimeout(() => {
-        if (typeof naver !== 'undefined') {
-            renderS(0);
-        } else {
-            console.error("네이버 지도 SDK가 로드되지 않았습니다. Client ID와 서비스 URL을 확인하세요.");
-        }
-    }, 500);
+// [자동 실행 핵심] DOM이 다 로드되면 스스로 첫 지점을 로드합니다.
+document.addEventListener('DOMContentLoaded', () => {
+    // 네이버 인증과 렌더링 타이밍을 맞추기 위해 0.3초 여유를 줍니다.
+    setTimeout(() => renderS(0), 300);
 });
 
 function renderS(idx) {
@@ -37,31 +31,23 @@ function renderS(idx) {
 
     if (!listEl || !detailEl) return;
 
-    // 1. 왼쪽 리스트 업데이트
+    // 1. 왼쪽 목록 업데이트
     listEl.innerHTML = branches.map((item, i) => `
         <div class="branch-item ${i === idx ? 'active' : ''}" onclick="renderS(${i})">
             <h3>${item.name}</h3>
         </div>
     `).join('');
 
-    /**
-     * [레이아웃 해결 핵심] 
-     * detailView의 내용을 싹 지우지 않고, 
-     * '지도 상자'가 없으면 새로 만들고, 있으면 내용만 바꿉니다.
-     */
-    let mapContainer = document.getElementById('naverMap');
-    let infoBox = document.getElementById('branchInfoBox');
-
-    if (!mapContainer) {
+    // 2. 우측 상세 영역 구성 (지도는 고정, 정보만 교체)
+    // ⚠️ 핵심: detailEl.innerHTML을 싹 비우지 않고, 필요한 그릇이 없으면 만듭니다.
+    if (!document.getElementById('naverMap')) {
         detailEl.innerHTML = `
             <div id="naverMap" style="width:100%; height:450px; border-radius:12px; margin-bottom:30px; border: 1px solid #ddd; background: #eee;"></div>
             <div id="branchInfoBox"></div>
         `;
-        mapContainer = document.getElementById('naverMap');
-        infoBox = document.getElementById('branchInfoBox');
     }
 
-    // 2. 우측 텍스트 정보 업데이트
+    const infoBox = document.getElementById('branchInfoBox');
     infoBox.innerHTML = `
         <div class="biz-card">
             <h2>한빔한복 ${b.name}</h2>
@@ -76,22 +62,17 @@ function renderS(idx) {
         </div>
     `;
 
-    // 3. 지도 초기화 및 이동
+    // 3. 지도 이동 로직
     const p = new naver.maps.LatLng(b.lat, b.lng);
 
     if (!mapObj) {
-        mapObj = new naver.maps.Map(mapContainer, {
-            center: p,
-            zoom: 16
-        });
-        marker = new naver.maps.Marker({
-            position: p,
-            map: mapObj
-        });
+        // 처음 한 번만 생성
+        mapObj = new naver.maps.Map('naverMap', { center: p, zoom: 16 });
+        marker = new naver.maps.Marker({ position: p, map: mapObj });
     } else {
+        // 이미 있으면 위치만 쓱 이동 (사라짐 방지)
         mapObj.setCenter(p);
         marker.setPosition(p);
-        // 레이아웃 보정
-        setTimeout(() => { mapObj.autoResize(); }, 200);
+        setTimeout(() => mapObj.autoResize(), 100);
     }
 }
