@@ -3,106 +3,113 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>한빔한복 공식 - 전지점 가이드</title>
+<title>한빔한복 공식 홈페이지 - 전국 11개 지점 네트워크</title>
 <style>
-    :root { --hb-navy: #0A1D37; --hb-gold: #B8977E; --hb-bg: #F9F7F5; }
-    body { margin: 0; font-family: 'Pretendard', sans-serif; background: #fff; color: #333; height: 100vh; overflow: hidden; }
-    
-    /* 전체 레이아웃: 좌우 분할 */
-    .main-container { display: flex; height: 100vh; width: 100%; }
-
-    /* 왼쪽: 지점 리스트 (Scroll) */
-    .sidebar { 
-        width: 350px; background: var(--hb-navy); color: #fff; 
-        display: flex; flex-direction: column; border-right: 1px solid rgba(255,255,255,0.1);
+    :root { 
+        --hb-navy: #0A1D37; 
+        --hb-gold: #B8977E; 
+        --hb-bg: #F9F7F5; 
     }
-    .sidebar-header { padding: 40px 30px; border-bottom: 1px solid rgba(255,255,255,0.1); }
-    .sidebar-header h1 { font-size: 1.5rem; margin: 0; color: var(--hb-gold); }
-    .sidebar-header p { font-size: 0.8rem; opacity: 0.6; margin-top: 5px; letter-spacing: 1px; }
+    body { margin: 0; font-family: 'Pretendard', sans-serif; color: #333; background: #fff; line-height: 1.6; }
 
-    .branch-list { flex: 1; overflow-y: auto; }
+    /* 1. 상단 히어로 섹션 (대표님이 선호하신 방식) */
+    .hero { 
+        height: 80vh; background: var(--hb-navy); 
+        display: flex; flex-direction: column; justify-content: center; align-items: center;
+        color: #fff; text-align: center; padding: 20px;
+        position: relative; overflow: hidden;
+    }
+    .hero .logo-top { font-size: 1.1rem; letter-spacing: 0.5em; margin-bottom: 20px; opacity: 0.8; }
+    .hero h1 { font-size: clamp(2.5rem, 6vw, 4rem); margin: 0; font-weight: 300; }
+    .hero h1 b { font-weight: 700; color: var(--hb-gold); }
+    .hero .sub-text { margin-top: 25px; font-size: 1.2rem; opacity: 0.7; max-width: 700px; }
+    .scroll-down { position: absolute; bottom: 30px; animation: bounce 2s infinite; font-size: 0.9rem; opacity: 0.5; }
+    @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} 60% {transform: translateY(-5px);} }
+
+    /* 2. 지점 안내 섹션 (인터랙티브 좌우 분할) */
+    .store-finder { display: flex; height: 800px; border-top: 1px solid #eee; }
+
+    /* 왼쪽: 지점 리스트 */
+    .sidebar { width: 350px; background: #fff; border-right: 1px solid #eee; overflow-y: auto; }
+    .sidebar-title { padding: 40px 30px 20px; font-size: 1.5rem; color: var(--hb-navy); font-weight: 700; }
     .branch-item { 
-        padding: 25px 30px; cursor: pointer; border-bottom: 1px solid rgba(255,255,255,0.05);
-        transition: all 0.3s; position: relative;
+        padding: 25px 30px; cursor: pointer; border-bottom: 1px solid #f2f2f2;
+        transition: all 0.3s;
     }
-    .branch-item:hover { background: rgba(255,255,255,0.05); }
-    .branch-item.active { background: #fff; color: var(--hb-navy); }
+    .branch-item:hover { background: var(--hb-bg); }
+    .branch-item.active { background: var(--hb-navy); color: #fff; }
     .branch-item h3 { margin: 0; font-size: 1.1rem; }
-    .branch-item p { margin: 5px 0 0; font-size: 0.85rem; opacity: 0.7; }
-    .branch-item.active p { opacity: 1; color: #666; }
+    .branch-item p { margin: 5px 0 0; font-size: 0.85rem; opacity: 0.6; }
 
-    /* 오른쪽: 상세 내용 */
-    .content { flex: 1; background: var(--hb-bg); padding: 60px; overflow-y: auto; display: flex; flex-direction: column; }
-    
-    .detail-view { max-width: 800px; animation: fadeIn 0.5s; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    /* 오른쪽: 지점 상세 내용 */
+    .detail-content { flex: 1; background: var(--hb-bg); padding: 60px; overflow-y: auto; }
+    .detail-view { max-width: 900px; margin: 0 auto; animation: fadeIn 0.5s; }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
 
-    .detail-category { color: var(--hb-gold); font-weight: 700; letter-spacing: 2px; font-size: 0.9rem; }
-    .detail-title { font-size: 3rem; margin: 10px 0 30px; color: var(--hb-navy); }
-    
-    /* 가상 이미지 박스 */
-    .image-box { 
-        width: 100%; height: 400px; background: #ddd; border-radius: 4px; 
-        margin-bottom: 40px; display: flex; align-items: center; justify-content: center;
-        color: #999; font-weight: bold; border: 1px solid #eee;
+    .image-placeholder { 
+        width: 100%; height: 450px; background: #ddd; border-radius: 8px; margin-bottom: 40px;
+        display: flex; align-items: center; justify-content: center; color: #999; font-weight: 700;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     }
+    .detail-title { font-size: 2.5rem; color: var(--hb-navy); margin: 0 0 20px; }
+    .detail-info { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+    .info-item h4 { color: var(--hb-gold); border-bottom: 1px solid var(--hb-gold); display: inline-block; margin-bottom: 10px; }
+    .info-item p { margin: 0; font-size: 1rem; color: #555; }
 
-    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 50px; }
-    .info-item h4 { margin: 0 0 10px; color: var(--hb-navy); border-bottom: 1px solid var(--hb-gold); display: inline-block; }
-    .info-item p { margin: 0; color: #555; font-size: 1rem; line-height: 1.7; }
-
-    .action-group { display: flex; gap: 15px; }
-    .btn { 
-        padding: 18px 40px; border-radius: 4px; font-weight: 700; text-decoration: none; 
-        text-align: center; transition: 0.3s; flex: 1;
-    }
-    .btn-res { background: var(--hb-navy); color: #fff; }
+    .btn-group { display: flex; gap: 15px; }
+    .btn { flex: 1; padding: 18px; text-align: center; border-radius: 6px; font-weight: 700; text-decoration: none; transition: 0.3s; }
+    .btn-navy { background: var(--hb-navy); color: #fff; }
     .btn-kakao { background: #FEE500; color: #3C1E1E; }
-    .btn:hover { opacity: 0.9; transform: translateY(-2px); }
+    .btn:hover { opacity: 0.9; transform: translateY(-3px); }
 
     /* 모바일 대응 */
     @media (max-width: 900px) {
-        .main-container { flex-direction: column; overflow: auto; }
-        .sidebar { width: 100%; height: auto; }
-        .branch-list { display: flex; overflow-x: auto; white-space: nowrap; }
-        .branch-item { padding: 15px 25px; border-bottom: none; border-right: 1px solid rgba(255,255,255,0.1); }
-        .content { padding: 30px 20px; }
-        .detail-title { font-size: 2rem; }
-        .info-grid { grid-template-columns: 1fr; gap: 20px; }
+        .store-finder { flex-direction: column; height: auto; }
+        .sidebar { width: 100%; height: auto; display: flex; overflow-x: auto; white-space: nowrap; }
+        .branch-item { padding: 15px 25px; border-bottom: none; border-right: 1px solid #eee; }
+        .detail-content { padding: 40px 20px; }
+        .detail-info { grid-template-columns: 1fr; gap: 20px; }
     }
 </style>
 </head>
 <body>
 
-<div class="main-container">
+<section class="hero">
+    <div class="logo-top">HANBEAM HANBOK</div>
+    <h1>한빔한복 <b>본점</b></h1>
+    <div class="sub-text">
+        부산 범일동에서 시작된 장인정신은 이제 전국 11개 지점으로 이어집니다.<br>
+        대한민국 한복의 기준, 한빔의 네트워크를 확인해보세요.
+    </div>
+    <div class="scroll-down">SCROLL DOWN</div>
+</section>
+
+<section class="store-finder" id="finder">
     <aside class="sidebar">
-        <div class="sidebar-header">
-            <h1>HANBEAM</h1>
-            <p>STORE NETWORK</p>
-        </div>
-        <div class="branch-list" id="branchList">
+        <div class="sidebar-title">전국 지점 안내</div>
+        <div id="branchList">
             </div>
     </aside>
 
-    <main class="content">
+    <main class="detail-content">
         <div id="detailView" class="detail-view">
             </div>
     </main>
-</div>
+</section>
 
 <script>
     const branches = [
-        {id:0, name:"부산본점", addr:"부산 동구 조방로 123 한빔빌딩", tag:"HEADQUARTER", desc:"한빔한복의 심장부, 전 지점의 디자인과 품질을 총괄하는 플래그십 스토어입니다.", res:"https://m.booking.naver.com/booking/6/bizes/661812", kakao:"https://open.kakao.com/o/soq7Ns4d"},
-        {id:1, name:"인천점", addr:"인천 남동구 인하로 123", tag:"SEOUL/INCHEON", desc:"수도권 고객님들을 위한 프리미엄 상담 공간과 다양한 컬렉션을 보유하고 있습니다.", res:"https://m.booking.naver.com/booking/13/bizes/1039475", kakao:"https://open.kakao.com/o/sIrXajUf"},
-        {id:2, name:"안산점", addr:"경기 안산시 단원구 고잔동", tag:"GYEONGGI", desc:"안산 지역 최대 규모의 한복 전문점으로 맞춤부터 대여까지 원스톱 서비스를 제공합니다.", res:"https://m.booking.naver.com/booking/6/bizes/1500008", kakao:"https://open.kakao.com/o/sqRSjaRh"},
-        {id:3, name:"울산점", addr:"울산 남구 삼산로 456", tag:"ULSAN", desc:"울산의 중심에서 만나는 고품격 한복, 한빔의 감각을 직접 경험해보세요.", res:"https://booking.naver.com/booking/6/bizes/1534767", kakao:"https://open.kakao.com/o/sKjCbA0h"},
-        {id:4, name:"대구점", addr:"대구 중구 달구벌대로 789", tag:"DAEGU", desc:"전통과 현대가 공존하는 대구점에서 한빔만의 특별한 옷태를 제안합니다.", res:"https://m.place.naver.com/place/2043617700/ticket", kakao:"#"}
-        // ... 나머지 지점도 같은 방식으로 추가 가능
+        {id:0, name:"부산본점", addr:"부산 동구 조방로 123 한빔빌딩", desc:"한빔한복의 컨트롤 타워. 30년 역사의 정수를 담은 플래그십 매장입니다.", res:"https://m.booking.naver.com/booking/6/bizes/661812", kakao:"https://open.kakao.com/o/soq7Ns4d"},
+        {id:1, name:"인천점", addr:"인천 남동구 인하로 123", desc:"수도권 고객님들을 위한 세련된 감각의 매장. 넓은 피팅 공간을 자랑합니다.", res:"https://m.booking.naver.com/booking/13/bizes/1039475", kakao:"https://open.kakao.com/o/sIrXajUf"},
+        {id:2, name:"안산점", addr:"경기 안산시 단원구 고잔동", desc:"안산 지역의 대표적인 예복 전문점. 맞춤 상담에 특화된 장인이 상주합니다.", res:"https://m.booking.naver.com/booking/6/bizes/1500008", kakao:"https://open.kakao.com/o/sqRSjaRh"},
+        {id:3, name:"대구점", addr:"대구 중구 달구벌대로 789", desc:"대구 중심에서 만나는 한빔의 감각. 고급스러운 인테리어와 상담 서비스를 제공합니다.", res:"https://m.place.naver.com/place/2043617700/ticket", kakao:"#"},
+        {id:4, name:"창원점", addr:"경남 창원시 성산구 상남로", desc:"창원 신랑신부님들이 가장 선호하는 매장. 트렌디한 한복 라인업을 보유하고 있습니다.", res:"https://booking.naver.com/booking/6/bizes/843111", kakao:"https://open.kakao.com/o/sdcvbh5e"}
     ];
 
     let activeId = 0;
 
-    function renderList() {
+    function render() {
+        // 리스트 업데이트
         const listEl = document.getElementById('branchList');
         listEl.innerHTML = branches.map(b => `
             <div class="branch-item ${b.id === activeId ? 'active' : ''}" onclick="selectBranch(${b.id})">
@@ -110,47 +117,35 @@
                 <p>${b.addr.split(' ').slice(0,2).join(' ')}</p>
             </div>
         `).join('');
-    }
 
-    function selectBranch(id) {
-        activeId = id;
-        renderList();
-        renderDetail();
-    }
-
-    function renderDetail() {
+        // 상세페이지 업데이트
         const b = branches.find(item => item.id === activeId);
-        const detailEl = document.getElementById('detailView');
-        
-        detailEl.innerHTML = `
-            <div class="detail-category">${b.tag}</div>
+        document.getElementById('detailView').innerHTML = `
+            <div class="image-placeholder">[ ${b.name} 매장 내부 고화질 사진 영역 ]</div>
             <h2 class="detail-title">한빔한복 ${b.name}</h2>
-            
-            <div class="image-box">
-                [ ${b.name} 실제 매장 내부 사진 영역 ]
-            </div>
-
-            <div class="info-grid">
+            <div class="detail-info">
                 <div class="info-item">
-                    <h4>지점 소개</h4>
+                    <h4>지점 스토리</h4>
                     <p>${b.desc}</p>
                 </div>
                 <div class="info-item">
-                    <h4>위치 안내</h4>
-                    <p>${b.addr}<br>매장 앞 전용 주차장 완비</p>
+                    <h4>위치 및 안내</h4>
+                    <p>${b.addr}<br>매장 앞 전용 주차공간 이용 가능</p>
                 </div>
             </div>
-
-            <div class="action-group">
-                <a href="${b.res}" target="_blank" class="btn btn-res">네이버 실시간 예약</a>
+            <div class="btn-group">
+                <a href="${b.res}" target="_blank" class="btn btn-navy">네이버 실시간 예약</a>
                 <a href="${b.kakao}" target="_blank" class="btn btn-kakao">카카오톡 1:1 상담</a>
             </div>
         `;
     }
 
-    // 초기 실행
-    renderList();
-    renderDetail();
+    function selectBranch(id) {
+        activeId = id;
+        render();
+    }
+
+    render(); // 초기 실행
 </script>
 
 </body>
