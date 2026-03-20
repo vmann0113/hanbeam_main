@@ -1,5 +1,5 @@
 /**
- * 한빔한복 지점 안내 및 네이버 지도 로직 (디자인 보존형)
+ * 한빔한복 지점 안내 및 네이버 지도 로직
  */
 const branches = [
     {name:"부산점", phone:"051-634-2325", addr:"부산 동구 조방로 123", reserve:"https://m.booking.naver.com/booking/6/bizes/661812", kakao:"https://open.kakao.com/o/soq7Ns4d", lat:35.1381, lng:129.0621},
@@ -18,11 +18,10 @@ const branches = [
 let mapObj = null;
 let marker = null;
 
+// 첫 지점 자동 실행
 window.addEventListener('load', () => {
     setTimeout(() => {
-        if (typeof naver !== 'undefined') {
-            renderS(0);
-        }
+        if (typeof naver !== 'undefined') renderS(0);
     }, 500);
 });
 
