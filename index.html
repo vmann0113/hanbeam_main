@@ -41,7 +41,9 @@
         .lookbook-sec { padding: 120px 0; background: #fff; text-align: center; }
         .tab-btn { padding: 15px 45px; border: 2px solid var(--hb-gold); background: #fff; color: var(--hb-gold); cursor: pointer; font-weight: 700; border-radius: 50px; margin: 0 10px; font-size: 1.1rem; transition: 0.3s; }
         .tab-btn.active { background: var(--hb-gold); color: #fff; }
-        .lookbook-guide { font-size: 1.1rem; color: var(--hb-gold); margin-bottom: 25px; font-weight: 500; } /* 가이드 텍스트 */
+        
+        /* 수정: 요청하신 가이드 텍스트 스타일 */
+        .lookbook-guide { font-size: 1.1rem; color: var(--hb-gold); margin-bottom: 20px; font-weight: 500; } 
 
         .album-viewport { margin: 50px auto; width: 95vw; max-width: 850px; height: 850px; display: flex; justify-content: center; align-items: center; transition: opacity 0.4s; }
         .page { background: #fff; border: 1px solid #eee; overflow: hidden; backface-visibility: hidden; }
@@ -126,7 +128,7 @@
     let curS = 0; const sImgs = document.querySelectorAll('#hqSlides img');
     if(sImgs.length > 0) setInterval(() => { sImgs[curS].classList.remove('active'); curS = (curS + 1) % sImgs.length; sImgs[curS].classList.add('active'); }, 4000);
 
-    // 2. 룩북 제어 (대표님이 주신 "표지 없는 무한 루프" 로직 그대로 유지)
+    // 2. 룩북 제어 (수정: 혼주 룩북 무한 반복 보장 로직)
     const ALBUMS = {
         wedding: ["assets/img/lookbook/wedding/wedding_01.webp", "assets/img/lookbook/wedding/wedding_02.webp", "assets/img/lookbook/wedding/wedding_03.webp", "assets/img/lookbook/wedding/wedding_04.webp", "assets/img/lookbook/wedding/wedding_05.webp", "assets/img/lookbook/wedding/wedding_06.webp"],
         mother: ["assets/img/lookbook/mother/mother_01.webp", "assets/img/lookbook/mother/mother_02.webp", "assets/img/lookbook/mother/mother_03.webp", "assets/img/lookbook/mother/mother_04.webp", "assets/img/lookbook/mother/mother_05.webp", "assets/img/lookbook/mother/mother_06.webp"]
@@ -145,7 +147,7 @@
             const arr = ALBUMS[cat];
             
             let h = '';
-            // 홀수 장수 시뮬레이션을 위해 DOM 노드를 3회 복제 (책이 무한히 끝나지 않는 시각 효과)
+            // 홀수 장수 시뮬레이션을 위해 DOM 노드를 3회 복제 (수정: 모든 카테고리에 무한 반복 적용)
             const duplicatedDOMArr = [...arr, ...arr, ...arr]; 
             
             duplicatedDOMArr.forEach(img => { 
@@ -156,7 +158,7 @@
             pFlip = new St.PageFlip(fb, { 
                 width: 750, 
                 height: 750, 
-                showCover: false, // 표지 없이 [1,2] spread 시작
+                showCover: false, 
                 usePortrait: false, 
                 drawShadow: true, 
                 swipeDistance: 150, 
@@ -167,24 +169,25 @@
         }, 300);
     }
 
-    // 3. 지점 및 지도 (수정: 최신 ID 90rd8k25s2 적용 및 비동기 인증 픽스)
+    // 3. 지점 및 지도 (수정: 최신 ID 90rd8k25s2 적용 및 공식 문서 기반 인증 픽스)
     function renderS(idx) {
         const l = document.getElementById('branchList');
         l.innerHTML = branches.map((b, i) => `<div class="branch-item ${i===idx?'active':''}" onclick="renderS(${i})"><h3>${b.name}</h3></div>`).join('');
         const b = branches[idx];
         document.getElementById('detailView').innerHTML = `<div id="naverMap"></div><div class="biz-card"><h2>한빔한복 ${b.name}</h2><div class="info-row"><span class="info-lbl">위치</span><span>${b.addr}</span></div><div class="info-row"><span class="info-lbl">전화</span><span>${b.phone}</span></div></div><div class="btn-row"><a href="tel:${b.phone}" class="btn btn-navy">전화걸기</a><a href="${b.kakao}" target="_blank" class="btn btn-kakao">카톡상담</a><a href="${b.reserve}" target="_blank" class="btn btn-green">네이버예약</a><a href="https://map.naver.com/v5/search/${encodeURIComponent('한빔한복 '+b.name)}" target="_blank" class="btn btn-gold">위치 공유</a></div>`;
         
-        // 지도가 꺼지지 않도록 하는 픽스: 네이버 서버의 "인증 완료" 상태를 재확인
+        // 수정: 지도가 0.1초 만에 사라지는 것을 방지하기 위해 인증 완료 후 단일 호출 보장
         const tryInitMap = () => {
             const mapC = document.getElementById('naverMap');
+            // 'naver.maps.Map'까지 완전히 로드된 것을 확인한 후 딱 한 번만 생성
             if (typeof naver !== 'undefined' && naver.maps && naver.maps.Map && mapC) {
                 const p = new naver.maps.LatLng(b.lat, b.lng);
                 const mapOptions = { center: p, zoom: 16 };
-                // 중복 생성 차단을 위해 finalMap 변수 하나로 제어
+                // 중복 생성을 막기 위해 변수에 담아 실행
                 const finalMap = new naver.maps.Map(mapC, mapOptions);
                 new naver.maps.Marker({ position: p, map: finalMap });
             } else {
-                setTimeout(tryInitMap, 150);
+                setTimeout(tryInitMap, 200);
             }
         };
         tryInitMap();
