@@ -9,77 +9,72 @@
     <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=p92c8gq59k"></script>
     <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
-
+    
     <style>
         :root { --hb-navy: #0A1D37; --hb-gold: #B8977E; --hb-bg: #F9F7F5; --hb-navy-light: #1A3A5F; }
         * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
-        body { margin: 0; font-family: 'Pretendard', sans-serif; background: #fff; color: #333; overflow-x: hidden; }
+        body { margin: 0; font-family: 'Pretendard', sans-serif; background: #fff; color: #333; overflow-x: hidden; width: 100%; }
 
-        /* 1. Hero */
-        .hero { height: 100vh; background: linear-gradient(135deg, var(--hb-navy), var(--hb-navy-light), var(--hb-navy)); color: #fff; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative; overflow: hidden; }
-        .hero::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23fff' fill-opacity='0.03'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7z'/%3E%3C/g%3E%3C/svg%3E"); background-repeat: repeat; animation: patternWave 60s linear infinite; opacity: 0.4; z-index: 1; }
-        @keyframes patternWave { from { background-position: 0 0; } to { background-position: 1000px 500px; } }
-        .hero-content { z-index: 10; padding: 20px; width: 100%; }
-        .logo-area { width: 450px; margin: 0 auto 40px; display: flex; justify-content: center; }
+        /* 1. Hero - 모바일 대응 */
+        .hero { height: 100vh; background: linear-gradient(135deg, var(--hb-navy), var(--hb-navy-light), var(--hb-navy)); color: #fff; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative; overflow: hidden; padding: 20px; }
+        .logo-area { width: 90%; max-width: 450px; margin: 0 auto 40px; }
         .logo-area img { width: 100%; height: auto; display: block; }
-        .hero h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 200; margin: 0; white-space: nowrap; }
+        .hero h1 { font-size: clamp(1.8rem, 5vw, 4.5rem); font-weight: 200; margin: 0; white-space: normal; line-height: 1.2; }
         .hero h1 b { font-weight: 700; color: var(--hb-gold); }
-        .hero .sub-text { margin-top: 25px; font-size: 1.1rem; opacity: 0.6; letter-spacing: 4px; }
+        .hero .sub-text { margin-top: 25px; font-size: 0.9rem; opacity: 0.6; letter-spacing: 2px; }
 
-        /* 2. Main Store */
-        .video-sec { width: 100vw; height: 75vh; background: #000; overflow: hidden; display: flex; justify-content: center; align-items: center; margin-left: 50%; transform: translateX(-50%); }
-        .video-sec video { min-width: 100%; min-height: 100%; object-fit: cover; }
-        .main-store { padding: 120px 20px; background: var(--hb-bg); text-align: center; }
-        .hq-slideshow { max-width: 1200px; margin: 0 auto 60px; height: 700px; position: relative; border-radius: 4px; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.1); }
+        /* 2. Video & Main Store - 비율 유지 */
+        .video-sec { width: 100%; height: auto; aspect-ratio: 16 / 9; background: #000; overflow: hidden; }
+        .video-sec video { width: 100%; height: 100%; object-fit: cover; }
+        
+        .main-store { padding: 80px 20px; background: var(--hb-bg); text-align: center; }
+        .hq-slideshow { width: 100%; max-width: 1200px; aspect-ratio: 16 / 10; margin: 0 auto 40px; position: relative; border-radius: 4px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
         .hq-slideshow img { position: absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity: 0; transition: opacity 2s ease-in-out; }
         .hq-slideshow img.active { opacity: 1; }
-        .main-store h2 { font-size: 3rem; color: var(--hb-navy); margin-bottom: 25px; } 
-        .main-store p { font-size: 1.44rem; color: #666; max-width: 1000px; margin: 0 auto; font-weight: 400; line-height: 1.6; }
+        .main-store h2 { font-size: clamp(1.8rem, 4vw, 3rem); color: var(--hb-navy); margin-bottom: 20px; } 
+        .main-store p { font-size: clamp(1rem, 2vw, 1.44rem); color: #666; max-width: 800px; margin: 0 auto; line-height: 1.6; }
 
-        /* 3. Lookbook */
-        .lookbook-sec { padding: 120px 0; background: #fff; text-align: center; }
-        .tab-btn { padding: 15px 45px; border: 2px solid var(--hb-gold); background: #fff; color: var(--hb-gold); cursor: pointer; font-weight: 700; border-radius: 50px; margin: 0 10px; font-size: 1.1rem; transition: 0.3s; }
+        /* 3. Lookbook - 모바일 1장 보기 대응 */
+        .lookbook-sec { padding: 80px 0; background: #fff; text-align: center; }
+        .tab-btn { padding: 12px 30px; border: 2px solid var(--hb-gold); background: #fff; color: var(--hb-gold); cursor: pointer; font-weight: 700; border-radius: 50px; margin: 5px; font-size: 1rem; transition: 0.3s; }
         .tab-btn.active { background: var(--hb-gold); color: #fff; }
-        .lookbook-guide { font-size: 1.1rem; color: var(--hb-gold); margin-bottom: 20px; font-weight: 500; } 
-        .album-viewport { margin: 50px auto; width: 95vw; max-width: 850px; height: 850px; display: flex; justify-content: center; align-items: center; transition: opacity 0.4s; }
-        .page { background: #fff; border: 1px solid #eee; overflow: hidden; backface-visibility: hidden; }
-        .page img { width: 100%; height: 100%; object-fit: contain; background: #fff; }
+        
+        .album-viewport { margin: 30px auto; width: 90%; max-width: 850px; aspect-ratio: 1 / 1.2; display: flex; justify-content: center; align-items: center; }
+        #flipBook { width: 100% !important; height: 100% !important; }
+        .page { background: #fff; border: 1px solid #eee; overflow: hidden; }
+        .page img { width: 100%; height: 100%; object-fit: contain; }
 
-        /* 4. Store Finder (높이 최적화 수정 버전) */
-        .finder-sec { display: flex; height: auto; min-height: 750px; border-top: 1px solid #eee; background: #fff; }
-        .sidebar { width: 320px; border-right: 1px solid #eee; display: flex; flex-direction: column; background: #fff; }
+        /* 4. Store Finder */
+        .finder-sec { display: flex; flex-direction: row; border-top: 1px solid #eee; background: #fff; min-height: 700px; }
+        .sidebar { width: 320px; border-right: 1px solid #eee; display: flex; flex-direction: column; }
         .sidebar-header { padding: 40px 30px 15px; text-align: right; }
         .branch-list { flex: 1; overflow-y: auto; max-height: 800px; }
-        .branch-item { padding: 12px 30px; cursor: pointer; text-align: right; border-bottom: 1px solid #f9f9f9; transition: 0.2s; }
-        .branch-item h3 { margin: 0; font-size: 1.1rem; font-weight: 400; color: #777; }
-        .branch-item.active { background: var(--hb-navy); border-radius: 0 50px 50px 0; margin-right: -1px; padding-right: 40px; }
-        .branch-item.active h3 { color: #fff; font-weight: 700; }
+        .branch-item { padding: 15px 30px; cursor: pointer; text-align: right; border-bottom: 1px solid #f9f9f9; }
+        .branch-item.active { background: var(--hb-navy); padding-right: 40px; color: #fff; }
+        .branch-item.active h3 { color: #fff; }
 
-        .detail-area { flex: 1; background: var(--hb-bg); padding: 30px 40px; overflow-y: visible; }
-        #naverMap { width: 100%; height: 400px; border-radius: 12px; margin-bottom: 20px; border: 1px solid #ddd; background: #eee; min-height: 400px; }
-        
-        .biz-card { background: #fff; padding: 25px 30px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); margin-bottom: 20px; }
-        .biz-card h2 { font-size: 1.8rem; color: var(--hb-navy); border-bottom: 2px solid var(--hb-gold); padding-bottom: 12px; margin-bottom: 15px; }
-        .info-row { display: flex; margin-bottom: 10px; font-size: 1rem; }
+        .detail-area { flex: 1; background: var(--hb-bg); padding: 30px; }
+        #naverMap { width: 100%; height: 400px; border-radius: 12px; margin-bottom: 20px; border: 1px solid #ddd; }
+        .biz-card { background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); margin-bottom: 20px; text-align: left; }
+        .biz-card h2 { font-size: 1.8rem; margin-bottom: 15px; border-bottom: 2px solid var(--hb-gold); padding-bottom: 10px; }
+        .info-row { display: flex; margin-bottom: 8px; font-size: 1rem; }
         .info-lbl { width: 80px; font-weight: 700; color: #888; }
-        
-        .btn-row { display: flex; gap: 12px; }
-        .btn { flex: 1; padding: 12px 5px; text-align: center; border-radius: 8px; font-weight: 700; font-size: 1.2rem; text-decoration: none; transition: 0.3s; }
+        .btn-row { display: flex; gap: 10px; }
+        .btn { flex: 1; padding: 12px 5px; text-align: center; border-radius: 8px; font-weight: 700; font-size: 1.1rem; text-decoration: none; }
         .btn-navy { background: var(--hb-navy); color: #fff; }
         .btn-kakao { background: #FEE500; color: #3C1E1E; }
         .btn-green { background: #03C75A; color: #fff; }
         .btn-gold { background: var(--hb-gold); color: #fff; }
 
-        @media (max-width: 1024px) {
-            .finder-sec { flex-direction: column; height: auto; }
-            .sidebar { width: 100%; border-right: none; border-bottom: 1px solid #eee; }
-            .branch-list { display: flex; overflow-x: auto; padding: 10px; max-height: none; }
-            .branch-item { white-space: nowrap; border-bottom: none; border-right: 1px solid #eee; padding: 10px 20px; }
-            .detail-area { padding: 20px; }
-            #naverMap { height: 350px; min-height: 350px; }
-            .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-            .album-viewport { width: 95vw; height: 450px; }
+        /* 모바일 최종 반응형 쿼리 */
+        @media (max-width: 768px) {
+            .finder-sec { flex-direction: column; }
+            .sidebar { width: 100%; border-right: none; }
+            .branch-list { display: flex; overflow-x: auto; padding: 10px; }
+            .branch-item { white-space: nowrap; padding: 10px 20px; border-right: 1px solid #eee; }
+            .btn-row { display: grid; grid-template-columns: 1fr 1fr; }
+            .album-viewport { width: 95%; height: 500px; }
+            .lookbook-sec { padding: 40px 0; }
         }
     </style>
 </head>
@@ -106,9 +101,9 @@
 </section>
 
 <section class="lookbook-sec">
-    <h2 style="font-size:2.5rem; margin-bottom:10px;">2026 Lookbook</h2>
-    <p class="lookbook-guide">좌우로 페이지를 넘겨보세요</p>
-    <div style="margin-bottom:40px;">
+    <h2 style="font-size:2.2rem; margin-bottom:10px;">2026 Lookbook</h2>
+    <p class="lookbook-guide">옆으로 넘겨보세요</p>
+    <div style="margin-bottom:30px;">
         <button class="tab-btn active" id="btnWed" onclick="loadAlbum('wedding')">웨딩 촬영</button>
         <button class="tab-btn" id="btnMot" onclick="loadAlbum('mother')">혼주 한복</button>
     </div>
@@ -117,17 +112,16 @@
 
 <section class="finder-sec">
     <aside class="sidebar">
-        <div class="sidebar-header"><h2>전국 지점 안내</h2></div>
+        <div class="sidebar-header"><h2>지점 안내</h2></div>
         <div class="branch-list" id="branchList"></div>
     </aside>
-
     <main class="detail-area" id="detailView">
         <div id="naverMap"></div>
         <div id="branchInfoBox"></div>
     </main>
 </section>
 
-<footer style="padding:60px; background:#111; color:#444; text-align:center; font-size:0.9rem;">© 2026 HANBEAM HANBOK.</footer>
+<footer style="padding:40px 20px; background:#111; color:#444; text-align:center; font-size:0.8rem;">© 2026 HANBEAM HANBOK.</footer>
 
 <script>
     // 1. 매장 슬라이드
@@ -154,34 +148,34 @@
             
             const fb = document.getElementById('flipBook');
             const cfg = ALBUM_CONFIG[cat];
-            let arr = [];
+            let h = '';
             
+            // 이미지 생성
             for(let i=1; i <= cfg.count; i++) {
                 let num = i < 10 ? '0' + i : i;
-                arr.push(`${cfg.path}${num}.webp`);
+                h += `<div class="page"><img src="${cfg.path}${num}.webp" onerror="this.style.display='none';"></div>`;
             }
-            
-            if (arr.length % 2 !== 0) {
-                arr.push("data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7");
-            }
-            
-            const totalSet = [...arr, ...arr, ...arr]; 
-            let h = '';
-            totalSet.forEach(img => { 
-                h += `<div class="page"><img src="${img}" style="background:#fff;" onerror="this.style.display='none';"></div>`; 
-            });
             fb.innerHTML = h;
             
-            pFlip = new St.PageFlip(fb, { width: 850, height: 850, showCover: false, usePortrait: false, drawShadow: true, swipeDistance: 150, flippingTime: 1200 });
+            // 모바일 여부 판단 (768px 기준)
+            const isMobile = window.innerWidth <= 768;
+            
+            pFlip = new St.PageFlip(fb, { 
+                width: isMobile ? 400 : 850, 
+                height: isMobile ? 500 : 850, 
+                showCover: false, 
+                usePortrait: isMobile, // 🏆 모바일일 때 한 장씩(초상화 모드) 설정
+                drawShadow: true, 
+                flippingTime: 1000 
+            });
             pFlip.loadFromHTML(document.querySelectorAll('.page'));
             target.style.opacity = '1'; 
         }, 300);
     }
 
-    // 🏆 실행부 통합
-    window.onload = () => { 
-        loadAlbum('wedding'); 
-    };
+    window.onload = () => { loadAlbum('wedding'); };
+    // 화면 크기 바뀔 때 대응 (선택사항)
+    window.onresize = () => { const activeCat = document.getElementById('btnWed').classList.contains('active') ? 'wedding' : 'mother'; loadAlbum(activeCat); };
 </script>
 
 <script src="map-logic.js"></script>
