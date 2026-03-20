@@ -4,6 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover">
     <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="한빔한복 공식 홈페이지">
+    <meta property="og:description" content="대한민국 한복의 기준, 한빔한복 전지점 안내 및 2026 룩북">
+    <meta property="og:image" content="https://vmann0113.github.io/hanbeam_main/assets/img/headimg.webp">
+    <meta property="og:url" content="https://vmann0113.github.io/hanbeam_main/">
+    
     <title>한빔한복 공식 홈페이지</title>
 
     <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=p92c8gq59k"></script>
@@ -34,7 +41,7 @@
         
         .pc-hide { display: none; }
 
-        /* 3. Lookbook - 터치 조작 최적화 추가 */
+        /* 3. Lookbook */
         .lookbook-sec { padding: 80px 0; background: #fff; text-align: center; }
         .tab-btn { padding: 12px 30px; border: 2px solid var(--hb-gold); background: #fff; color: var(--hb-gold); cursor: pointer; font-weight: 700; border-radius: 50px; margin: 5px; font-size: 1rem; transition: 0.3s; }
         .tab-btn.active { background: var(--hb-gold); color: #fff; }
@@ -42,7 +49,7 @@
         .album-viewport { 
             margin: 30px auto; width: 90%; max-width: 850px; height: 850px; 
             display: flex; justify-content: center; align-items: center;
-            touch-action: pan-y; /* 🏆 좌우 드래그는 앨범에, 상하 스크롤은 페이지에 양보 */
+            touch-action: pan-y; /* 위아래 스크롤은 유지, 좌우는 앨범 조작 */
         }
         .page { background: #fff; border: 1px solid #eee; overflow: hidden; }
         .page img { width: 100%; height: 100%; object-fit: contain; background: #fff; }
@@ -69,7 +76,6 @@
         .btn-green { background: #03C75A; color: #fff; }
         .btn-gold { background: var(--hb-gold); color: #fff; }
 
-        /* 📱 모바일 최적화 */
         @media (max-width: 768px) {
             .hero { height: 60vh; } 
             .pc-hide { display: block; }
@@ -173,12 +179,13 @@
                 showCover: false, 
                 usePortrait: isMobile, 
                 drawShadow: true, 
-                flippingTime: 800,
+                flippingTime: 1000,
                 
-                // 🏆 [조작 최적화 핵심 옵션]
-                clickEventForward: false, // 탭 시 강제 넘김 방지
-                swipeDistance: 15,        // 살짝만 밀어도 넘어가도록 (민감도 향상)
-                showPageCorners: true     // 모서리를 살짝 접어 넘기는 영역임을 암시
+                // 🏆 [터치/클릭 최적화]
+                clickEventForward: false, // 클릭 시 다음 페이지로 가는 이벤트 차단
+                useMouseEvents: true,     // 드래그(마우스/터치) 이벤트만 허용
+                swipeDistance: 30,        // 30px 이상 밀어야 넘어감 (실수 방지)
+                showPageCorners: false    // 모서리 접힘 효과가 클릭을 유도할 수 있어 해제
             });
             pFlip.loadFromHTML(document.querySelectorAll('.page'));
             target.style.opacity = '1'; 
