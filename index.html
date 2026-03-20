@@ -23,78 +23,74 @@
             background-repeat: repeat; animation: patternWave 60s linear infinite; opacity: 0.4; z-index: 1;
         }
         @keyframes patternWave { from { background-position: 0 0; } to { background-position: 1000px 500px; } }
-        
         .hero-content { z-index: 10; padding: 20px; width: 100%; }
         .logo-area { width: 450px; margin: 0 auto 40px; display: flex; justify-content: center; }
-        .logo-area img { width: 100%; height: auto; display: block; background: transparent; }
-
-        /* 타이틀 사이즈 원래대로 복구 */
-        .hero h1 { font-size: clamp(3rem, 6vw, 4.5rem); font-weight: 200; margin: 0; white-space: nowrap; }
+        .logo-area img { width: 100%; height: auto; display: block; }
+        /* 타이틀 사이즈 원복 */
+        .hero h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 200; margin: 0; white-space: nowrap; }
         .hero h1 b { font-weight: 700; color: var(--hb-gold); }
-        .hero .sub-text { margin-top: 25px; font-size: 1.2rem; opacity: 0.6; letter-spacing: 4px; }
+        .hero .sub-text { margin-top: 25px; font-size: 1.1rem; opacity: 0.6; letter-spacing: 4px; }
 
         /* 2. Video & Main Store */
-        .video-sec { width: 100%; height: 75vh; background: #000; overflow: hidden; display: flex; justify-content: center; }
+        .video-sec { width: 100%; height: 75vh; background: #000; overflow: hidden; display: flex; justify-content: center; align-items: center; }
         .video-sec video { width: 100%; height: 100%; object-fit: cover; }
-
         .main-store { padding: 120px 20px; background: var(--hb-bg); text-align: center; }
-        .hq-slideshow { max-width: 1300px; margin: 0 auto 60px; height: 700px; position: relative; border-radius: 4px; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.15); }
+        .hq-slideshow { max-width: 1500px; margin: 0 auto 60px; height: 800px; position: relative; border-radius: 4px; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.15); }
         .hq-slideshow img { position: absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity: 0; transition: opacity 2s ease-in-out; }
         .hq-slideshow img.active { opacity: 1; }
 
-        /* 3. Lookbook: Refined Design & Anti-Flash */
+        /* 3. Lookbook: Sensitivity & Cover Fix */
         .lookbook-sec { padding: 120px 0; background: #fff; text-align: center; }
         .tab-btn { padding: 15px 45px; border: 2px solid var(--hb-gold); background: #fff; color: var(--hb-gold); cursor: pointer; font-weight: 700; border-radius: 50px; margin: 0 10px; font-size: 1.1rem; transition: 0.3s; }
         .tab-btn.active { background: var(--hb-gold); color: #fff; }
-        
-        .album-viewport { margin: 50px auto; width: 90vw; max-width: 1100px; height: 800px; display: flex; justify-content: center; align-items: center; transition: opacity 0.5s ease; }
+        .album-viewport { margin: 50px auto; width: 90vw; max-width: 1100px; height: 800px; display: flex; justify-content: center; align-items: center; transition: opacity 0.4s; }
         .page { background: #fff; border: 1px solid #eee; overflow: hidden; }
         .page img { width: 100%; height: 100%; object-fit: contain; background: #fcfcfc; }
         
-        /* 룩북 표지: 로고 3배 확대 & 한글 타이틀 */
         .page-cover { 
             background: var(--hb-navy); color: #fff; height: 100%; 
             display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px;
             background-image: url("https://www.transparenttextures.com/patterns/leather.png");
         }
-        .cover-logo { width: 150px; margin-bottom: 40px; background: transparent; }
-        .cover-title { font-size: 3rem; font-weight: 700; letter-spacing: 10px; margin-bottom: 10px; color: #fff; }
-        .cover-sub { font-family: 'Great Vibes', cursive; font-size: 2.2rem; color: var(--hb-gold); }
+        /* 룩북 표지 로고: 박스 제거 및 50% 축소 */
+        .cover-logo { width: 75px; margin-bottom: 25px; background: transparent !important; }
+        /* 룩북 텍스트: 50% 축소 */
+        .cover-title { font-size: 1.6rem; font-weight: 700; letter-spacing: 5px; color: #fff; margin-bottom: 5px; }
+        .cover-sub { font-family: 'Great Vibes', cursive; font-size: 1.4rem; color: var(--hb-gold); }
 
-        /* 4. Store Finder: Layout Change */
+        /* 4. Store Finder: Original Slim Layout Restore */
         .finder-sec { display: flex; height: 85vh; border-top: 1px solid #eee; background: #fff; }
-        .sidebar { width: 300px; border-right: 1px solid #eee; display: flex; flex-direction: column; }
+        .sidebar { width: 320px; border-right: 1px solid #eee; display: flex; flex-direction: column; }
         .sidebar-header { padding: 40px 30px 15px; text-align: right; }
-        
-        /* 지점 리스트 글자 크기 복구 */
-        .branch-list { flex: 1; overflow-y: auto; }
+        .branch-list { flex: 1; overflow-y: hidden; }
         .branch-item { padding: 12px 30px; cursor: pointer; text-align: right; border-bottom: 1px solid #f9f9f9; }
-        .branch-item h3 { margin: 0; font-size: 1.15rem; font-weight: 400; color: #666; }
+        /* 지점 리스트 글자 크기 복구 */
+        .branch-item h3 { margin: 0; font-size: 1.1rem; font-weight: 400; color: #777; }
         .branch-item.active { background: var(--hb-navy); border-radius: 0 50px 50px 0; margin-right: -1px; padding-right: 40px; }
         .branch-item.active h3 { color: #fff; font-weight: 700; }
 
-        /* 상세페이지: 가로 배치 레이아웃 */
-        .detail-area { flex: 1; background: var(--hb-bg); padding: 60px; display: flex; gap: 40px; align-items: flex-start; overflow-y: auto; }
-        .info-pane { flex: 1; }
-        .map-pane { width: 500px; height: 500px; border-radius: 15px; overflow: hidden; border: 1px solid #ddd; box-shadow: 0 10px 30px rgba(0,0,0,0.1); background: #eee; }
-        #naverMap { width: 100%; height: 100%; }
-        
-        .biz-card { background: #fff; padding: 40px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); margin-bottom: 30px; }
-        .biz-card h2 { font-size: 2.5rem; color: var(--hb-navy); border-bottom: 3px solid var(--hb-gold); padding-bottom: 20px; margin-bottom: 25px; }
-        .info-row { display: flex; margin-bottom: 15px; font-size: 1.2rem; }
+        /* 상세페이지: 원래의 수직 레이아웃으로 원복 */
+        .detail-area { flex: 1; background: var(--hb-bg); padding: 50px; overflow-y: auto; }
+        #naverMap { width: 100%; height: 450px; border-radius: 12px; margin-bottom: 30px; border: 1px solid #ddd; background: #eee; }
+        .biz-card { background: #fff; padding: 35px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); margin-bottom: 30px; }
+        .biz-card h2 { font-size: 2.2rem; color: var(--hb-navy); border-bottom: 2px solid var(--hb-gold); padding-bottom: 15px; margin-bottom: 20px; }
+        .info-row { display: flex; margin-bottom: 12px; font-size: 1.1rem; }
         .info-lbl { width: 100px; font-weight: 700; color: #888; }
 
-        /* 버튼 슬림화 & 텍스트 강조 */
-        .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .btn { padding: 18px 5px; text-align: center; border-radius: 10px; font-weight: 700; font-size: 1.4rem; text-decoration: none; transition: 0.3s; }
+        /* 버튼: 텍스트는 크게, 높이는 슬림하게(70%) */
+        .btn-row { display: flex; gap: 15px; }
+        .btn { flex: 1; padding: 12px 5px; text-align: center; border-radius: 8px; font-weight: 700; font-size: 1.4rem; text-decoration: none; transition: 0.3s; }
         .btn-navy { background: var(--hb-navy); color: #fff; }
         .btn-kakao { background: #FEE500; color: #3C1E1E; }
         .btn-green { background: #03C75A; color: #fff; }
         .btn-gold { background: var(--hb-gold); color: #fff; }
 
-        @media (max-width: 1200px) {
-            .detail-area { flex-direction: column; }
-            .map-pane { width: 100%; height: 400px; }
+        @media (max-width: 1024px) {
+            .finder-sec { flex-direction: column; height: auto; }
+            .sidebar { width: 100%; }
+            .branch-list { display: flex; overflow-x: auto; padding: 10px; }
+            .branch-item { white-space: nowrap; border-bottom: none; border-right: 1px solid #eee; }
+            .btn-row { display: grid; grid-template-columns: 1fr 1fr; }
         }
     </style>
 </head>
@@ -120,13 +116,13 @@
         <img src="assets/img/hq_02.webp">
         <img src="assets/img/hq_03.webp">
     </div>
-    <h2 style="font-size:2.8rem; color:var(--hb-navy);">한빔한복의 편안한 전지점 매장</h2>
-    <p style="font-size:1.2rem; color:#666; max-width:800px; margin:0 auto;">넓고 깨끗한 한빔한복의 매장에 부모님을 모시고 편하게 방문하세요!</p>
+    <h2>한빔한복의 편안한 전지점 매장</h2>
+    <p>넓고 깨끗한 한빔한복의 매장에 부모님을 모시고 편하게 방문하세요!</p>
 </section>
 
 <section class="lookbook-sec">
-    <h2 style="font-size:2.5rem; margin-bottom:40px;">2026 Lookbook</h2>
-    <div class="tab-group">
+    <h2>2026 Lookbook</h2>
+    <div style="margin-bottom:40px;">
         <button class="tab-btn active" id="btnWed" onclick="loadAlbum('wedding')">웨딩 촬영</button>
         <button class="tab-btn" id="btnMot" onclick="loadAlbum('mother')">혼주 한복</button>
     </div>
@@ -135,7 +131,7 @@
 
 <section class="finder-sec">
     <aside class="sidebar">
-        <div class="sidebar-header"><h2>지점 안내</h2></div>
+        <div class="sidebar-header"><h2>전국 지점 안내</h2></div>
         <div class="branch-list" id="branchList"></div>
     </aside>
     <main class="detail-area" id="detailView"></main>
@@ -148,7 +144,7 @@
     let curS = 0; const sImgs = document.querySelectorAll('#hqSlides img');
     if(sImgs.length > 0) setInterval(() => { sImgs[curS].classList.remove('active'); curS = (curS + 1) % sImgs.length; sImgs[curS].classList.add('active'); }, 4000);
 
-    // 2. 룩북 데이터
+    // 2. 룩북 제어 (Flash 방지 & 민감도 조절)
     const ALBUMS = {
         wedding: ["assets/img/lookbook/wedding/wedding_01.webp", "assets/img/lookbook/wedding/wedding_02.webp", "assets/img/lookbook/wedding/wedding_03.webp", "assets/img/lookbook/wedding/wedding_04.webp"],
         mother: ["assets/img/lookbook/mother/mother_01.webp", "assets/img/lookbook/mother/mother_02.webp", "assets/img/lookbook/mother/mother_03.webp", "assets/img/lookbook/mother/mother_04.webp"]
@@ -158,7 +154,7 @@
 
     function loadAlbum(cat) {
         const target = document.getElementById('albumTarget');
-        target.style.opacity = '0'; // 부드러운 전환 시작
+        target.style.opacity = '0';
 
         setTimeout(() => {
             document.getElementById('btnWed').classList.toggle('active', cat==='wedding');
@@ -176,13 +172,13 @@
                         <div class="cover-sub">Hanbeam Collection</div>
                     </div></div>`;
             
-            ALBUMS[cat].forEach(img => { h += `<div class="page"><img src="${img}" onerror="this.src='https://via.placeholder.com/550x800?text=Hanbeam'"></div>`; });
+            ALBUMS[cat].forEach(img => { h += `<div class="page"><img src="${img}" onerror="this.src='https://via.placeholder.com/550x800?text=Photo'"></div>`; });
             h += `<div class="page"><div class="page-cover"><h3>THE END</h3></div></div>`;
             fb.innerHTML = h;
 
             pFlip = new St.PageFlip(fb, { 
                 width: 550, height: 800, showCover: true, usePortrait: false, 
-                drawShadow: true, swipeDistance: 50, // 민감도 조절
+                drawShadow: true, swipeDistance: 100, // 민감도 대폭 낮춤
                 clickEventForward: false 
             });
             pFlip.loadFromHTML(document.querySelectorAll('.page'));
@@ -210,34 +206,30 @@
         l.innerHTML = branches.map((b, i) => `<div class="branch-item ${i===idx?'active':''}" onclick="renderS(${i})"><h3>${b.name}</h3></div>`).join('');
         const b = branches[idx];
         document.getElementById('detailView').innerHTML = `
-            <div class="info-pane">
-                <div class="biz-card">
-                    <h2>한빔한복 ${b.name}</h2>
-                    <div class="info-row"><span class="info-lbl">위치</span><span>${b.addr}</span></div>
-                    <div class="info-row"><span class="info-lbl">전화</span><span>${b.phone}</span></div>
-                </div>
-                <div class="btn-row">
-                    <a href="tel:${b.phone}" class="btn btn-navy">전화걸기</a>
-                    <a href="${b.kakao}" target="_blank" class="btn btn-kakao">카톡상담</a>
-                    <a href="${b.reserve}" target="_blank" class="btn btn-green">네이버예약</a>
-                    <a href="https://map.naver.com/v5/search/${encodeURIComponent('한빔한복 '+b.name)}" target="_blank" class="btn btn-gold">위치 공유</a>
-                </div>
+            <div id="naverMap"></div>
+            <div class="biz-card">
+                <h2>한빔한복 ${b.name}</h2>
+                <div class="info-row"><span class="info-lbl">위치</span><span>${b.addr}</span></div>
+                <div class="info-row"><span class="info-lbl">전화</span><span>${b.phone}</span></div>
             </div>
-            <div class="map-pane"><div id="naverMap"></div></div>
+            <div class="btn-row">
+                <a href="tel:${b.phone}" class="btn btn-navy">전화걸기</a>
+                <a href="${b.kakao}" target="_blank" class="btn btn-kakao">카톡상담</a>
+                <a href="${b.reserve}" target="_blank" class="btn btn-green">네이버예약</a>
+                <a href="https://map.naver.com/v5/search/${encodeURIComponent('한빔한복 '+b.name)}" target="_blank" class="btn btn-gold">위치 공유</a>
+            </div>
         `;
         setTimeout(() => initNaverMap(b.lat, b.lng), 100);
     }
 
     function initNaverMap(lat, lng) {
+        const mapArea = document.getElementById('naverMap');
+        if (!mapArea) return;
         if (typeof naver !== 'undefined' && naver.maps && naver.maps.Map) {
             const p = new naver.maps.LatLng(lat, lng);
-            new naver.maps.Map('naverMap', { center: p, zoom: 16 });
-            new naver.maps.Marker({ position: p, map: new naver.maps.Map('naverMap', { center: p, zoom: 16 }) });
-        } else {
-            const script = document.createElement('script');
-            script.src = "https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=pgxefrkkuy";
-            script.onload = () => initNaverMap(lat, lng);
-            document.head.appendChild(script);
+            const mapOptions = { center: p, zoom: 16 };
+            const map = new naver.maps.Map(mapArea, mapOptions);
+            new naver.maps.Marker({ position: p, map: map });
         }
     }
 
