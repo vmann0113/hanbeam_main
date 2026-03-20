@@ -2,59 +2,115 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>한빔한복 공식 홈페이지 - 전국 11개 지점 네트워크</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+
 <style>
     :root { 
-        --hb-navy: #0A1D37; 
-        --hb-gold: #B8977E; 
-        --hb-bg: #F9F7F5; 
+        --hb-navy: #0A1D37; /* Control Tower Navy */
+        --hb-gold: #B8977E;  /* Champagne Gold */
+        --hb-bg: #F9F7F5;   /* Traditional Paper Background */
+        --hb-text: #333;
     }
-    body { margin: 0; font-family: 'Pretendard', sans-serif; color: #333; background: #fff; line-height: 1.6; }
+    
+    body { margin: 0; font-family: 'Pretendard', sans-serif; color: var(--hb-text); background: #fff; line-height: 1.6; word-break: keep-all; }
+    a { text-decoration: none; color: inherit; transition: 0.3s; }
+    ul { list-style: none; margin: 0; padding: 0; }
 
-    /* 1. 상단 히어로 섹션 (대표님이 선호하신 방식) */
+    /* ===== 1. Hero Section (Brand Identity) ===== */
     .hero { 
         height: 80vh; background: var(--hb-navy); 
         display: flex; flex-direction: column; justify-content: center; align-items: center;
         color: #fff; text-align: center; padding: 20px;
         position: relative; overflow: hidden;
     }
-    .hero .logo-top { font-size: 1.1rem; letter-spacing: 0.5em; margin-bottom: 20px; opacity: 0.8; }
-    .hero h1 { font-size: clamp(2.5rem, 6vw, 4rem); margin: 0; font-weight: 300; }
+    .hero .logo-top { font-size: 1.1rem; letter-spacing: 0.5em; margin-bottom: 20px; opacity: 0.8; text-transform: uppercase; }
+    .hero h1 { font-size: clamp(2.5rem, 6vw, 4rem); margin: 0; font-weight: 300; letter-spacing: -0.02em; }
     .hero h1 b { font-weight: 700; color: var(--hb-gold); }
     .hero .sub-text { margin-top: 25px; font-size: 1.2rem; opacity: 0.7; max-width: 700px; }
-    .scroll-down { position: absolute; bottom: 30px; animation: bounce 2s infinite; font-size: 0.9rem; opacity: 0.5; }
+    
+    .scroll-down { 
+        position: absolute; bottom: 30px; animation: bounce 2s infinite; 
+        font-size: 0.85rem; opacity: 0.5; letter-spacing: 2px;
+    }
     @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} 60% {transform: translateY(-5px);} }
 
-    /* 2. 지점 안내 섹션 (인터랙티브 좌우 분할) */
-    .store-finder { display: flex; height: 800px; border-top: 1px solid #eee; }
+    /* ===== 2. Narrative Section (Storytelling - NEW) ===== */
+    .narrative { background: var(--hb-bg); padding: 100px 20px; text-align: center; }
+    .narrative-content { max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 50px; }
+    
+    /* Video/Image Placeholders for Narrative */
+    .narrative-media { 
+        width: 100%; height: 50vh; background: #ddd; border-radius: 8px;
+        display: flex; align-items: center; justify-content: center;
+        color: #999; font-weight: 700; box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+        position: relative; overflow: hidden;
+    }
+    .narrative-media::after { content: '[ 본점 장인정신 / 시즌 컬렉션 영상 영역 ]'; }
 
-    /* 왼쪽: 지점 리스트 */
-    .sidebar { width: 350px; background: #fff; border-right: 1px solid #eee; overflow-y: auto; }
-    .sidebar-title { padding: 40px 30px 20px; font-size: 1.5rem; color: var(--hb-navy); font-weight: 700; }
+    .narrative-text { max-width: 700px; }
+    .narrative-text h2 { font-size: 2.5rem; color: var(--hb-navy); margin-bottom: 25px; }
+    .narrative-text p { font-size: 1.1rem; color: #555; }
+
+    /* ===== 3. Store Finder Section (Active & Aligned) ===== */
+    .store-finder { display: flex; height: 85vh; border-top: 1px solid #eee; border-bottom: 1px solid #eee; }
+
+    /* 왼쪽 사이드바: 지점 리스트 (Right Aligned - IMPROVED) */
+    .sidebar { width: 400px; background: #fff; border-right: 1px solid #eee; display: flex; flex-direction: column; }
+    .sidebar-header { padding: 50px 40px 30px; }
+    .sidebar-header h2 { font-size: 1.8rem; color: var(--hb-navy); margin: 0; font-weight: 700; }
+    .sidebar-header p { color: #888; margin-top: 5px; font-size: 0.9rem; }
+
+    .branch-list { flex: 1; overflow-y: auto; padding-right: 20px; /* 여백 확보 */ }
     .branch-item { 
         padding: 25px 30px; cursor: pointer; border-bottom: 1px solid #f2f2f2;
         transition: all 0.3s;
+        text-align: right; /* 오른쪽 정렬 */
     }
     .branch-item:hover { background: var(--hb-bg); }
-    .branch-item.active { background: var(--hb-navy); color: #fff; }
+    .branch-item.active { 
+        background: var(--hb-navy); color: #fff; 
+        border-radius: 0 50px 50px 0; /* 둥근 우측 정렬 느낌 */
+        margin-right: -20px; /* 사이드바 경계에 붙이기 */
+        padding-right: 50px; /* 액티브 강조 */
+    }
     .branch-item h3 { margin: 0; font-size: 1.1rem; }
     .branch-item p { margin: 5px 0 0; font-size: 0.85rem; opacity: 0.6; }
 
-    /* 오른쪽: 지점 상세 내용 */
+    /* 오른쪽: 지점 상세 내용 (Map & Image - NEW) */
     .detail-content { flex: 1; background: var(--hb-bg); padding: 60px; overflow-y: auto; }
     .detail-view { max-width: 900px; margin: 0 auto; animation: fadeIn 0.5s; }
     @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
 
+    /* 지도 및 핀 시각화 영역 */
+    .map-container { 
+        width: 100%; height: 350px; background: #eee; border-radius: 8px; margin-bottom: 30px;
+        position: relative; overflow: hidden;
+        border: 1px solid #e0e0e0; box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+    /* 가상 지도 핀 (Active Animation) */
+    .map-pin { 
+        position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+        width: 24px; height: 24px; background: var(--hb-gold); border-radius: 50%;
+        border: 4px solid #fff; box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        animation: pulsePin 1.5s infinite;
+    }
+    @keyframes pulsePin { 0% { transform: translate(-50%, -50%) scale(1); opacity: 1; } 100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; } }
+
     .image-placeholder { 
-        width: 100%; height: 450px; background: #ddd; border-radius: 8px; margin-bottom: 40px;
+        width: 100%; height: 350px; background: #ddd; border-radius: 8px; margin-bottom: 40px;
         display: flex; align-items: center; justify-content: center; color: #999; font-weight: 700;
         box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     }
-    .detail-title { font-size: 2.5rem; color: var(--hb-navy); margin: 0 0 20px; }
+    
+    .detail-header { margin-bottom: 30px; border-bottom: 2px solid var(--hb-gold); padding-bottom: 15px; }
+    .detail-title { font-size: 2.5rem; color: var(--hb-navy); margin: 0; }
+    
     .detail-info { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 40px; }
-    .info-item h4 { color: var(--hb-gold); border-bottom: 1px solid var(--hb-gold); display: inline-block; margin-bottom: 10px; }
-    .info-item p { margin: 0; font-size: 1rem; color: #555; }
+    .info-item h4 { color: var(--hb-gold); font-size: 1rem; margin-top: 0; text-transform: uppercase; letter-spacing: 1px; }
+    .info-item p { margin: 10px 0 0; font-size: 1rem; color: #555; }
 
     .btn-group { display: flex; gap: 15px; }
     .btn { flex: 1; padding: 18px; text-align: center; border-radius: 6px; font-weight: 700; text-decoration: none; transition: 0.3s; }
@@ -62,13 +118,33 @@
     .btn-kakao { background: #FEE500; color: #3C1E1E; }
     .btn:hover { opacity: 0.9; transform: translateY(-3px); }
 
-    /* 모바일 대응 */
-    @media (max-width: 900px) {
+    /* ===== Footer (Simple) ===== */
+    .footer { background: var(--hb-navy); color: #fff; padding: 40px 20px; text-align: center; font-size: 0.85rem; opacity: 0.7; }
+
+    /* ===== Mobile Responsive (Updated) ===== */
+    @media (max-width: 1000px) {
         .store-finder { flex-direction: column; height: auto; }
-        .sidebar { width: 100%; height: auto; display: flex; overflow-x: auto; white-space: nowrap; }
-        .branch-item { padding: 15px 25px; border-bottom: none; border-right: 1px solid #eee; }
-        .detail-content { padding: 40px 20px; }
+        .sidebar { width: 100%; height: auto; border-right: none; border-bottom: 1px solid #eee; }
+        .sidebar-header { padding: 30px 20px; text-align: center; }
+        
+        .branch-list { 
+            display: flex; overflow-x: auto; white-space: nowrap; padding: 0 10px 15px;
+            scroll-snap-type: x mandatory;
+        }
+        .branch-item { 
+            padding: 15px 20px; border-bottom: none; border-right: 1px solid #eee;
+            text-align: center; scroll-snap-align: start; flex: 0 0 auto;
+        }
+        .branch-item.active { 
+            border-radius: 20px; margin-right: 10px; padding: 15px 25px;
+            border: 2px solid var(--hb-gold);
+        }
+        
+        .detail-content { padding: 40px 20px 60px; }
+        .detail-title { font-size: 2rem; }
+        .map-container, .image-placeholder { height: 250px; }
         .detail-info { grid-template-columns: 1fr; gap: 20px; }
+        .btn-group { flex-direction: column; gap: 10px; }
     }
 </style>
 </head>
@@ -78,16 +154,35 @@
     <div class="logo-top">HANBEAM HANBOK</div>
     <h1>한빔한복 <b>본점</b></h1>
     <div class="sub-text">
-        부산 범일동에서 시작된 장인정신은 이제 전국 11개 지점으로 이어집니다.<br>
-        대한민국 한복의 기준, 한빔의 네트워크를 확인해보세요.
+        대한민국 예복의 기준, 전국 11개 지점의 중심.<br>
+        한빔의 장인정신이 탄생하는 곳입니다.
     </div>
-    <div class="scroll-down">SCROLL DOWN</div>
+    <div class="scroll-down">EXPLORE</div>
+</section>
+
+<section class="narrative">
+    <div class="narrative-content">
+        <div class="narrative-media">
+            </div>
+        
+        <div class="narrative-text">
+            <h2>한지 위에 그리는 선, 숨 쉬는 옷</h2>
+            <p>
+                부산 범일동에서 시작된 한빔의 여정은 오직 '가장 아름다운 순간'만을 생각합니다.<br>
+                숙련된 장인의 손길로 완성되는 단 하나의 예복,<br>
+                전국 11개 지점 네트워크는 한빔의 품격과 신뢰의 증거입니다.
+            </p>
+        </div>
+    </div>
 </section>
 
 <section class="store-finder" id="finder">
     <aside class="sidebar">
-        <div class="sidebar-title">전국 지점 안내</div>
-        <div id="branchList">
+        <div class="sidebar-header">
+            <h2>전국 지점 가이드</h2>
+            <p>가까운 매장을 선택해보세요.</p>
+        </div>
+        <div class="branch-list" id="branchList">
             </div>
     </aside>
 
@@ -97,13 +192,17 @@
     </main>
 </section>
 
+<footer class="footer">
+    © 2026 한빔한복. All Rights Reserved.
+</footer>
+
 <script>
     const branches = [
-        {id:0, name:"부산본점", addr:"부산 동구 조방로 123 한빔빌딩", desc:"한빔한복의 컨트롤 타워. 30년 역사의 정수를 담은 플래그십 매장입니다.", res:"https://m.booking.naver.com/booking/6/bizes/661812", kakao:"https://open.kakao.com/o/soq7Ns4d"},
-        {id:1, name:"인천점", addr:"인천 남동구 인하로 123", desc:"수도권 고객님들을 위한 세련된 감각의 매장. 넓은 피팅 공간을 자랑합니다.", res:"https://m.booking.naver.com/booking/13/bizes/1039475", kakao:"https://open.kakao.com/o/sIrXajUf"},
-        {id:2, name:"안산점", addr:"경기 안산시 단원구 고잔동", desc:"안산 지역의 대표적인 예복 전문점. 맞춤 상담에 특화된 장인이 상주합니다.", res:"https://m.booking.naver.com/booking/6/bizes/1500008", kakao:"https://open.kakao.com/o/sqRSjaRh"},
-        {id:3, name:"대구점", addr:"대구 중구 달구벌대로 789", desc:"대구 중심에서 만나는 한빔의 감각. 고급스러운 인테리어와 상담 서비스를 제공합니다.", res:"https://m.place.naver.com/place/2043617700/ticket", kakao:"#"},
-        {id:4, name:"창원점", addr:"경남 창원시 성산구 상남로", desc:"창원 신랑신부님들이 가장 선호하는 매장. 트렌디한 한복 라인업을 보유하고 있습니다.", res:"https://booking.naver.com/booking/6/bizes/843111", kakao:"https://open.kakao.com/o/sdcvbh5e"}
+        {id:0, name:"부산본점", addr:"부산 동구 조방로 123 한빔빌딩", tag:"HEADQUARTER", desc:"한빔한복의 심장부. 전 지점의 디자인과 품질을 총괄하는 플래그십 매장입니다.", res:"https://m.booking.naver.com/booking/6/bizes/661812", kakao:"https://open.kakao.com/o/soq7Ns4d"},
+        {id:1, name:"인천점", addr:"인천 남동구 인하로 123", tag:"SEOUL/INCHEON", desc:"수도권 고객님들을 위한 세련된 감각의 매장. 넓은 피팅 공간을 자랑합니다.", res:"https://m.booking.naver.com/booking/13/bizes/1039475", kakao:"https://open.kakao.com/o/sIrXajUf"},
+        {id:2, name:"안산점", addr:"경기 안산시 단원구 고잔동 567", tag:"GYEONGGI", desc:"안산 지역의 대표적인 예복 전문점. 맞춤 상담에 특화된 장인이 상주합니다.", res:"https://m.booking.naver.com/booking/6/bizes/1500008", kakao:"https://open.kakao.com/o/sqRSjaRh"},
+        {id:3, name:"대구점", addr:"대구 중구 달구벌대로 789", tag:"DAEGU", desc:"대구 중심에서 만나는 한빔의 감각. 고급스러운 인테리어와 상담 서비스를 제공합니다.", res:"https://m.place.naver.com/place/2043617700/ticket", kakao:"#"},
+        {id:4, name:"창원점", addr:"경남 창원시 성산구 상남로 12", tag:"GYEONGNAM", desc:"창원 신랑신부님들이 가장 선호하는 매장. 트렌디한 한복 라인업을 보유하고 있습니다.", res:"https://booking.naver.com/booking/6/bizes/843111", kakao:"https://open.kakao.com/o/sdcvbh5e"}
     ];
 
     let activeId = 0;
@@ -121,11 +220,19 @@
         // 상세페이지 업데이트
         const b = branches.find(item => item.id === activeId);
         document.getElementById('detailView').innerHTML = `
+            <div class="map-container">
+                <div class="map-placeholder" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:#bbb;">[ ${b.name} 지도 API 연동 영역 ]</div>
+                <div class="map-pin"></div> </div>
+
             <div class="image-placeholder">[ ${b.name} 매장 내부 고화질 사진 영역 ]</div>
-            <h2 class="detail-title">한빔한복 ${b.name}</h2>
+            
+            <div class="detail-header">
+                <h2 class="detail-title">한빔한복 ${b.name}</h2>
+            </div>
+            
             <div class="detail-info">
                 <div class="info-item">
-                    <h4>지점 스토리</h4>
+                    <h4>지점 이야기</h4>
                     <p>${b.desc}</p>
                 </div>
                 <div class="info-item">
@@ -133,6 +240,7 @@
                     <p>${b.addr}<br>매장 앞 전용 주차공간 이용 가능</p>
                 </div>
             </div>
+            
             <div class="btn-group">
                 <a href="${b.res}" target="_blank" class="btn btn-navy">네이버 실시간 예약</a>
                 <a href="${b.kakao}" target="_blank" class="btn btn-kakao">카카오톡 1:1 상담</a>
