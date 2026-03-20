@@ -1,8 +1,6 @@
 /**
  * 한빔한복 지점 안내 및 네이버 지도 로직 (map-logic.js)
- * 제작일: 2026-03-21
  */
-
 const branches = [
     {name:"부산점", phone:"051-634-2325", addr:"부산 동구 조방로 123", reserve:"https://m.booking.naver.com/booking/6/bizes/661812", kakao:"https://open.kakao.com/o/soq7Ns4d", lat:35.1381, lng:129.0621},
     {name:"센텀점", phone:"010-3052-2325", addr:"부산 해운대구 센텀중앙로 78", reserve:"https://booking.naver.com/booking/6/bizes/1577219", kakao:"https://open.kakao.com/o/sz1xltbi", lat:35.1742, lng:129.1275},
@@ -19,31 +17,22 @@ const branches = [
 
 function renderS(idx) {
     const l = document.getElementById('branchList');
-    if(!l) return;
+    const d = document.getElementById('detailView');
+    if(!l || !d) return;
     
     l.innerHTML = branches.map((b, i) => `<div class="branch-item ${i===idx?'active':''}" onclick="renderS(${i})"><h3>${b.name}</h3></div>`).join('');
     const b = branches[idx];
-    document.getElementById('detailView').innerHTML = `<div id="naverMap"></div><div class="biz-card"><h2>한빔한복 ${b.name}</h2><div class="info-row"><span class="info-lbl">위치</span><span>${b.addr}</span></div><div class="info-row"><span class="info-lbl">전화</span><span>${b.phone}</span></div></div><div class="btn-row"><a href="tel:${b.phone}" class="btn btn-navy">전화걸기</a><a href="${b.kakao}" target="_blank" class="btn btn-kakao">카톡상담</a><a href="${b.reserve}" target="_blank" class="btn btn-green">네이버예약</a><a href="https://map.naver.com/v5/search/${encodeURIComponent('한빔한복 '+b.name)}" target="_blank" class="btn btn-gold">위치 공유</a></div>`;
+    d.innerHTML = `<div id="naverMap" style="width:100%; height:450px; background:#eee; border-radius:12px;"></div><div class="biz-card"><h2>한빔한복 ${b.name}</h2><div class="info-row"><span class="info-lbl">위치</span><span>${b.addr}</span></div><div class="info-row"><span class="info-lbl">전화</span><span>${b.phone}</span></div></div><div class="btn-row"><a href="tel:${b.phone}" class="btn btn-navy">전화걸기</a><a href="${b.kakao}" target="_blank" class="btn btn-kakao">카톡상담</a><a href="${b.reserve}" target="_blank" class="btn btn-green">네이버예약</a><a href="https://map.naver.com/v5/search/${encodeURIComponent('한빔한복 '+b.name)}" target="_blank" class="btn btn-gold">위치 공유</a></div>`;
     
-    // 네이버 공식 문서 가이드 준수: 지도를 딱 한 번만 변수에 담아 마커와 공유
     setTimeout(() => {
-        const mapContainer = document.getElementById('naverMap');
-        if (window.naver && naver.maps && naver.maps.Map && mapContainer) {
-            const position = new naver.maps.LatLng(b.lat, b.lng);
-            const mapOptions = {
-                center: position,
-                zoom: 16
-            };
-            // [중요] 지도를 변수에 할당
-            const map = new naver.maps.Map(mapContainer, mapOptions);
-            // [중요] 마커에 위에서 만든 지도 변수를 할당 (이중 생성 방지)
-            new naver.maps.Marker({
-                position: position,
-                map: map
-            });
+        const mapC = document.getElementById('naverMap');
+        if (window.naver && naver.maps && mapC) {
+            const p = new naver.maps.LatLng(b.lat, b.lng);
+            // 지도 객체 단일 생성으로 인증 실패 원천 봉쇄
+            const mapObj = new naver.maps.Map(mapC, { center: p, zoom: 16 });
+            new naver.maps.Marker({ position: p, map: mapObj });
         }
-    }, 100);
+    }, 150);
 }
-
-// 초기 로딩 시 부산점 실행
-renderS(0);
+// ❌ 이 아래에 있던 renderS(0) 자동 실행 코드를 삭제했습니다.
+// ❌ index.html에서 통합 관리하므로 충돌이 발생하지 않습니다.
