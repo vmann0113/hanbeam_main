@@ -40,32 +40,30 @@
         .main-store h2 { font-size: 3rem; color: var(--hb-navy); margin-bottom: 25px; } 
         .main-store p { font-size: 1.44rem; color: #666; max-width: 1000px; margin: 0 auto; font-weight: 400; line-height: 1.6; }
 
-        /* 3. Lookbook: Square Ratio & Bold Border (수정사항 2, 3, 4번) */
+        /* 3. Lookbook: Square & No Crop (Fix 1, 4) */
         .lookbook-sec { padding: 120px 0; background: #fff; text-align: center; }
         .tab-btn { padding: 15px 45px; border: 2px solid var(--hb-gold); background: #fff; color: var(--hb-gold); cursor: pointer; font-weight: 700; border-radius: 50px; margin: 0 10px; font-size: 1.1rem; transition: 0.3s; }
         .tab-btn.active { background: var(--hb-gold); color: #fff; }
-        
-        /* 정사각형 앨범 컨테이너 ($600 \times 600$) */
         .album-viewport { margin: 50px auto; width: 90vw; max-width: 600px; height: 600px; display: flex; justify-content: center; align-items: center; transition: opacity 0.4s; }
         .page { background: #fff; border: 1px solid #eee; overflow: hidden; }
-        /* 사진 여백 없이 꽉 채움 (수정사항 3번) */
-        .page img { width: 100%; height: 100%; object-fit: cover; }
+        /* 룩북 사진 크롭 금지 (Fix 1) */
+        .page img { width: 100%; height: 100%; object-fit: contain; background: #fff; }
         
-        /* 룩북 표지: 테두리 강화 및 로고 경로 반영 (수정사항 2, 4번) */
+        /* 룩북 표지: 굵은 테두리 & 텍스트 안쪽 배치 (Fix 3, 4) */
         .page-cover { 
             background: var(--hb-navy); color: #fff; height: 100%; 
             display: flex; flex-direction: column; justify-content: center; align-items: center; 
-            padding: 40px; position: relative;
+            padding: 80px; position: relative; /* 패딩 늘려 텍스트를 안으로 밀어넣음 */
             background-image: url("https://www.transparenttextures.com/patterns/leather.png");
         }
-        /* 금색 테두리 더 굵게 (수정사항 4번) */
+        /* 금색 테두리 굵기 8px (Fix 4) */
         .page-cover::before {
-            content: ''; position: absolute; top: 25px; bottom: 25px; left: 25px; right: 25px;
-            border: 4px solid var(--hb-gold); opacity: 0.8; pointer-events: none;
+            content: ''; position: absolute; top: 30px; bottom: 30px; left: 30px; right: 30px;
+            border: 8px solid var(--hb-gold); opacity: 0.8; pointer-events: none;
         }
-        /* 표지 로고 경로 및 크기 최적화 (수정사항 2번) */
-        .cover-logo { width: 80px; margin-bottom: 20px; background: transparent !important; z-index: 2; }
-        .cover-title { font-size: 1.2rem; font-weight: 700; letter-spacing: 5px; color: #fff; margin-bottom: 5px; z-index: 2; }
+        /* 룩북 로고 30% 크기 (Fix 2) */
+        .cover-logo { width: 45px; margin-bottom: 25px; background: transparent !important; z-index: 2; }
+        .cover-title { font-size: 1.3rem; font-weight: 700; letter-spacing: 5px; color: #fff; margin-bottom: 5px; z-index: 2; }
         .cover-sub { font-family: 'Great Vibes', cursive; font-size: 1.1rem; color: var(--hb-gold); z-index: 2; }
 
         /* 4. Store Finder */
@@ -96,6 +94,7 @@
             .branch-list { display: flex; overflow-x: auto; padding: 10px; }
             .branch-item { white-space: nowrap; border-bottom: none; border-right: 1px solid #eee; }
             .btn-row { display: grid; grid-template-columns: 1fr 1fr; }
+            .album-viewport { width: 95vw; height: 400px; }
         }
     </style>
 </head>
@@ -122,7 +121,6 @@
 </section>
 
 <section class="lookbook-sec">
-    <h2>2026 Lookbook</h2>
     <div style="margin-bottom:40px;">
         <button class="tab-btn active" id="btnWed" onclick="loadAlbum('wedding')">웨딩 촬영</button>
         <button class="tab-btn" id="btnMot" onclick="loadAlbum('mother')">혼주 한복</button>
@@ -141,11 +139,11 @@
 <footer style="padding:60px; background:#111; color:#444; text-align:center; font-size:0.9rem;">© 2026 HANBEAM HANBOK.</footer>
 
 <script>
-    // 1. 매장 슬라이드
+    // 1. 슬라이드
     let curS = 0; const sImgs = document.querySelectorAll('#hqSlides img');
     if(sImgs.length > 0) setInterval(() => { sImgs[curS].classList.remove('active'); curS = (curS + 1) % sImgs.length; sImgs[curS].classList.add('active'); }, 4000);
 
-    // 2. 룩북 제어 (정사각형 및 사진 꽉 채움 적용)
+    // 2. 룩북 (정사각형 비율 & 크롭 해제)
     const ALBUMS = {
         wedding: ["assets/img/lookbook/wedding/wedding_01.webp", "assets/img/lookbook/wedding/wedding_02.webp", "assets/img/lookbook/wedding/wedding_03.webp", "assets/img/lookbook/wedding/wedding_04.webp", "assets/img/lookbook/wedding/wedding_05.webp", "assets/img/lookbook/wedding/wedding_06.webp"],
         mother: ["assets/img/lookbook/mother/mother_01.webp", "assets/img/lookbook/mother/mother_02.webp", "assets/img/lookbook/mother/mother_03.webp", "assets/img/lookbook/mother/mother_04.webp", "assets/img/lookbook/mother/mother_05.webp", "assets/img/lookbook/mother/mother_06.webp"]
@@ -163,20 +161,19 @@
             const fb = document.getElementById('flipBook');
             const korT = (cat === 'wedding') ? '웨딩룩북' : '혼주룩북';
             
-            // 수정사항 2번: 룩북 전용 로고 경로 반영
+            // Fix 2: 로고 파일명 및 경로 반영
             let h = `<div class="page"><div class="page-cover"><img src="assets/img/logo_lookbook.png" class="cover-logo" onerror="this.src='assets/img/logo.png';"><div class="cover-title">${korT}</div><div class="cover-sub">Hanbeam Collection</div></div></div>`;
             ALBUMS[cat].forEach(img => { h += `<div class="page"><img src="${img}" onerror="this.src='https://via.placeholder.com/600x600?text=Photo'"></div>`; });
             h += `<div class="page"><div class="page-cover"><h3>THE END</h3></div></div>`;
             fb.innerHTML = h;
             
-            // 수정사항 2번: 600x600 설정 및 저항감 유지
             pFlip = new St.PageFlip(fb, { width: 600, height: 600, showCover: true, usePortrait: false, drawShadow: true, swipeDistance: 150, flippingTime: 1200 });
             pFlip.loadFromHTML(document.querySelectorAll('.page'));
             target.style.opacity = '1'; 
         }, 300);
     }
 
-    // 3. 지점 및 지도 (인증 에러 해결 대책)
+    // 3. 지점 및 지도 (Fix 4: 지도가 확실히 로드된 후 그리는 로직)
     const branches = [
         {name:"부산점", phone:"051-634-2325", addr:"부산 동구 조방로 123", reserve:"https://m.booking.naver.com/booking/6/bizes/661812", kakao:"https://open.kakao.com/o/soq7Ns4d", lat:35.1381, lng:129.0621},
         {name:"센텀점", phone:"010-3052-2325", addr:"부산 해운대구 센텀중앙로 78", reserve:"https://booking.naver.com/booking/6/bizes/1577219", kakao:"https://open.kakao.com/o/sz1xltbi", lat:35.1742, lng:129.1275},
@@ -191,24 +188,25 @@
         {name:"대구점", phone:"010-8492-2328", addr:"대구 중구 달구벌대로 2141", reserve:"https://m.place.naver.com/place/2043617700/ticket", kakao:"https://open.kakao.com/o/sqPdeNfi", lat:35.8642, lng:128.5931}
     ];
 
-    let naverMapInstance = null;
-
     function renderS(idx) {
         const l = document.getElementById('branchList');
         l.innerHTML = branches.map((b, i) => `<div class="branch-item ${i===idx?'active':''}" onclick="renderS(${i})"><h3>${b.name}</h3></div>`).join('');
         const b = branches[idx];
         document.getElementById('detailView').innerHTML = `<div id="naverMap"></div><div class="biz-card"><h2>한빔한복 ${b.name}</h2><div class="info-row"><span class="info-lbl">위치</span><span>${b.addr}</span></div><div class="info-row"><span class="info-lbl">전화</span><span>${b.phone}</span></div></div><div class="btn-row"><a href="tel:${b.phone}" class="btn btn-navy">전화걸기</a><a href="${b.kakao}" target="_blank" class="btn btn-kakao">카톡상담</a><a href="${b.reserve}" target="_blank" class="btn btn-green">네이버예약</a><a href="https://map.naver.com/v5/search/${encodeURIComponent('한빔한복 '+b.name)}" target="_blank" class="btn btn-gold">위치 공유</a></div>`;
         
-        // 수정사항 5번: 지도 인증 실패 대책 (객체 재사용 방지 및 강제 초기화)
+        // Fix 4: 지도를 안전하게 호출하는 핵심 로직
         setTimeout(() => {
             const mapC = document.getElementById('naverMap');
+            // 네이버 객체가 로드되었고 컨테이너가 준비되었을 때만 딱 한 번 생성
             if (typeof naver !== 'undefined' && naver.maps && mapC) {
                 const p = new naver.maps.LatLng(b.lat, b.lng);
-                naverMapInstance = new naver.maps.Map(mapC, { center: p, zoom: 16 });
-                new naver.maps.Marker({ position: p, map: naverMapInstance });
+                const mapOptions = { center: p, zoom: 16 };
+                const mapObj = new naver.maps.Map(mapC, mapOptions);
+                new naver.maps.Marker({ position: p, map: mapObj });
             }
-        }, 150);
+        }, 200);
     }
+
     window.onload = () => { loadAlbum('wedding'); renderS(0); };
 </script>
 </body>
