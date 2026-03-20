@@ -51,26 +51,28 @@
         .page { background: #fff; cursor: pointer; }
         .page img { width: 100%; height: 100%; object-fit: contain; background: #fff; pointer-events: none; }
 
-        /* 4. Store Finder (디자인 복구) */
+        /* 4. Store Finder */
         .finder-sec { display: flex; flex-direction: row; border-top: 1px solid #eee; background: #fff; min-height: 750px; }
         .sidebar { width: 300px; border-right: 1px solid #eee; display: flex; flex-direction: column; background: #fff; }
         .sidebar-header { padding: 30px 25px 10px; text-align: right; }
         .sidebar-header h2 { font-size: 1.4rem; margin: 0; color: var(--hb-navy); }
         .branch-list { flex: 1; overflow-y: hidden; }
-        .branch-item { padding: 10px 25px; cursor: pointer; text-align: right; border-bottom: 1px solid #f9f9f9; transition: 0.2s; }
+        .branch-item { padding: 12px 25px; cursor: pointer; text-align: right; border-bottom: 1px solid #f9f9f9; transition: 0.2s; }
         .branch-item h3 { margin: 0; font-size: 1.05rem; font-weight: 400; color: #888; }
-        .branch-item.active { background: var(--hb-navy); color: #fff; }
+        .branch-item.active { background: var(--hb-navy); padding-right: 35px; color:#fff; }
         .branch-item.active h3 { color: #fff; font-weight: 700; }
         .detail-area { flex: 1; background: var(--hb-bg); padding: 30px; }
-        #naverMap { width: 100%; height: 400px; border-radius: 12px; margin-bottom: 20px; border: 1px solid #ddd; background: #eee; }
+        #naverMap { width: 100%; height: 400px; border-radius: 12px; margin-bottom: 20px; border: 1px solid #ddd; }
         
         .biz-card { background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); text-align: left; }
         .biz-card h2 { font-size: 2rem; color: var(--hb-navy); border-bottom: 2px solid var(--hb-gold); padding-bottom: 10px; margin-bottom: 20px; }
         .info-row { display: flex; margin-bottom: 12px; font-size: 1.1rem; }
-        .info-lbl { width: 100px; font-weight: 700; color: #888; }
-        .btn-row { display: flex; gap: 10px; margin-top: 25px; }
-        .btn { flex: 1; padding: 15px 5px; text-align: center; border-radius: 8px; font-weight: 700; font-size: 1.2rem; text-decoration: none; color: #fff; }
+        .info-lbl { width: 80px; font-weight: 700; color: #888; }
+        .btn-row { display: flex; gap: 10px; margin-top: 25px; flex-wrap: wrap; }
+        .btn { flex: 1; min-width: 120px; padding: 15px 5px; text-align: center; border-radius: 8px; font-weight: 700; font-size: 1.1rem; text-decoration: none; color: #fff; transition: 0.3s; }
         .btn-navy { background: var(--hb-navy); }
+        .btn-kakao { background: #FEE500; color: #3C1E1E; }
+        .btn-green { background: #03C75A; }
         .btn-gold { background: var(--hb-gold); }
 
         @media (max-width: 768px) {
@@ -81,11 +83,11 @@
             .main-store p { font-size: 1.1rem; }
             .album-viewport { height: 450px; margin: 20px auto; }
             .finder-sec { flex-direction: column; min-height: auto; }
-            .sidebar { width: 100%; }
-            .branch-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 15px; }
+            .sidebar { width: 100%; border-right: none; }
+            .branch-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 15px; overflow-y: visible; }
             .branch-item { padding: 12px 5px; text-align: center; border: 1px solid #eee; border-radius: 8px; }
+            .branch-item.active { padding-right: 5px; }
             #naverMap { height: 300px; }
-            .btn-row { display: grid; grid-template-columns: 1fr 1fr; }
         }
     </style>
 </head>
@@ -123,7 +125,7 @@
 
 <section class="finder-sec">
     <aside class="sidebar">
-        <div class="sidebar-header"><h2>지점 선택</h2></div>
+        <div class="sidebar-header"><h2>지점 안내</h2></div>
         <div class="branch-list" id="branchList"></div>
     </aside>
     <main class="detail-area" id="detailView">
@@ -135,11 +137,11 @@
 <footer style="padding:40px 20px; background:#111; color:#444; text-align:center; font-size:0.8rem;">© 2026 HANBEAM HANBOK.</footer>
 
 <script>
-    // 1. 매장 슬라이드
+    /* 1. 매장 슬라이드 */
     let curS = 0; const sImgs = document.querySelectorAll('#hqSlides img');
     if(sImgs.length > 0) setInterval(() => { sImgs[curS].classList.remove('active'); curS = (curS + 1) % sImgs.length; sImgs[curS].classList.add('active'); }, 4000);
 
-    // 2. 룩북 암전 감지
+    /* 2. 룩북 암전 감지 */
     const lbSec = document.querySelector('.lookbook-sec');
     window.addEventListener('scroll', () => {
         const rect = lbSec.getBoundingClientRect();
@@ -150,7 +152,7 @@
         }
     });
 
-    // 3. 룩북 로직
+    /* 3. 룩북 로직 (수정 완료) */
     const ALBUM_CONFIG = {
         wedding: { path: "assets/img/lookbook/wedding/wedding_", count: 5 },
         mother: { path: "assets/img/lookbook/mother/mother_", count: 6 }
@@ -161,122 +163,54 @@
         const target = document.getElementById('albumTarget');
         const guide = document.getElementById('lookbookGuide');
         const isMobile = window.innerWidth <= 768;
-        target.style.opacity = '0';
+        
+        target.style.opacity = '1';
         guide.innerText = isMobile ? "터치해서 넘겨보세요" : "옆으로 넘겨보세요";
 
-        setTimeout(() => {
-            document.getElementById('btnWed').className = (cat==='wedding' ? 'tab-btn active' : 'tab-btn');
-            document.getElementById('btnMot').className = (cat==='mother' ? 'tab-btn active' : 'tab-btn');
-            if(pFlip) { pFlip.destroy(); pFlip = null; }
-            target.innerHTML = '<div id="flipBook"></div>';
-            
-            const fb = document.getElementById('flipBook');
-            const cfg = ALBUM_CONFIG[cat];
-            const renderSet = () => {
-                let s = '';
-                for(let i=1; i <= cfg.count; i++) {
-                    let num = i < 10 ? '0' + i : i;
-                    s += `<div class="page" onclick="handlePageClick()"><img src="${cfg.path}${num}.webp"></div>`;
-                }
-                if(!isMobile && (cfg.count % 2 !== 0)) {
-                    s += `<div class="page" onclick="handlePageClick()"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></div>`;
-                }
-                return s;
-            };
-            fb.innerHTML = renderSet() + renderSet() + renderSet();
-            const baseCount = (!isMobile && (cfg.count % 2 !== 0)) ? cfg.count + 1 : cfg.count;
+        if(pFlip) { pFlip.destroy(); pFlip = null; }
+        target.innerHTML = '<div id="flipBook"></div>';
+        
+        const fb = document.getElementById('flipBook');
+        const cfg = ALBUM_CONFIG[cat];
+        
+        const renderSet = () => {
+            let s = '';
+            for(let i=1; i <= cfg.count; i++) {
+                let num = i < 10 ? '0' + i : i;
+                s += `<div class="page" onclick="handlePageClick()"><img src="${cfg.path}${num}.webp"></div>`;
+            }
+            if(!isMobile && (cfg.count % 2 !== 0)) {
+                s += `<div class="page" onclick="handlePageClick()"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></div>`;
+            }
+            return s;
+        };
+        
+        fb.innerHTML = renderSet() + renderSet() + renderSet();
+        const baseCount = (!isMobile && (cfg.count % 2 !== 0)) ? cfg.count + 1 : cfg.count;
 
-            pFlip = new St.PageFlip(fb, { 
-                width: isMobile ? 320 : 850, 
-                height: isMobile ? 450 : 850, 
-                showCover: false, usePortrait: isMobile, drawShadow: true, flippingTime: 800,
-                startPage: baseCount, clickEventForward: false, swipeDistance: 30, showPageCorners: false, mobileScrollSupport: true
-            });
-            pFlip.loadFromHTML(document.querySelectorAll('.page'));
-            pFlip.on('flip', (e) => {
-                const total = baseCount * 3;
-                if (e.data >= total - (isMobile ? 1 : 2)) {
-                    setTimeout(() => { pFlip.turnToPage(baseCount); }, 100);
-                }
-                if (e.data < 1) {
-                    setTimeout(() => { pFlip.turnToPage(baseCount); }, 100);
-                }
-            });
-            target.style.opacity = '1'; 
-        }, 300);
+        pFlip = new St.PageFlip(fb, { 
+            width: isMobile ? 320 : 850, height: isMobile ? 450 : 850, 
+            showCover: false, usePortrait: isMobile, drawShadow: true, flippingTime: 800,
+            startPage: baseCount, clickEventForward: isMobile, swipeDistance: 30, showPageCorners: false, mobileScrollSupport: true
+        });
+        pFlip.loadFromHTML(document.querySelectorAll('.page'));
+        
+        pFlip.on('flip', (e) => {
+            const total = baseCount * 3;
+            if (e.data >= total - (isMobile ? 1 : 2)) {
+                setTimeout(() => { pFlip.turnToPage(baseCount); }, 100);
+            }
+            if (e.data < 1) {
+                setTimeout(() => { pFlip.turnToPage(baseCount); }, 100);
+            }
+        });
     }
     function handlePageClick() { if(pFlip) pFlip.flipNext(); }
 
-    // 4. 지점 리스트 & 상세페이지 데이터 및 로직 복구 (중요!)
-    const branches = [
-        { id: 'hq', name: '종로 본점', addr: '서울 종로구 종로 183 2층', tel: '02-747-3533', lat: 37.5714, lng: 126.9992 },
-        { id: 'gn', name: '강남점', addr: '서울 강남구 학동로 335', tel: '02-517-5757', lat: 37.5186, lng: 127.0375 },
-        { id: 'Incheon', name: '인천점', addr: '인천 부평구 부평대로 151', tel: '032-513-5533', lat: 37.4975, lng: 126.7212 },
-        { id: 'Bucheon', name: '부천점', addr: '경기 부천시 송내대로 265', tel: '032-328-5533', lat: 37.5025, lng: 126.7621 },
-        { id: 'Suwon', name: '수원점', addr: '경기 수원시 팔달구 효원로 295', tel: '031-233-5533', lat: 37.2628, lng: 127.0287 },
-        { id: 'Daejeon', name: '대전점', addr: '대전 서구 문정로 78', tel: '042-487-3533', lat: 36.3482, lng: 127.3892 },
-        { id: 'Gwangju', name: '광주점', addr: '광주 서구 상무중앙로 42', tel: '062-383-3533', lat: 35.1481, lng: 126.8482 },
-        { id: 'Busan', name: '부산점', addr: '부산 수영구 광남로 72', tel: '051-757-3533', lat: 35.1501, lng: 129.1142 },
-        { id: 'Jinju', name: '진주점', addr: '경남 진주시 진주대로 918', tel: '055-752-3533', lat: 35.1782, lng: 128.0921 },
-        { id: 'Changwon', name: '창원점', addr: '경남 창원시 성산구 중앙대로 105', tel: '055-285-3533', lat: 35.2232, lng: 128.6782 },
-        { id: 'Jeju', name: '제주점', addr: '제주 제주시 노연로 80', tel: '064-747-3533', lat: 33.4851, lng: 126.4882 }
-    ];
-
-    let map = null;
-    let marker = null;
-
-    function renderBranchList() {
-        const listEl = document.getElementById('branchList');
-        listEl.innerHTML = branches.map((b, idx) => `
-            <div class="branch-item ${idx===0?'active':''}" onclick="selectBranch('${b.id}')">
-                <h3>${b.name}</h3>
-            </div>
-        `).join('');
-    }
-
-    function selectBranch(id) {
-        const b = branches.find(item => item.id === id);
-        document.querySelectorAll('.branch-item').forEach(el => {
-            el.classList.toggle('active', el.innerText.includes(b.name));
-        });
-
-        // 지도 이동
-        const moveLatLon = new naver.maps.LatLng(b.lat, b.lng);
-        map.panTo(moveLatLon);
-        marker.setPosition(moveLatLon);
-
-        // 상세정보 업데이트
-        document.getElementById('branchInfoBox').innerHTML = `
-            <div class="biz-card">
-                <h2>${b.name}</h2>
-                <div class="info-row"><div class="info-lbl">주소</div><div>${b.addr}</div></div>
-                <div class="info-row"><div class="info-lbl">전화</div><div>${b.tel}</div></div>
-                <div class="btn-row">
-                    <a href="tel:${b.tel}" class="btn btn-navy">전화 예약</a>
-                    <a href="https://map.naver.com/v5/search/${encodeURIComponent(b.name + ' 한빔한복')}" target="_blank" class="btn btn-gold">길찾기</a>
-                </div>
-            </div>
-        `;
-    }
-
-    function initMap() {
-        const hq = branches[0];
-        map = new naver.maps.Map('naverMap', {
-            center: new naver.maps.LatLng(hq.lat, hq.lng),
-            zoom: 16
-        });
-        marker = new naver.maps.Marker({
-            position: new naver.maps.LatLng(hq.lat, hq.lng),
-            map: map
-        });
-        selectBranch(hq.id);
-    }
-
-    window.onload = () => {
-        loadAlbum('wedding');
-        renderBranchList();
-        initMap();
-    };
+    window.onload = () => { loadAlbum('wedding'); };
+    window.onresize = () => { loadAlbum(document.getElementById('btnWed').classList.contains('active') ? 'wedding' : 'mother'); };
 </script>
+
+<script src="map-logic.js"></script>
 </body>
 </html>
