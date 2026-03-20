@@ -15,7 +15,7 @@
         * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
         body { margin: 0; font-family: 'Pretendard', sans-serif; background: #fff; color: #333; overflow-x: hidden; }
 
-        /* 1. Hero: Title 30% UP & Logo Layout */
+        /* 1. Hero: Title 30% UP & No English Name */
         .hero { height: 100vh; background: linear-gradient(135deg, var(--hb-navy), var(--hb-navy-light), var(--hb-navy)); color: #fff; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative; overflow: hidden; }
         .hero::after { 
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
@@ -25,72 +25,69 @@
         @keyframes patternWave { from { background-position: 0 0; } to { background-position: 1000px 500px; } }
         
         .hero-content { z-index: 10; padding: 20px; width: 100%; }
-        
-        /* 로고 크기 픽스 */
         .logo-area { width: 500px; margin: 0 auto 50px; display: flex; justify-content: center; }
         .logo-area img { width: 100%; height: auto; display: block; }
 
-        /* 대한민국 한복의 기준 30% 키움 */
-        .hero h1 { font-size: clamp(3rem, 7.5vw, 6rem); font-weight: 200; margin: 0; white-space: nowrap; }
+        /* 대한민국 한복의 기준 30% 추가 확대 */
+        .hero h1 { font-size: clamp(4rem, 8vw, 7.5rem); font-weight: 200; margin: 0; white-space: nowrap; }
         .hero h1 b { font-weight: 700; color: var(--hb-gold); }
-        .hero .sub-text { margin-top: 30px; font-size: 1.3rem; opacity: 0.6; letter-spacing: 3px; }
+        .hero .sub-text { margin-top: 30px; font-size: 1.4rem; opacity: 0.6; letter-spacing: 4px; }
 
-        /* 2. Main Store Slideshow */
+        /* 2. Video: Alignment Fix */
+        .video-sec { width: 100vw; height: 75vh; background: #000; overflow: hidden; display: flex; justify-content: center; align-items: center; }
+        .video-sec video { width: 100%; height: 100%; object-fit: cover; }
+
+        /* 3. Main Store */
         .main-store { padding: 120px 20px; background: var(--hb-bg); text-align: center; }
         .hq-slideshow { max-width: 1500px; margin: 0 auto 60px; height: 850px; position: relative; border-radius: 4px; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.15); }
         .hq-slideshow img { position: absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity: 0; transition: opacity 2s ease-in-out; }
         .hq-slideshow img.active { opacity: 1; }
         .main-store h2 { font-size: 3.2rem; color: var(--hb-navy); margin-bottom: 25px; }
 
-        /* 3. Lookbook: Bug Fix & Cover Texture */
+        /* 4. Lookbook: Flash Fix & Small Logo */
         .lookbook-sec { padding: 120px 0; background: #fff; text-align: center; }
-        .tab-btn { padding: 15px 45px; border: 2px solid var(--hb-gold); background: #fff; color: var(--hb-gold); cursor: pointer; font-weight: 700; border-radius: 50px; margin: 0 10px; transition: 0.3s; }
-        .tab-btn.active { background: var(--hb-gold); color: #fff; }
+        .album-viewport { margin: 50px auto; width: 90vw; max-width: 1100px; height: 800px; display: flex; justify-content: center; align-items: center; transition: opacity 0.3s; }
+        .page { background: #fff; border: 1px solid #eee; overflow: hidden; backface-visibility: hidden; }
         
-        .album-viewport { margin: 50px auto; width: 90vw; max-width: 1100px; height: 800px; display: flex; justify-content: center; align-items: center; }
-        .page { background: #fff; border: 1px solid #eee; overflow: hidden; box-shadow: inset -5px 0 30px rgba(0,0,0,0.05); }
-        .page img { width: 100%; height: 100%; object-fit: cover; -webkit-user-drag: none; }
-        
-        /* 룩북 표지 개선 */
         .page-cover { 
             background: var(--hb-navy); color: #fff; height: 100%; 
             display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px;
-            background-image: url("https://www.transparenttextures.com/patterns/leather.png"); /* 질감 */
+            background-image: url("https://www.transparenttextures.com/patterns/leather.png");
         }
-        .cover-logo { width: 60px; margin-bottom: 30px; opacity: 0.8; }
-        .cover-title { font-size: 2.2rem; font-weight: 700; letter-spacing: 5px; margin-bottom: 5px; }
-        .cover-sub { font-family: 'Great Vibes', cursive; font-size: 2.4rem; color: var(--hb-gold); }
+        /* 표지 로고 10% 미만으로 축소 */
+        .cover-logo { width: 40px; margin-bottom: 25px; opacity: 0.7; }
+        .cover-title { font-size: 2.2rem; font-weight: 700; letter-spacing: 5px; }
+        .cover-sub { font-family: 'Great Vibes', cursive; font-size: 2.4rem; color: var(--hb-gold); margin-top: 10px; }
 
-        /* 4. Store Finder: Button 50% UP */
+        /* 5. Store Finder: Compact List & Slim Buttons */
         .finder-sec { display: flex; height: 85vh; border-top: 1px solid #eee; background: #fff; }
         .sidebar { width: 320px; border-right: 1px solid #eee; display: flex; flex-direction: column; }
-        .sidebar-header { padding: 40px 30px 15px; text-align: right; }
-        .branch-item { padding: 15px 30px; cursor: pointer; text-align: right; border-bottom: 1px solid #f9f9f9; }
-        .branch-item.active { background: var(--hb-navy); color: #fff; border-radius: 0 50px 50px 0; padding-right: 40px; font-weight: 700; }
+        .branch-list { flex: 1; overflow-y: hidden; }
+        .branch-item { padding: 6px 30px; cursor: pointer; text-align: right; border-bottom: 1px solid #f9f9f9; }
+        .branch-item.active { background: var(--hb-navy); color: #fff; padding-right: 40px; font-weight: 700; }
         
         .detail-area { flex: 1; background: var(--hb-bg); padding: 50px; overflow-y: auto; }
         #naverMap { width: 100%; height: 450px; border-radius: 12px; margin-bottom: 30px; border: 1px solid #ddd; background: #eee; }
         
-        .biz-card { background: #fff; padding: 35px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); margin-bottom: 30px; }
-        .biz-card h2 { font-size: 2.2rem; color: var(--hb-navy); margin: 0 0 20px 0; border-bottom: 2px solid var(--hb-gold); padding-bottom: 15px; }
+        .biz-card { background: #fff; padding: 35px; border-radius: 12px; margin-bottom: 30px; }
+        .biz-card h2 { font-size: 2.2rem; color: var(--hb-navy); border-bottom: 2px solid var(--hb-gold); padding-bottom: 15px; }
         
-        /* 버튼 텍스트 50% 확대 (최종) */
+        /* 버튼 크기는 크게, 높이는 슬림하게 */
         .btn-row { display: flex; gap: 15px; }
-        .btn { flex: 1; padding: 25px 5px; text-align: center; border-radius: 10px; font-weight: 700; font-size: 1.5rem; text-decoration: none; transition: 0.3s; }
+        .btn { flex: 1; padding: 15px 5px; text-align: center; border-radius: 8px; font-weight: 700; font-size: 1.5rem; text-decoration: none; transition: 0.3s; }
         .btn-navy { background: var(--hb-navy); color: #fff; }
         .btn-kakao { background: #FEE500; color: #3C1E1E; }
         .btn-green { background: #03C75A; color: #fff; }
         .btn-gold { background: var(--hb-gold); color: #fff; }
 
         @media (max-width: 1024px) {
-            .hero h1 { font-size: 2.8rem; white-space: normal; }
+            .hero h1 { font-size: 3rem; white-space: normal; }
             .logo-area { width: 85%; }
-            .hq-slideshow { height: 450px; }
             .finder-sec { flex-direction: column; height: auto; }
             .sidebar { width: 100%; }
             .branch-list { display: flex; overflow-x: auto; padding: 10px; }
             .btn-row { display: grid; grid-template-columns: 1fr; }
-            .btn { font-size: 1.2rem; padding: 20px; }
+            .btn { font-size: 1.3rem; padding: 15px; }
         }
     </style>
 </head>
@@ -122,13 +119,11 @@
 
 <section class="lookbook-sec">
     <h2>2026 Lookbook</h2>
-    <div class="tab-group">
+    <div style="margin-bottom:40px;">
         <button class="tab-btn active" id="btnWed" onclick="loadAlbum('wedding')">웨딩 촬영</button>
         <button class="tab-btn" id="btnMot" onclick="loadAlbum('mother')">혼주 한복</button>
     </div>
-    <div class="album-viewport" id="albumTarget">
-        <div id="flipBook"></div>
-    </div>
+    <div class="album-viewport" id="albumTarget"><div id="flipBook"></div></div>
 </section>
 
 <section class="finder-sec">
@@ -146,7 +141,7 @@
     let curS = 0; const sImgs = document.querySelectorAll('#hqSlides img');
     if(sImgs.length > 0) setInterval(() => { sImgs[curS].classList.remove('active'); curS = (curS + 1) % sImgs.length; sImgs[curS].classList.add('active'); }, 4000);
 
-    // 2. 룩북 제어 (완전 재설계)
+    // 2. 룩북 제어 (Flash 방지 로직)
     const ALBUMS = {
         wedding: ["assets/img/lookbook/wedding/wedding_01.webp", "assets/img/lookbook/wedding/wedding_02.webp", "assets/img/lookbook/wedding/wedding_03.webp", "assets/img/lookbook/wedding/wedding_04.webp"],
         mother: ["assets/img/lookbook/mother/mother_01.webp", "assets/img/lookbook/mother/mother_02.webp", "assets/img/lookbook/mother/mother_03.webp", "assets/img/lookbook/mother/mother_04.webp"]
@@ -155,37 +150,34 @@
     let pFlip = null;
 
     function loadAlbum(cat) {
-        // UI 업데이트
-        document.getElementById('btnWed').classList.toggle('active', cat==='wedding');
-        document.getElementById('btnMot').classList.toggle('active', cat==='mother');
-
-        // 기존 앨범 파괴 및 DOM 초기화
         const target = document.getElementById('albumTarget');
-        if(pFlip) { pFlip.destroy(); pFlip = null; }
-        target.innerHTML = '<div id="flipBook"></div>';
-        
-        const fb = document.getElementById('flipBook');
-        let h = `<div class="page"><div class="page-cover">
-                    <img src="assets/img/logo.png" class="cover-logo" onerror="this.style.display='none'">
-                    <div class="cover-title">${cat.toUpperCase()}</div>
-                    <div class="cover-sub">Collection</div>
-                </div></div>`;
-        
-        ALBUMS[cat].forEach(img => { h += `<div class="page"><img src="${img}" onerror="this.src='https://via.placeholder.com/550x800?text=Hanbeam+Photo'"></div>`; });
-        h += `<div class="page"><div class="page-cover"><h3>THE END</h3></div></div>`;
-        fb.innerHTML = h;
+        target.style.opacity = '0'; // 애니메이션 시작
 
-        // 지연 실행 (DOM 렌더링 시간 확보)
         setTimeout(() => {
-            pFlip = new St.PageFlip(fb, { 
-                width: 550, height: 800, showCover: true, 
-                usePortrait: false, drawShadow: true, flippingTime: 1000
-            });
+            document.getElementById('btnWed').classList.toggle('active', cat==='wedding');
+            document.getElementById('btnMot').classList.toggle('active', cat==='mother');
+
+            if(pFlip) { pFlip.destroy(); pFlip = null; }
+            target.innerHTML = '<div id="flipBook"></div>';
+            
+            const fb = document.getElementById('flipBook');
+            let h = `<div class="page"><div class="page-cover">
+                        <img src="assets/img/logo.png" class="cover-logo" onerror="this.style.display='none'">
+                        <div class="cover-title">${cat.toUpperCase()}</div>
+                        <div class="cover-sub">Collection</div>
+                    </div></div>`;
+            
+            ALBUMS[cat].forEach(img => { h += `<div class="page"><img src="${img}" onerror="this.src='https://via.placeholder.com/550x800?text=Hanbeam'"></div>`; });
+            h += `<div class="page"><div class="page-cover"><h3>THE END</h3></div></div>`;
+            fb.innerHTML = h;
+
+            pFlip = new St.PageFlip(fb, { width: 550, height: 800, showCover: true, usePortrait: false, drawShadow: true });
             pFlip.loadFromHTML(document.querySelectorAll('.page'));
-        }, 200);
+            target.style.opacity = '1'; // 다시 나타남
+        }, 300);
     }
 
-    // 3. 지점 및 지도 (네이버 지도 강제 로드 로직)
+    // 3. 지점 및 지도 (네이버 지도 최종 픽스)
     const branches = [
         {name:"부산점", phone:"051-634-2325", addr:"부산 동구 조방로 123", reserve:"https://m.booking.naver.com/booking/6/bizes/661812", kakao:"https://open.kakao.com/o/soq7Ns4d", lat:35.1381, lng:129.0621},
         {name:"센텀점", phone:"010-3052-2325", addr:"부산 해운대구 센텀중앙로 78", reserve:"https://booking.naver.com/booking/6/bizes/1577219", kakao:"https://open.kakao.com/o/sz1xltbi", lat:35.1742, lng:129.1275},
@@ -218,22 +210,21 @@
                 <a href="https://map.naver.com/v5/search/${encodeURIComponent('한빔한복 '+b.name)}" target="_blank" class="btn btn-gold">위치 공유</a>
             </div>
         `;
-        checkNaverAndInit(b.lat, b.lng);
+        initNaverMap(b.lat, b.lng);
     }
 
-    // 지도 로드 감시 함수 (핵심! ⭐)
-    function checkNaverAndInit(lat, lng) {
-        const mapArea = document.getElementById('naverMap');
-        if (!mapArea) return;
-
-        if (typeof naver !== 'undefined' && naver.maps && naver.maps.Map) {
-            const p = new naver.maps.LatLng(lat, lng);
-            const map = new naver.maps.Map(mapArea, { center: p, zoom: 16 });
-            new naver.maps.Marker({ position: p, map: map });
-        } else {
-            // 아직 네이버 객체가 없으면 0.2초 후 다시 시도
-            setTimeout(() => checkNaverAndInit(lat, lng), 200);
-        }
+    function initNaverMap(lat, lng) {
+        const checkExist = setInterval(function() {
+            if (typeof naver !== 'undefined' && naver.maps && naver.maps.Map) {
+                const mapContainer = document.getElementById('naverMap');
+                if (mapContainer) {
+                    const p = new naver.maps.LatLng(lat, lng);
+                    const map = new naver.maps.Map(mapContainer, { center: p, zoom: 16 });
+                    new naver.maps.Marker({ position: p, map: map });
+                    clearInterval(checkExist);
+                }
+            }
+        }, 100);
     }
 
     window.onload = () => { loadAlbum('wedding'); renderS(0); };
