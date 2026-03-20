@@ -1,4 +1,6 @@
-// 1. 데이터 선언 (이 부분이 없어서 ReferenceError가 발생했던 것입니다)
+/**
+ * 한빔한복 지점 안내 및 네이버 지도 로직 (독립 실행형)
+ */
 const branches = [
     {name:"부산점", phone:"051-634-2325", addr:"부산 동구 조방로 123", reserve:"https://m.booking.naver.com/booking/6/bizes/661812", kakao:"https://open.kakao.com/o/soq7Ns4d", lat:35.1381, lng:129.0621},
     {name:"센텀점", phone:"010-3052-2325", addr:"부산 해운대구 센텀중앙로 78", reserve:"https://booking.naver.com/booking/6/bizes/1577219", kakao:"https://open.kakao.com/o/sz1xltbi", lat:35.1742, lng:129.1275},
@@ -16,22 +18,50 @@ const branches = [
 let mapObj = null;
 let marker = null;
 
+// [독립 실행] index.html에서 호출하지 않아도 스스로 실행됩니다.
+window.addEventListener('load', () => {
+    // 0.5초 정도 지연을 주어 DOM과 네이버 인증이 완벽히 끝난 후 첫 지점을 그립니다.
+    setTimeout(() => {
+        if (typeof naver !== 'undefined') {
+            renderS(0);
+        } else {
+            console.error("네이버 지도 SDK가 로드되지 않았습니다. Client ID와 서비스 URL을 확인하세요.");
+        }
+    }, 500);
+});
+
 function renderS(idx) {
     const b = branches[idx];
     const listEl = document.getElementById('branchList');
-    const infoBox = document.getElementById('branchInfoBox');
-    const mapContainer = document.getElementById('naverMap');
+    const detailEl = document.getElementById('detailView');
 
-    if (!listEl || !infoBox || !mapContainer) return;
+    if (!listEl || !detailEl) return;
 
-    // 1. 리스트 활성화 UI
+    // 1. 왼쪽 리스트 업데이트
     listEl.innerHTML = branches.map((item, i) => `
         <div class="branch-item ${i === idx ? 'active' : ''}" onclick="renderS(${i})">
             <h3>${item.name}</h3>
         </div>
     `).join('');
 
-    // 2. 상세정보 텍스트 업데이트
+    /**
+     * [레이아웃 해결 핵심] 
+     * detailView의 내용을 싹 지우지 않고, 
+     * '지도 상자'가 없으면 새로 만들고, 있으면 내용만 바꿉니다.
+     */
+    let mapContainer = document.getElementById('naverMap');
+    let infoBox = document.getElementById('branchInfoBox');
+
+    if (!mapContainer) {
+        detailEl.innerHTML = `
+            <div id="naverMap" style="width:100%; height:450px; border-radius:12px; margin-bottom:30px; border: 1px solid #ddd; background: #eee;"></div>
+            <div id="branchInfoBox"></div>
+        `;
+        mapContainer = document.getElementById('naverMap');
+        infoBox = document.getElementById('branchInfoBox');
+    }
+
+    // 2. 우측 텍스트 정보 업데이트
     infoBox.innerHTML = `
         <div class="biz-card">
             <h2>한빔한복 ${b.name}</h2>
@@ -46,11 +76,10 @@ function renderS(idx) {
         </div>
     `;
 
-    // 3. 네이버 지도 로직
+    // 3. 지도 초기화 및 이동
     const p = new naver.maps.LatLng(b.lat, b.lng);
 
     if (!mapObj) {
-        // 처음 한 번만 생성
         mapObj = new naver.maps.Map(mapContainer, {
             center: p,
             zoom: 16
@@ -60,10 +89,9 @@ function renderS(idx) {
             map: mapObj
         });
     } else {
-        // 위치만 이동 (매우 빠름)
         mapObj.setCenter(p);
         marker.setPosition(p);
         // 레이아웃 보정
-        setTimeout(() => { mapObj.autoResize(); }, 100);
+        setTimeout(() => { mapObj.autoResize(); }, 200);
     }
 }
