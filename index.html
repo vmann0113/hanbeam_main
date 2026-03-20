@@ -122,20 +122,13 @@
 
 <script>
     // 1. 매장 슬라이드 (보존)
-    let curS = 0; 
-    const sImgs = document.querySelectorAll('#hqSlides img');
-    if(sImgs.length > 0) {
-        setInterval(() => { 
-            sImgs[curS].classList.remove('active'); 
-            curS = (curS + 1) % sImgs.length; 
-            sImgs[curS].classList.add('active'); 
-        }, 4000);
-    }
+    let curS = 0; const sImgs = document.querySelectorAll('#hqSlides img');
+    if(sImgs.length > 0) setInterval(() => { sImgs[curS].classList.remove('active'); curS = (curS + 1) % sImgs.length; sImgs[curS].classList.add('active'); }, 4000);
 
-    // 2. 룩북 무한 루프 (보존)
-    const ALBUMS = {
-        wedding: ["assets/img/lookbook/wedding/wedding_01.webp", "assets/img/lookbook/wedding/wedding_02.webp", "assets/img/lookbook/wedding/wedding_03.webp", "assets/img/lookbook/wedding/wedding_04.webp", "assets/img/lookbook/wedding/wedding_05.webp", "assets/img/lookbook/wedding/wedding_06.webp"],
-        mother: ["assets/img/lookbook/mother/mother_01.webp", "assets/img/lookbook/mother/mother_02.webp", "assets/img/lookbook/mother/mother_03.webp", "assets/img/lookbook/mother/mother_04.webp", "assets/img/lookbook/mother/mother_05.webp", "assets/img/lookbook/mother/mother_06.webp"]
+    // 2. 룩북 가변형 로직 (수정: 숫자만 바꾸면 자동 생성)
+    const ALBUM_CONFIG = {
+        wedding: { path: "assets/img/lookbook/wedding/wedding_", count: 5 }, // ⬅️ 사진이 늘어나면 이 숫자만 수정하세요
+        mother: { path: "assets/img/lookbook/mother/mother_", count: 6 }
     };
 
     let pFlip = null;
@@ -143,35 +136,47 @@
         const target = document.getElementById('albumTarget');
         if(!target) return;
         target.style.opacity = '0';
+        
         setTimeout(() => {
             document.getElementById('btnWed').className = (cat==='wedding' ? 'tab-btn active' : 'tab-btn');
             document.getElementById('btnMot').className = (cat==='mother' ? 'tab-btn active' : 'tab-btn');
             if(pFlip) { pFlip.destroy(); pFlip = null; }
             target.innerHTML = '<div id="flipBook"></div>';
-            const fb = document.getElementById('flipBook');
-            const arr = ALBUMS[cat];
             
-            // 이미지 자동 복제 무한 루프
+            const fb = document.getElementById('flipBook');
+            const cfg = ALBUM_CONFIG[cat];
+            let arr = [];
+            
+            // 파일 리스트 자동 생성 (01, 02... 형식)
+            for(let i=1; i <= cfg.count; i++) {
+                let num = i < 10 ? '0' + i : i;
+                arr.push(`${cfg.path}${num}.webp`);
+            }
+            
+            // [수정] 홀수면 로고 대신 빈 종이(투명 픽셀) 추가
+            if (arr.length % 2 !== 0) {
+                arr.push("data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7");
+            }
+            
             const totalSet = [...arr, ...arr, ...arr]; 
             let h = '';
             totalSet.forEach(img => { 
-                h += `<div class="page"><img src="${img}" onerror="this.onerror=null; this.src='assets/img/logo.png';"></div>`; 
+                h += `<div class="page"><img src="${img}" style="background:#fff;" onerror="this.style.display='none';"></div>`; 
             });
             fb.innerHTML = h;
             
-            pFlip = new St.PageFlip(fb, { 
-                width: 850, height: 850, showCover: false, usePortrait: false, 
-                drawShadow: true, swipeDistance: 150, flippingTime: 1200 
-            });
+            pFlip = new St.PageFlip(fb, { width: 850, height: 850, showCover: false, usePortrait: false, drawShadow: true, swipeDistance: 150, flippingTime: 1200 });
             pFlip.loadFromHTML(document.querySelectorAll('.page'));
             target.style.opacity = '1'; 
         }, 300);
     }
 
-    // 초기 실행 (룩북 시작)
+    // 🏆 [실행부 통합] 명령은 여기서 딱 한 번만!
     window.onload = () => { 
         loadAlbum('wedding'); 
-        if(typeof renderS === 'function') renderS(0); 
+        if(typeof renderS === 'function') {
+            renderS(0); 
+        }
     };
 </script>
 
