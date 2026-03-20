@@ -7,7 +7,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
-<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@700;800&display=swap" rel="stylesheet">
 
 <style>
     :root { --hb-navy: #0A1D37; --hb-gold: #B8977E; --hb-bg: #F9F7F5; }
@@ -15,29 +14,28 @@
     body { margin: 0; font-family: 'Pretendard', sans-serif; color: #333; background: #fff; line-height: 1.6; overflow-x: hidden; }
     a { text-decoration: none; color: inherit; cursor: pointer; transition: 0.3s; }
 
-    /* 1. Hero: 캘리그라피 강조 */
+    /* 1. Hero: 기존 선호 스타일 복구 및 로고 자리 확보 */
     .hero { height: 100vh; background: var(--hb-navy); color: #fff; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative; }
-    .hero .logo-top { font-size: 1.1rem; letter-spacing: 0.5em; margin-bottom: 30px; opacity: 0.8; }
     
-    /* 캘리그라피 텍스트 효과 (이미지 전 임시) */
-    .calli-text { 
-        font-family: 'Nanum Myeongjo', serif; font-size: clamp(4rem, 10vw, 6rem); 
-        color: var(--hb-gold); margin-bottom: 20px; font-weight: 800;
-        text-shadow: 2px 2px 20px rgba(0,0,0,0.5);
-    }
-    .hero h1 { font-size: 2rem; font-weight: 200; letter-spacing: 0.3em; margin: 0; }
-    .hero .sub-text { margin-top: 30px; font-size: 1.2rem; opacity: 0.6; }
-    .scroll-hint { position: absolute; bottom: 40px; animation: bounce 2s infinite; opacity: 0.4; letter-spacing: 2px; }
+    /* 로고 파일 들어갈 자리 (투명 배경 PNG 권장) */
+    .logo-area { width: 300px; height: 120px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; border: 1px dashed rgba(255,255,255,0.2); }
+    .logo-area img { max-width: 100%; height: auto; }
+
+    .hero h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 200; margin: 0; letter-spacing: -0.02em; }
+    .hero h1 b { font-weight: 700; color: var(--hb-gold); }
+    .hero .sub-text { margin-top: 25px; font-size: 1.2rem; opacity: 0.6; letter-spacing: 2px; }
+    .scroll-hint { position: absolute; bottom: 40px; animation: bounce 2s infinite; opacity: 0.4; letter-spacing: 2px; font-size: 0.8rem; }
     @keyframes bounce { 0%, 100% {transform: translateY(0);} 50% {transform: translateY(-10px);} }
 
-    /* 2. Video */
-    .video-sec { height: 70vh; background: #000; display: flex; justify-content: center; align-items: center; color: rgba(255,255,255,0.2); }
+    /* 2. Video Section */
+    .video-sec { height: 75vh; background: #000; display: flex; justify-content: center; align-items: center; color: rgba(255,255,255,0.2); }
 
-    /* 3. Main Store */
+    /* 3. Main Store (HQ) */
     .main-store { padding: 120px 20px; background: var(--hb-bg); text-align: center; }
     .hq-photo { max-width: 1100px; margin: 0 auto 50px; height: 500px; background: #ddd; display: flex; align-items: center; justify-content: center; color: #999; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+    .main-store h2 { font-size: 2.5rem; color: var(--hb-navy); margin-bottom: 20px; }
 
-    /* 4. Lookbook (와이드 복구) */
+    /* 4. Lookbook (Wide) */
     .lookbook-sec { padding: 100px 0; background: #fff; text-align: center; }
     .tab-group { display: flex; justify-content: center; gap: 15px; margin-bottom: 50px; }
     .tab-btn { padding: 12px 35px; border: 1px solid var(--hb-gold); background: transparent; color: var(--hb-gold); cursor: pointer; font-weight: 700; border-radius: 50px; }
@@ -46,27 +44,39 @@
     .page { background: #fff; border: 1px solid #eee; overflow: hidden; }
     .page-cover { background: var(--hb-navy); color: #fff; display: flex; flex-direction: column; justify-content: center; padding: 40px; height: 100%; text-align: center; }
 
-    /* 5. Store Finder (레이아웃 복구) */
+    /* 5. Store Finder (Slim & Right Aligned) */
     .finder-sec { display: flex; height: 85vh; border-top: 1px solid #eee; background: #fff; }
+    
+    /* 사이드바: 11개 지점 한눈에 보기 최적화 */
     .sidebar { width: 320px; background: #fff; border-right: 1px solid #eee; display: flex; flex-direction: column; }
-    .sidebar-header { padding: 50px 30px 20px; text-align: right; }
-    .sidebar-header h2 { font-size: 1.8rem; color: var(--hb-navy); }
-    .branch-list { flex: 1; overflow-y: auto; }
-    .branch-item { padding: 20px 30px; cursor: pointer; text-align: right; border-bottom: 1px solid #f2f2f2; transition: 0.3s; }
-    .branch-item.active { background: var(--hb-navy); color: #fff; font-weight: 700; padding-right: 45px; border-radius: 0 50px 50px 0; margin-right: -1px; }
+    .sidebar-header { padding: 40px 30px 15px; text-align: right; }
+    .sidebar-header h2 { font-size: 1.6rem; color: var(--hb-navy); font-weight: 700; letter-spacing: -1px; }
 
-    .detail-area { flex: 1; background: var(--hb-bg); padding: 50px; overflow-y: auto; display: flex; flex-direction: column; }
-    .map-box { width: 100%; height: 300px; background: #eee; border-radius: 8px; margin-bottom: 25px; position: relative; border: 1px solid #e0e0e0; }
+    .branch-list { flex: 1; overflow-y: hidden; /* 스크롤 제거 시도 */ padding-right: 0; }
+    .branch-item { 
+        padding: 12px 30px; cursor: pointer; text-align: right; border-bottom: 1px solid #f8f8f8; transition: 0.2s;
+    }
+    .branch-item:hover { background: var(--hb-bg); }
+    .branch-item.active { 
+        background: var(--hb-navy); color: #fff; font-weight: 700; 
+        padding-right: 40px; border-radius: 0 50px 50px 0; margin-right: -1px; 
+    }
+    .branch-item h3 { margin: 0; font-size: 1rem; }
+
+    /* 상세 안내 */
+    .detail-area { flex: 1; background: var(--hb-bg); padding: 40px 60px; overflow-y: auto; display: flex; flex-direction: column; }
+    .map-box { width: 100%; height: 320px; background: #eee; border-radius: 8px; margin-bottom: 25px; position: relative; border: 1px solid #e0e0e0; }
     .pin { position: absolute; top: 50%; left: 50%; width: 18px; height: 18px; background: var(--hb-gold); border-radius: 50%; border: 3px solid #fff; animation: pulse 1.5s infinite; transform: translate(-50%, -50%); }
     @keyframes pulse { 0% {transform:translate(-50%,-50%) scale(1); opacity:1;} 100% {transform:translate(-50%,-50%) scale(2); opacity:0;} }
 
     .biz-card { background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.03); margin-bottom: 25px; }
     .biz-card h3 { font-size: 1.8rem; color: var(--hb-navy); margin-bottom: 15px; border-bottom: 2px solid var(--hb-gold); padding-bottom: 10px; }
-    .info-row { display: flex; margin-bottom: 8px; font-size: 1rem; }
+    .info-row { display: flex; margin-bottom: 8px; font-size: 0.95rem; }
     .info-lbl { width: 90px; font-weight: 700; color: #777; }
 
+    /* 버튼 일렬 배치 */
     .btn-row { display: flex; gap: 10px; width: 100%; }
-    .btn { flex: 1; padding: 18px; text-align: center; border-radius: 6px; font-weight: 700; font-size: 0.9rem; white-space: nowrap; }
+    .btn { flex: 1; padding: 18px 10px; text-align: center; border-radius: 6px; font-weight: 700; font-size: 0.85rem; white-space: nowrap; }
     .btn-navy { background: var(--hb-navy); color: #fff; }
     .btn-kakao { background: #FEE500; color: #3C1E1E; }
     .btn-green { background: #03C75A; color: #fff; }
@@ -75,9 +85,8 @@
     @media (max-width: 1024px) {
         .finder-sec { flex-direction: column; height: auto; }
         .sidebar { width: 100%; border-right: none; }
-        .branch-list { display: flex; overflow-x: auto; padding-bottom: 10px; }
-        .branch-item { text-align: center; border-bottom: none; border-right: 1px solid #eee; padding: 15px 25px; }
-        .album-viewport { height: 500px; }
+        .branch-list { display: flex; overflow-x: auto; padding: 10px 20px; overflow-y: hidden; }
+        .branch-item { text-align: center; border-bottom: none; border-right: 1px solid #eee; padding: 10px 20px; }
         .btn-row { flex-direction: column; }
     }
 </style>
@@ -85,8 +94,9 @@
 <body>
 
 <section class="hero">
-    <div class="logo-top">HANBEAM HANBOK</div>
-    <div class="calli-text">한빔한복</div>
+    <div class="logo-area">
+        <span style="opacity:0.3; font-size:0.9rem;">LOGO / CALLIGRAPHY AREA</span>
+    </div>
     <h1>대한민국 <b>한복의 기준</b></h1>
     <div class="sub-text">SINCE 1994, HANBEAM HERITAGE</div>
     <div class="scroll-hint">SCROLL DOWN</div>
@@ -97,7 +107,7 @@
 <section class="main-store">
     <div class="hq-photo">[ 한빔한복 부산점 전경 고화질 사진 ]</div>
     <h2>한빔한복 부산점</h2>
-    <p>30년 장인의 숨결로 짓는 단 하나의 예복입니다.</p>
+    <p>30년 전통의 장인정신이 깃든 한빔의 심장부입니다.</p>
 </section>
 
 <section class="lookbook-sec">
@@ -111,18 +121,18 @@
 
 <section class="finder-sec" id="finder">
     <aside class="sidebar">
-        <div class="sidebar-header"><h2>지점 안내</h2></div>
+        <div class="sidebar-header"><h2>전국 지점 안내(11개)</h2></div>
         <div class="branch-list" id="branchList"></div>
     </aside>
     <main class="detail-area" id="detailView"></main>
 </section>
 
-<footer style="padding:40px; background:#111; color:#555; text-align:center; font-size:0.8rem;">
+<footer style="padding:40px; background:#111; color:#444; text-align:center; font-size:0.8rem;">
     © 2026 HANBEAM HANBOK. ALL RIGHTS RESERVED.
 </footer>
 
 <script>
-    // 1. 앨범 초기화 (재복구)
+    // 1. 앨범 초기화
     let pageFlip;
     function initAlbum() {
         const flipBook = document.getElementById('flipBook');
@@ -130,7 +140,7 @@
             width: 550, height: 750, showCover: true, usePortrait: false, flippingTime: 1000
         });
         const html = `
-            <div class="page"><div class="page-cover"><h3>Hanbeam<br>Wedding</h3><p>2026 Collection</p></div></div>
+            <div class="page"><div class="page-cover"><h3>Hanbeam<br>Lookbook</h3><p>2026 Collection</p></div></div>
             <div class="page"><div style="background:#ddd;height:100%;display:flex;align-items:center;justify-content:center;">Photo 01</div></div>
             <div class="page"><div style="background:#eee;height:100%;display:flex;align-items:center;justify-content:center;">Photo 02</div></div>
             <div class="page"><div class="page-cover"><h3>THE END</h3></div></div>
@@ -139,7 +149,7 @@
         pageFlip.loadFromHTML(document.querySelectorAll('.page'));
     }
 
-    // 2. 지점 데이터 (전지점 & 카톡 링크 픽스)
+    // 2. 전지점 데이터 (링크 및 정보 픽스)
     const branches = [
         {name:"부산점", phone:"0516342325", addr:"부산 동구 조방로 123 한빔빌딩", reserve:"https://m.booking.naver.com/booking/6/bizes/661812", kakao:"https://open.kakao.com/o/soq7Ns4d"},
         {name:"센텀점", phone:"01030522325", addr:"부산 해운대구 센텀중앙로 78", reserve:"https://booking.naver.com/booking/6/bizes/1577219", kakao:"https://open.kakao.com/o/sz1xltbi"},
@@ -165,17 +175,17 @@
 
         const b = branches[activeIdx];
         document.getElementById('detailView').innerHTML = `
-            <div class="map-box"><div class="pin"></div><div style="padding-top:140px; text-align:center; color:#ccc;">[ MAP API ]</div></div>
+            <div class="map-box"><div class="pin"></div><div style="padding-top:145px; text-align:center; color:#ccc; font-size:0.9rem;">[ NAVER MAP API ]</div></div>
             <div class="biz-card">
                 <h3>한빔한복 ${b.name}</h3>
-                <div class="info-row"><span class="info-lbl">위치</span><span>${b.addr}</span></div>
-                <div class="info-row"><span class="info-lbl">전화</span><span>${b.phone}</span></div>
+                <div class="info-row"><span class="info-lbl">위치안내</span><span>${b.addr}</span></div>
+                <div class="info-row"><span class="info-lbl">지점전화</span><span>${b.phone}</span></div>
             </div>
             <div class="btn-row">
                 <a href="tel:${b.phone}" class="btn btn-navy">전화 바로걸기</a>
-                <a href="${b.kakao}" target="_blank" class="btn btn-kakao">카톡 실시간 상담</a>
-                <a href="${b.reserve}" target="_blank" class="btn btn-green">네이버 예약하기</a>
-                <a href="#" class="btn btn-gold">위치 정보 공유</a>
+                <a href="${b.kakao}" target="_blank" class="btn btn-kakao">카톡 상담</a>
+                <a href="${b.reserve}" target="_blank" class="btn btn-green">네이버 예약</a>
+                <a href="#" class="btn btn-gold">위치 공유</a>
             </div>
         `;
     }
