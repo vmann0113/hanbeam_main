@@ -40,29 +40,28 @@
         .main-store h2 { font-size: 3rem; color: var(--hb-navy); margin-bottom: 25px; } 
         .main-store p { font-size: 1.44rem; color: #666; max-width: 1000px; margin: 0 auto; font-weight: 400; line-height: 1.6; }
 
-        /* 3. Lookbook: Square & No Crop (Fix 1, 4) */
+        /* 3. Lookbook: Square & No Crop (Fix 1) */
         .lookbook-sec { padding: 120px 0; background: #fff; text-align: center; }
         .tab-btn { padding: 15px 45px; border: 2px solid var(--hb-gold); background: #fff; color: var(--hb-gold); cursor: pointer; font-weight: 700; border-radius: 50px; margin: 0 10px; font-size: 1.1rem; transition: 0.3s; }
         .tab-btn.active { background: var(--hb-gold); color: #fff; }
         .album-viewport { margin: 50px auto; width: 90vw; max-width: 600px; height: 600px; display: flex; justify-content: center; align-items: center; transition: opacity 0.4s; }
         .page { background: #fff; border: 1px solid #eee; overflow: hidden; }
-        /* 룩북 사진 크롭 금지 (Fix 1) */
+        /* 수정 1: 사진 크롭 방지 (contain) */
         .page img { width: 100%; height: 100%; object-fit: contain; background: #fff; }
         
-        /* 룩북 표지: 굵은 테두리 & 텍스트 안쪽 배치 (Fix 3, 4) */
+        /* 룩북 표지: 테두리 안쪽 배치 (Fix 3) */
         .page-cover { 
             background: var(--hb-navy); color: #fff; height: 100%; 
             display: flex; flex-direction: column; justify-content: center; align-items: center; 
-            padding: 80px; position: relative; /* 패딩 늘려 텍스트를 안으로 밀어넣음 */
+            padding: 100px; position: relative; /* 패딩을 넉넉히 주어 텍스트를 안으로 밀어넣음 */
             background-image: url("https://www.transparenttextures.com/patterns/leather.png");
         }
-        /* 금색 테두리 굵기 8px (Fix 4) */
         .page-cover::before {
             content: ''; position: absolute; top: 30px; bottom: 30px; left: 30px; right: 30px;
             border: 8px solid var(--hb-gold); opacity: 0.8; pointer-events: none;
         }
-        /* 룩북 로고 30% 크기 (Fix 2) */
-        .cover-logo { width: 45px; margin-bottom: 25px; background: transparent !important; z-index: 2; }
+        /* 수정 2: 로고 크기 30px(기존의 25% 수준) */
+        .cover-logo { width: 30px; margin-bottom: 20px; background: transparent !important; z-index: 2; }
         .cover-title { font-size: 1.3rem; font-weight: 700; letter-spacing: 5px; color: #fff; margin-bottom: 5px; z-index: 2; }
         .cover-sub { font-family: 'Great Vibes', cursive; font-size: 1.1rem; color: var(--hb-gold); z-index: 2; }
 
@@ -139,11 +138,11 @@
 <footer style="padding:60px; background:#111; color:#444; text-align:center; font-size:0.9rem;">© 2026 HANBEAM HANBOK.</footer>
 
 <script>
-    // 1. 슬라이드
+    // 1. 매장 슬라이드
     let curS = 0; const sImgs = document.querySelectorAll('#hqSlides img');
     if(sImgs.length > 0) setInterval(() => { sImgs[curS].classList.remove('active'); curS = (curS + 1) % sImgs.length; sImgs[curS].classList.add('active'); }, 4000);
 
-    // 2. 룩북 (정사각형 비율 & 크롭 해제)
+    // 2. 룩북 (수정 2: 로고 파일명 반영)
     const ALBUMS = {
         wedding: ["assets/img/lookbook/wedding/wedding_01.webp", "assets/img/lookbook/wedding/wedding_02.webp", "assets/img/lookbook/wedding/wedding_03.webp", "assets/img/lookbook/wedding/wedding_04.webp", "assets/img/lookbook/wedding/wedding_05.webp", "assets/img/lookbook/wedding/wedding_06.webp"],
         mother: ["assets/img/lookbook/mother/mother_01.webp", "assets/img/lookbook/mother/mother_02.webp", "assets/img/lookbook/mother/mother_03.webp", "assets/img/lookbook/mother/mother_04.webp", "assets/img/lookbook/mother/mother_05.webp", "assets/img/lookbook/mother/mother_06.webp"]
@@ -161,7 +160,7 @@
             const fb = document.getElementById('flipBook');
             const korT = (cat === 'wedding') ? '웨딩룩북' : '혼주룩북';
             
-            // Fix 2: 로고 파일명 및 경로 반영
+            // 수정 2: 로고 파일명 반영
             let h = `<div class="page"><div class="page-cover"><img src="assets/img/logo_lookbook.png" class="cover-logo" onerror="this.src='assets/img/logo.png';"><div class="cover-title">${korT}</div><div class="cover-sub">Hanbeam Collection</div></div></div>`;
             ALBUMS[cat].forEach(img => { h += `<div class="page"><img src="${img}" onerror="this.src='https://via.placeholder.com/600x600?text=Photo'"></div>`; });
             h += `<div class="page"><div class="page-cover"><h3>THE END</h3></div></div>`;
@@ -173,7 +172,7 @@
         }, 300);
     }
 
-    // 3. 지점 및 지도 (Fix 4: 지도가 확실히 로드된 후 그리는 로직)
+    // 3. 지점 및 지도 (Fix 4: 인증 실패 방지 최후의 수단)
     const branches = [
         {name:"부산점", phone:"051-634-2325", addr:"부산 동구 조방로 123", reserve:"https://m.booking.naver.com/booking/6/bizes/661812", kakao:"https://open.kakao.com/o/soq7Ns4d", lat:35.1381, lng:129.0621},
         {name:"센텀점", phone:"010-3052-2325", addr:"부산 해운대구 센텀중앙로 78", reserve:"https://booking.naver.com/booking/6/bizes/1577219", kakao:"https://open.kakao.com/o/sz1xltbi", lat:35.1742, lng:129.1275},
