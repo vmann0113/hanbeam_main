@@ -7,7 +7,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
-<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@700;800&display=swap" rel="stylesheet">
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=YOUR_CLIENT_ID"></script>
 
 <style>
     :root { --hb-navy: #0A1D37; --hb-gold: #B8977E; --hb-bg: #F9F7F5; --hb-navy-light: #1A3A5F; }
@@ -15,80 +15,58 @@
     body { margin: 0; font-family: 'Pretendard', sans-serif; color: #333; background: #fff; line-height: 1.6; overflow-x: hidden; }
     a { text-decoration: none; color: inherit; cursor: pointer; transition: 0.3s; }
 
-    /* ===== 1. Hero: Dynamic Traditional Pattern (NEW Point) ===== */
+    /* ===== 1. Hero: Dynamic Pattern ===== */
     .hero { 
         height: 100vh; color: #fff; text-align: center; position: relative; overflow: hidden;
         display: flex; flex-direction: column; justify-content: center; align-items: center;
-        
-        /* 은은하게 흐르는 쪽빛 그라데이션 베이스 */
         background: linear-gradient(135deg, var(--hb-navy), var(--hb-navy-light), var(--hb-navy));
         background-size: 300% 300%;
         animation: gradientFlow 15s ease infinite;
     }
-    
-    /* 한국 전통 문양 물결 레이어 (NEW) */
     .hero::after {
         content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-        /* 가상의 한국 전통 문양(구름/단청) 패턴 엑박 방지 처리 */
-        /* 실제 운영시: background-image: url('assets/img/pattern_trad.png'); */
-        background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23fff' fill-opacity='0.03' fill-rule='evenodd'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43 0c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63-31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3z'/%3E%3C/g%3E%3C/svg%3E");
-        background-repeat: repeat;
-        background-size: 150px 150px;
-        opacity: 0.5; /* 은은하게 */
-        animation: patternWave 60s linear infinite; /* 물결치듯 흐름 */
-        z-index: 1;
+        background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23fff' fill-opacity='0.03' fill-rule='evenodd'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43 0c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63-31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3z'/%3E%3C/g%3E%3C/svg%3E");
+        background-repeat: repeat; background-size: 150px 150px; opacity: 0.5; animation: patternWave 60s linear infinite; z-index: 1;
     }
-    
     @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
     @keyframes patternWave { from { background-position: 0 0; } to { background-position: 1000px 500px; } }
 
-    /* 히어로 콘텐츠 (패턴 위에 위치) */
     .hero-content { position: relative; z-index: 10; padding: 20px; }
-    .hero .logo-top { font-size: 1.1rem; letter-spacing: 0.5em; margin-bottom: 25px; opacity: 0.8; }
     .logo-area { width: 300px; height: 120px; margin: 0 auto 30px; display: flex; align-items: center; justify-content: center; border: 1px dashed rgba(255,255,255,0.2); }
-
     .hero h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 200; margin: 0; letter-spacing: -0.02em; }
     .hero h1 b { font-weight: 700; color: var(--hb-gold); }
-    .hero .sub-text { margin-top: 30px; font-size: 1.2rem; opacity: 0.6; letter-spacing: 2px; }
-    .scroll-hint { position: absolute; bottom: 40px; animation: bounce 2s infinite; opacity: 0.4; letter-spacing: 2px; font-size: 0.8rem; left: 50%; transform: translateX(-50%); z-index: 10;}
-    @keyframes bounce { 0%, 100% {transform:translate(-50%,0);} 50% {transform:translate(-50%,-10px);} }
+    .hero .sub-text { margin-top: 25px; font-size: 1.2rem; opacity: 0.6; letter-spacing: 2px; }
 
     /* ===== 2. Video Section ===== */
-    .video-sec { height: 75vh; background: #000; display: flex; justify-content: center; align-items: center; color: rgba(255,255,255,0.2); }
+    .video-sec { height: 75vh; background: #000; display: flex; justify-content: center; align-items: center; }
+    .video-sec video { width: 100%; height: 100%; object-fit: cover; }
 
     /* ===== 3. Main Store ===== */
     .main-store { padding: 120px 20px; background: var(--hb-bg); text-align: center; }
-    .hq-photo { max-width: 1100px; margin: 0 auto 50px; height: 500px; background: #ddd; display: flex; align-items: center; justify-content: center; color: #999; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
-    .main-store h2 { font-size: 2.5rem; color: var(--hb-navy); margin-bottom: 20px; font-family: 'Nanum Myeongjo', serif; }
+    .hq-photo-container { max-width: 1100px; margin: 0 auto 50px; height: 500px; overflow: hidden; border-radius: 4px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+    .hq-photo-container img { width: 100%; height: 100%; object-fit: cover; }
+    .main-store h2 { font-size: 2.5rem; color: var(--hb-navy); margin-bottom: 20px; }
 
-    /* ===== 4. 룩북 (와이드 픽스) ===== */
+    /* ===== 4. Lookbook ===== */
     .lookbook-sec { padding: 100px 0; background: #fff; text-align: center; }
-    .tab-group { display: flex; justify-content: center; gap: 15px; margin-bottom: 50px; }
-    .tab-btn { padding: 12px 35px; border: 1px solid var(--hb-gold); background: transparent; color: var(--hb-gold); cursor: pointer; font-weight: 700; border-radius: 50px; }
-    .tab-btn.active { background: var(--hb-gold); color: #fff; }
-    .album-viewport { margin: 0 auto; width: 90vw; max-width: 1100px; height: 750px; display: flex; justify-content: center; align-items: center; }
+    .album-viewport { margin: 40px auto; width: 90vw; max-width: 1100px; height: 750px; display: flex; justify-content: center; align-items: center; }
     .page { background: #fff; border: 1px solid #eee; overflow: hidden; }
-    .page-cover { background: var(--hb-navy); color: #fff; display: flex; flex-direction: column; justify-content: center; padding: 40px; height: 100%; text-align: center; }
 
-    /* ===== 5. Store Finder (Slim & Right Aligned 픽스) ===== */
+    /* ===== 5. Store Finder (Fixed UI) ===== */
     .finder-sec { display: flex; height: 85vh; border-top: 1px solid #eee; background: #fff; }
     .sidebar { width: 320px; background: #fff; border-right: 1px solid #eee; display: flex; flex-direction: column; }
     .sidebar-header { padding: 40px 30px 15px; text-align: right; }
-    .sidebar-header h2 { font-size: 1.6rem; color: var(--hb-navy); font-weight: 700; letter-spacing: -1px; }
+    .sidebar-header h2 { font-size: 1.6rem; color: var(--hb-navy); font-weight: 700; }
+    .branch-list { flex: 1; overflow-y: hidden; }
+    .branch-item { padding: 12px 30px; cursor: pointer; text-align: right; border-bottom: 1px solid #f8f8f8; }
+    .branch-item.active { background: var(--hb-navy); color: #fff; font-weight: 700; padding-right: 40px; border-radius: 0 50px 50px 0; }
 
-    .branch-list { flex: 1; overflow-y: hidden; padding-right: 0; }
-    .branch-item { padding: 12px 30px; cursor: pointer; text-align: right; border-bottom: 1px solid #f8f8f8; transition: 0.2s; }
-    .branch-item:hover { background: var(--hb-bg); }
-    .branch-item.active { background: var(--hb-navy); color: #fff; font-weight: 700; padding-right: 40px; border-radius: 0 50px 50px 0; margin-right: -1px; }
-    .branch-item h3 { margin: 0; font-size: 1rem; }
-
-    .detail-area { flex: 1; background: var(--hb-bg); padding: 40px 60px; overflow-y: auto; display: flex; flex-direction: column; }
-    .map-box { width: 100%; height: 320px; background: #eee; border-radius: 8px; margin-bottom: 25px; position: relative; border: 1px solid #e0e0e0; }
-    .pin { position: absolute; top: 50%; left: 50%; width: 18px; height: 18px; background: var(--hb-gold); border-radius: 50%; border: 3px solid #fff; animation: pulse 1.5s infinite; transform: translate(-50%, -50%); }
-    @keyframes pulse { 0% {transform:translate(-50%,-50%) scale(1); opacity:1;} 100% {transform:translate(-50%,-50%) scale(2); opacity:0;} }
+    .detail-area { flex: 1; background: var(--hb-bg); padding: 40px 60px; overflow-y: auto; }
+    /* 지도 API 영역 */
+    #naverMap { width: 100%; height: 320px; background: #eee; border-radius: 8px; margin-bottom: 25px; border: 1px solid #e0e0e0; }
 
     .biz-card { background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.03); margin-bottom: 25px; }
-    .biz-card h3 { font-size: 1.8rem; color: var(--hb-navy); margin-bottom: 15px; border-bottom: 2px solid var(--hb-gold); padding-bottom: 10px; font-family: 'Nanum Myeongjo', serif; }
+    .biz-card h3 { font-size: 1.8rem; color: var(--hb-navy); margin-bottom: 15px; border-bottom: 2px solid var(--hb-gold); padding-bottom: 10px; font-family: 'Pretendard', sans-serif !important; } /* 폰트 복구 */
     .info-row { display: flex; margin-bottom: 8px; font-size: 0.95rem; }
     .info-lbl { width: 90px; font-weight: 700; color: #777; }
 
@@ -100,12 +78,10 @@
     .btn-gold { background: var(--hb-gold); color: #fff; }
 
     @media (max-width: 1024px) {
-        .hero h1 { font-size: 2.2rem; }
         .finder-sec { flex-direction: column; height: auto; }
-        .sidebar { width: 100%; border-right: none; }
-        .branch-list { display: flex; overflow-x: auto; padding: 10px 20px; overflow-y: hidden; }
+        .sidebar { width: 100%; }
+        .branch-list { display: flex; overflow-x: auto; overflow-y: hidden; padding: 10px 20px; }
         .branch-item { text-align: center; border-bottom: none; border-right: 1px solid #eee; padding: 10px 20px; }
-        .detail-area { padding: 30px 20px; }
         .btn-row { flex-direction: column; }
     }
 </style>
@@ -114,28 +90,28 @@
 
 <section class="hero">
     <div class="hero-content">
-        <div class="logo-top">HANBEAM HANBOK</div>
-        <div class="logo-area">[ LOGO / CALLIGRAPHY AREA ]</div>
+        <div class="logo-area" id="mainLogo">
+            <span style="opacity:0.3; font-size:0.9rem;">LOGO / CALLIGRAPHY AREA</span>
+        </div>
         <h1>대한민국 <b>한복의 기준</b></h1>
         <div class="sub-text">SINCE 1994, HANBEAM HERITAGE</div>
     </div>
-    <div class="scroll-hint">SCROLL DOWN</div>
 </section>
 
-<section class="video-sec">[ BRAND FILM AREA ]</section>
+<section class="video-sec">
+    <div style="color:#444;">[ BRAND VIDEO AREA ]</div>
+</section>
 
 <section class="main-store">
-    <div class="hq-photo">[ 한빔한복 부산점 전경 고화질 사진 ]</div>
+    <div class="hq-photo-container">
+        <div style="height:100%; display:flex; align-items:center; justify-content:center; background:#ddd; color:#999;">[ BUSAN STORE PHOTO ]</div>
+    </div>
     <h2>한빔한복 부산점</h2>
-    <p>30년 장인의 숨결로 짓는 단 하나의 예복, 한빔의 기술력과 디자인이 탄생하는 곳입니다.</p>
+    <p>30년 전통의 장인정신이 깃든 한빔의 심장부입니다.</p>
 </section>
 
 <section class="lookbook-sec">
     <h2>2026 Lookbook</h2>
-    <div class="tab-group">
-        <button class="tab-btn active">웨딩 촬영</button>
-        <button class="tab-btn">혼주 한복</button>
-    </div>
     <div class="album-viewport"><div id="flipBook"></div></div>
 </section>
 
@@ -147,44 +123,41 @@
     <main class="detail-area" id="detailView"></main>
 </section>
 
-<footer style="padding:40px; background:#111; color:#444; text-align:center; font-size:0.8rem;">
-    © 2026 HANBEAM HANBOK. DESIGNED FOR EXCELLENCE.
-</footer>
-
 <script>
-    // 1. 앨범 초기화
+    // 1. 3D 앨범 데이터 및 초기화
     let pageFlip;
     function initAlbum() {
         const flipBook = document.getElementById('flipBook');
-        pageFlip = new St.PageFlip(flipBook, {
-            width: 550, height: 750, showCover: true, usePortrait: false, flippingTime: 1000
-        });
+        pageFlip = new St.PageFlip(flipBook, { width: 550, height: 750, showCover: true, usePortrait: false });
         const html = `
-            <div class="page"><div class="page-cover"><h3>Hanbeam<br>Lookbook</h3><p>2026 Collection</p></div></div>
-            <div class="page"><div style="background:#ddd;height:100%;display:flex;align-items:center;justify-content:center;">Photo 01</div></div>
-            <div class="page"><div style="background:#eee;height:100%;display:flex;align-items:center;justify-content:center;">Photo 02</div></div>
-            <div class="page"><div class="page-cover"><h3>THE END</h3></div></div>
+            <div class="page"><div style="background:var(--hb-navy);color:#fff;height:100%;display:flex;flex-direction:column;justify-content:center;text-align:center;"><h3>Hanbeam<br>Lookbook</h3></div></div>
+            <div class="page"><div style="background:#eee;height:100%;display:flex;align-items:center;justify-content:center;">Photo 01</div></div>
+            <div class="page"><div style="background:#ddd;height:100%;display:flex;align-items:center;justify-content:center;">Photo 02</div></div>
+            <div class="page"><div style="background:var(--hb-navy);color:#fff;height:100%;display:flex;align-items:center;justify-content:center;"><h3>THE END</h3></div></div>
         `;
         flipBook.innerHTML = html;
         pageFlip.loadFromHTML(document.querySelectorAll('.page'));
     }
 
-    // 2. 전지점 데이터 (Full Data Fix)
+    // 2. 전지점 데이터 (위도, 경도 추가 예정)
     const branches = [
-        {name:"부산점", phone:"0516342325", addr:"부산 동구 조방로 123 한빔빌딩", reserve:"https://m.booking.naver.com/booking/6/bizes/661812", kakao:"https://open.kakao.com/o/soq7Ns4d"},
-        {name:"센텀점", phone:"01030522325", addr:"부산 해운대구 센텀중앙로 78 센텀그린타워", reserve:"https://booking.naver.com/booking/6/bizes/1577219", kakao:"https://open.kakao.com/o/sz1xltbi"},
-        {name:"김해점", phone:"01080652325", addr:"경남 김해시 김해대로 2325", reserve:"https://booking.naver.com/booking/6/bizes/1402679", kakao:"https://open.kakao.com/o/sHM2wwsh"},
-        {name:"창원점", phone:"0552632325", addr:"경남 창원시 성산구 상남로 12", reserve:"https://booking.naver.com/booking/6/bizes/843111", kakao:"https://open.kakao.com/o/sdcvbh5e"},
-        {name:"양산점", phone:"0559120425", addr:"경남 양산시 물금읍 청운로 350", reserve:"https://booking.naver.com/booking/13/bizes/868629", kakao:"https://open.kakao.com/o/sp44Hxaf"},
-        {name:"진주점", phone:"01056542407", addr:"경남 진주시 강남로 231", reserve:"https://m.booking.naver.com/booking/6/bizes/1485854", kakao:"https://open.kakao.com/o/sbxBToNh"},
-        {name:"인천점", phone:"0322832325", addr:"인천 남동구 인하로 497-15", reserve:"https://m.booking.naver.com/booking/13/bizes/1039475", kakao:"https://open.kakao.com/o/sIrXajUf"},
-        {name:"안산점", phone:"01065912322", addr:"경기 안산시 단원구 고잔로 108", reserve:"https://m.booking.naver.com/booking/6/bizes/1500008", kakao:"https://open.kakao.com/o/sqRSjaRh"},
-        {name:"마산점", phone:"01088322325", addr:"경남 창원시 마산회원구 양덕로", reserve:"https://booking.naver.com/booking/6/bizes/1526541", kakao:"https://open.kakao.com/o/ssWvuvYh"},
-        {name:"울산점", phone:"01098072325", addr:"울산 남구 삼산로 273 삼산타워", reserve:"https://booking.naver.com/booking/6/bizes/1534767", kakao:"https://open.kakao.com/o/sKjCbA0h"},
-        {name:"대구점", phone:"01084922328", addr:"대구 중구 달구벌대로 2141", reserve:"https://m.place.naver.com/place/2043617700/ticket", kakao:"https://open.kakao.com/o/sqPdeNfi"}
+        {name:"부산점", phone:"0516342325", addr:"부산 동구 조방로 123 한빔빌딩", reserve:"https://m.booking.naver.com/booking/6/bizes/661812", kakao:"https://open.kakao.com/o/soq7Ns4d", lat:35.138, lng:129.062},
+        {name:"센텀점", phone:"01030522325", addr:"부산 해운대구 센텀중앙로 78", reserve:"https://booking.naver.com/booking/6/bizes/1577219", kakao:"https://open.kakao.com/o/sz1xltbi", lat:35.174, lng:129.127},
+        {name:"김해점", phone:"01080652325", addr:"경남 김해시 김해대로 2325", reserve:"https://booking.naver.com/booking/6/bizes/1402679", kakao:"https://open.kakao.com/o/sHM2wwsh", lat:35.228, lng:128.878},
+        {name:"창원점", phone:"0552632325", addr:"경남 창원시 성산구 상남로 12", reserve:"https://booking.naver.com/booking/6/bizes/843111", kakao:"https://open.kakao.com/o/sdcvbh5e", lat:35.221, lng:128.683},
+        {name:"양산점", phone:"0559120425", addr:"경남 양산시 물금읍 청운로", reserve:"https://booking.naver.com/booking/13/bizes/868629", kakao:"https://open.kakao.com/o/sp44Hxaf", lat:35.328, lng:129.014},
+        {name:"진주점", phone:"01056542407", addr:"경남 진주시 강남로 231", reserve:"https://m.booking.naver.com/booking/6/bizes/1485854", kakao:"https://open.kakao.com/o/sbxBToNh", lat:35.183, lng:128.087},
+        {name:"인천점", phone:"0322832325", addr:"인천 남동구 인하로 497-15", reserve:"https://m.booking.naver.com/booking/13/bizes/1039475", kakao:"https://open.kakao.com/o/sIrXajUf", lat:37.444, lng:126.702},
+        {name:"안산점", phone:"01065912322", addr:"경기 안산시 단원구 고잔로 108", reserve:"https://m.booking.naver.com/booking/6/bizes/1500008", kakao:"https://open.kakao.com/o/sqRSjaRh", lat:37.316, lng:126.830},
+        {name:"마산점", phone:"01088322325", addr:"경남 창원시 마산회원구 양덕로", reserve:"https://booking.naver.com/booking/6/bizes/1526541", kakao:"https://open.kakao.com/o/ssWvuvYh", lat:35.234, lng:128.583},
+        {name:"울산점", phone:"01098072325", addr:"울산 남구 삼산로 273", reserve:"https://booking.naver.com/booking/6/bizes/1534767", kakao:"https://open.kakao.com/o/sKjCbA0h", lat:35.539, lng:129.335},
+        {name:"대구점", phone:"01084922328", addr:"대구 중구 달구벌대로 2141", reserve:"https://m.place.naver.com/place/2043617700/ticket", kakao:"https://open.kakao.com/o/sqPdeNfi", lat:35.864, lng:128.593}
     ];
 
     let activeIdx = 0;
+    let map = null;
+    let marker = null;
+
     function renderFinder() {
         const list = document.getElementById('branchList');
         list.innerHTML = branches.map((b, i) => `
@@ -195,7 +168,7 @@
 
         const b = branches[activeIdx];
         document.getElementById('detailView').innerHTML = `
-            <div class="map-box"><div class="pin"></div><div style="padding-top:145px; text-align:center; color:#ccc; font-size:0.9rem;">[ NAVER MAP API ]</div></div>
+            <div id="naverMap"></div>
             <div class="biz-card">
                 <h3>한빔한복 ${b.name}</h3>
                 <div class="info-row"><span class="info-lbl">위치안내</span><span>${b.addr}</span></div>
@@ -208,6 +181,20 @@
                 <a href="#" class="btn btn-gold">위치 공유</a>
             </div>
         `;
+        // 지도 업데이트
+        setTimeout(() => updateMap(b.lat, b.lng), 100);
+    }
+
+    function updateMap(lat, lng) {
+        if (typeof naver === 'undefined') return;
+        const pos = new naver.maps.LatLng(lat, lng);
+        if (!map) {
+            map = new naver.maps.Map('naverMap', { center: pos, zoom: 16 });
+            marker = new naver.maps.Marker({ position: pos, map: map });
+        } else {
+            map.setCenter(pos);
+            marker.setPosition(pos);
+        }
     }
 
     function selectBranch(i) { activeIdx = i; renderFinder(); }
