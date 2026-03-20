@@ -1,5 +1,5 @@
 /**
- * 한빔한복 지점 안내 및 네이버 지도 로직 (map-logic.js)
+ * 한빔한복 지점 안내 및 네이버 지도 로직 (최적화 버전)
  */
 const branches = [
     {name:"부산점", phone:"051-634-2325", addr:"부산 동구 조방로 123", reserve:"https://m.booking.naver.com/booking/6/bizes/661812", kakao:"https://open.kakao.com/o/soq7Ns4d", lat:35.1381, lng:129.0621},
@@ -15,24 +15,54 @@ const branches = [
     {name:"대구점", phone:"010-8492-2328", addr:"대구 중구 달구벌대로 2141", reserve:"https://m.place.naver.com/place/2043617700/ticket", kakao:"https://open.kakao.com/o/sqPdeNfi", lat:35.8642, lng:128.5931}
 ];
 
+let mapObj = null; // 지도 객체 전역 관리
+let marker = null; // 마커 객체 전역 관리
+
 function renderS(idx) {
-    const l = document.getElementById('branchList');
-    const d = document.getElementById('detailView');
-    if(!l || !d) return;
-    
-    l.innerHTML = branches.map((b, i) => `<div class="branch-item ${i===idx?'active':''}" onclick="renderS(${i})"><h3>${b.name}</h3></div>`).join('');
+    const listEl = document.getElementById('branchList');
+    const detailEl = document.getElementById('branchDetail');
     const b = branches[idx];
-    d.innerHTML = `<div id="naverMap" style="width:100%; height:450px; background:#eee; border-radius:12px;"></div><div class="biz-card"><h2>한빔한복 ${b.name}</h2><div class="info-row"><span class="info-lbl">위치</span><span>${b.addr}</span></div><div class="info-row"><span class="info-lbl">전화</span><span>${b.phone}</span></div></div><div class="btn-row"><a href="tel:${b.phone}" class="btn btn-navy">전화걸기</a><a href="${b.kakao}" target="_blank" class="btn btn-kakao">카톡상담</a><a href="${b.reserve}" target="_blank" class="btn btn-green">네이버예약</a><a href="https://map.naver.com/v5/search/${encodeURIComponent('한빔한복 '+b.name)}" target="_blank" class="btn btn-gold">위치 공유</a></div>`;
-    
-    setTimeout(() => {
-        const mapC = document.getElementById('naverMap');
-        if (window.naver && naver.maps && mapC) {
-            const p = new naver.maps.LatLng(b.lat, b.lng);
-            // 지도 객체 단일 생성으로 인증 실패 원천 봉쇄
-            const mapObj = new naver.maps.Map(mapC, { center: p, zoom: 16 });
-            new naver.maps.Marker({ position: p, map: mapObj });
-        }
-    }, 150);
+
+    if(!listEl || !detailEl) return;
+
+    // 1. 왼쪽 지점 리스트 업데이트 (활성화 표시)
+    listEl.innerHTML = branches.map((item, i) => `
+        <div class="branch-item ${i === idx ? 'active' : ''}" onclick="renderS(${i})">
+            <h3>${item.name}</h3>
+        </div>
+    `).join('');
+
+    // 2. 우측 상세 정보 업데이트 (지도를 제외한 나머지 텍스트/버튼)
+    detailEl.innerHTML = `
+        <div class="biz-card">
+            <h2>한빔한복 ${b.name}</h2>
+            <div class="info-row"><span class="info-lbl">위치</span><span>${b.addr}</span></div>
+            <div class="info-row"><span class="info-lbl">전화</span><span>${b.phone}</span></div>
+        </div>
+        <div class="btn-row">
+            <a href="tel:${b.phone}" class="btn btn-navy">전화걸기</a>
+            <a href="${b.kakao}" target="_blank" class="btn btn-kakao">카톡상담</a>
+            <a href="${b.reserve}" target="_blank" class="btn btn-green">네이버예약</a>
+            <a href="https://map.naver.com/v5/search/${encodeURIComponent('한빔한복 ' + b.name)}" target="_blank" class="btn btn-gold">위치 공유</a>
+        </div>
+    `;
+
+    // 3. 네이버 지도 이동 및 마커 업데이트
+    const p = new naver.maps.LatLng(b.lat, b.lng);
+
+    if (!mapObj) {
+        // 지도가 아직 생성되지 않았을 때 (첫 실행 시)
+        mapObj = new naver.maps.Map('naverMap', {
+            center: p,
+            zoom: 16
+        });
+        marker = new naver.maps.Marker({
+            position: p,
+            map: mapObj
+        });
+    } else {
+        // 지도가 이미 있으면 중심점과 마커 위치만 이동 (깜빡임 없음)
+        mapObj.setCenter(p);
+        marker.setPosition(p);
+    }
 }
-// ❌ 이 아래에 있던 renderS(0) 자동 실행 코드를 삭제했습니다.
-// ❌ index.html에서 통합 관리하므로 충돌이 발생하지 않습니다.
