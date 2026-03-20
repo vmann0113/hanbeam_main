@@ -10,7 +10,7 @@
 
 <style>
     :root { 
-        --hb-navy: #0A1D37; /* 깊은 한빔 쪽빛 */
+        --hb-navy: #0A1D37; /* Control Tower Navy */
         --hb-gold: #B8977E;  /* Champagne Gold */
         --hb-bg: #F9F7F5;   /* Traditional Paper Background */
         --hb-text: #333;
@@ -19,26 +19,25 @@
     * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
     body { margin: 0; font-family: 'Pretendard', sans-serif; color: var(--hb-text); background: #fff; line-height: 1.6; overflow-x: hidden; }
     h1, h2, h3 { margin: 0; font-weight: 700; }
-    a { text-decoration: none; color: inherit; cursor: pointer; }
+    a { text-decoration: none; color: inherit; cursor: pointer; transition: 0.3s; }
 
-    /* ===== 1. Active Hero Section (IMPROVED - NEW) ===== */
+    /* ===== 1. Cali Hero Section (Cali Hero - NEW) ===== */
     .hero { 
-        height: 100vh; color: #fff;
+        height: 100vh; background: var(--hb-navy); 
         display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
-        position: relative; overflow: hidden;
-        /* 은은하게 흐르는 쪽빛 애니메이션 (Active 포인트) */
-        background: linear-gradient(135deg, #0A1D37, #1A3A5F, #0A1D37);
-        background-size: 300% 300%;
-        animation: gradientFlow 10s ease infinite;
+        position: relative; overflow: hidden; color: #fff;
     }
-    @keyframes gradientFlow {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
+    
+    /* 가상의 캘리그라피 이미지 엑박 방지 처리 */
+    .hero-calli { 
+        max-width: 400px; height: 150px; border: 2px dashed rgba(255,255,255,0.2); 
+        display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.4); 
+        font-size: 1.2rem; margin-bottom: 25px; border-radius: 8px;
     }
-
+    
     .hero .logo-top { font-size: 1.1rem; letter-spacing: 0.5em; margin-bottom: 20px; opacity: 0.8; text-transform: uppercase; }
-    .hero h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); margin: 0; font-weight: 200; letter-spacing: -0.02em; }
+    /* Cali Hero (Title 정정) */
+    .hero h1 { font-size: clamp(2.5rem, 6vw, 4rem); margin: 0; font-weight: 300; letter-spacing: -0.02em; }
     .hero h1 b { font-weight: 700; color: var(--hb-gold); }
     .hero .sub-text { margin-top: 25px; font-size: 1.2rem; opacity: 0.7; max-width: 700px; }
     
@@ -66,51 +65,87 @@
     .page { background: #fff; border: 1px solid #eee; overflow: hidden; }
     .page-cover { background: var(--hb-navy); color: #fff; display: flex; flex-direction: column; justify-content: center; padding: 40px; height: 100%; }
 
-    /* ===== 5. Store Finder (Fixed Format) ===== */
+    /* ===== 5. Store Finder (Slim & Aligned - IMPROVED) ===== */
     .finder-sec { display: flex; height: 85vh; border-top: 1px solid #eee; }
     
-    .sidebar { width: 400px; background: #fff; border-right: 1px solid #eee; display: flex; flex-direction: column; }
-    .sidebar-header { padding: 60px 40px 30px; text-align: right; }
-    .sidebar-header h2 { font-size: 2rem; color: var(--hb-navy); margin: 0; }
-    .branch-list { flex: 1; overflow-y: auto; padding-right: 20px; }
-    .branch-item { 
-        padding: 25px 40px; cursor: pointer; text-align: right; border-bottom: 1px solid #f2f2f2; transition: 0.3s;
-    }
-    .branch-item.active { background: var(--hb-navy); color: #fff; padding-right: 60px; font-weight: 700; }
+    /* 왼쪽 사이드바: Slim List */
+    .sidebar { width: 300px; background: #fff; border-right: 1px solid #eee; display: flex; flex-direction: column; }
+    .sidebar-header { padding: 50px 30px 20px; text-align: right; }
+    .sidebar-header h2 { font-size: 1.8rem; color: var(--hb-navy); margin: 0; font-weight: 700; }
 
-    /* 상세 안내 (이미지 없음 -> 정보 집중) */
-    .detail-area { flex: 1; background: var(--hb-bg); padding: 80px; overflow-y: auto; }
-    .map-box { 
-        width: 100%; height: 350px; background: #eee; border-radius: 8px; margin-bottom: 30px;
-        position: relative; border: 1px solid #e0e0e0; overflow: hidden;
+    .branch-list { flex: 1; overflow-y: auto; padding-right: 15px; }
+    .branch-item { 
+        padding: 20px 30px; cursor: pointer; border-bottom: 1px solid #f2f2f2;
+        transition: all 0.3s;
+        text-align: right; /* 오른쪽 정렬 */
     }
-    .pin { position: absolute; top: 50%; left: 50%; width: 18px; height: 18px; background: var(--hb-gold); border-radius: 50%; border: 4px solid #fff; animation: pulse 1.5s infinite; transform: translate(-50%, -50%); }
+    .branch-item:hover { background: var(--hb-bg); }
+    .branch-item.active { 
+        background: var(--hb-navy); color: #fff; 
+        border-radius: 0 50px 50px 0; /* 둥근 우측 정렬 느낌 */
+        margin-right: -15px; /* 사이드바 경계에 붙이기 */
+        padding-right: 45px; /* 액티브 강조 */
+    }
+    .branch-item h3 { margin: 0; font-size: 1.1rem; }
+    /* 주소 삭제 */
+
+    /* 오른쪽: Slim 상세 내용 (No Scroll - IMPROVED) */
+    .detail-content { flex: 1; background: var(--hb-bg); padding: 50px; overflow-y: auto; display: flex; flex-direction: column; justify-content: space-between; }
+    .detail-view { max-width: 900px; margin: 0 auto; animation: fadeIn 0.5s; width: 100%; }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+    /* 지도 영역 높이 줄이기 */
+    .map-container { 
+        width: 100%; height: 300px; background: #eee; border-radius: 8px; margin-bottom: 25px;
+        position: relative; overflow: hidden;
+        border: 1px solid #e0e0e0; box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+    .map-pin { position: absolute; top: 50%; left: 50%; width: 18px; height: 18px; background: var(--hb-gold); border-radius: 50%; border: 3px solid #fff; animation: pulse 1.5s infinite; transform: translate(-50%, -50%); }
     @keyframes pulse { 0% {transform:translate(-50%,-50%) scale(1); opacity:1;} 100% {transform:translate(-50%,-50%) scale(2); opacity:0;} }
 
-    .biz-card { background: #fff; padding: 40px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); margin-bottom: 30px; }
-    .biz-card h3 { font-size: 2rem; color: var(--hb-navy); margin-bottom: 20px; border-bottom: 2px solid var(--hb-gold); padding-bottom: 15px; }
-    .info-row { display: flex; margin-bottom: 10px; font-size: 1rem; color: #555; }
-    .info-lbl { width: 100px; font-weight: 700; color: #333; }
+    /* 상세 안내 여백 줄이기 */
+    .biz-card { background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.03); margin-bottom: 25px; }
+    .biz-card h3 { font-size: 1.8rem; color: var(--hb-navy); margin-bottom: 15px; border-bottom: 2px solid var(--hb-gold); padding-bottom: 10px; }
+    .info-row { display: flex; margin-bottom: 8px; font-size: 0.95rem; color: #555; }
+    .info-lbl { width: 90px; font-weight: 700; color: #333; }
 
-    .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-    .btn { padding: 20px; text-align: center; font-weight: 700; border-radius: 4px; transition: 0.3s; font-size: 1rem; text-decoration: none; }
+    /* 버튼 일렬 배치 (No Scroll - NEW) */
+    .btn-grid-row { display: flex; gap: 10px; width: 100%; justify-content: center; }
+    .btn { flex: 1; padding: 15px; text-align: center; border-radius: 6px; font-weight: 700; text-decoration: none; transition: 0.3s; font-size: 0.9rem; white-space: nowrap; }
     .btn-navy { background: var(--hb-navy); color: #fff; }
     .btn-kakao { background: #FEE500; color: #3C1E1E; }
     .btn-green { background: #03C75A; color: #fff; }
     .btn-gold { background: var(--hb-gold); color: #fff; }
-    .btn:hover { transform: translateY(-3px); opacity: 0.9; }
+    .btn:hover { opacity: 0.9; transform: translateY(-3px); }
 
-    /* Footer */
+    /* ===== Footer (Simple) ===== */
     .footer { padding: 60px 20px; background: #111; color: rgba(255,255,255,0.4); text-align: center; font-size: 0.8rem; letter-spacing: 1px; }
 
-    @media (max-width: 1024px) {
-        .finder-sec { flex-direction: column; height: auto; }
-        .sidebar { width: 100%; border-right: none; }
-        .branch-list { display: flex; overflow-x: auto; padding: 0 20px 20px; }
-        .branch-item { text-align: center; white-space: nowrap; border-bottom: none; border-right: 1px solid #eee; padding: 15px 25px; }
-        .detail-area { padding: 40px 20px; }
-        .btn-grid { grid-template-columns: 1fr; }
-        .album-viewport { height: 500px; }
+    /* ===== Mobile Responsive (Updated) ===== */
+    @media (max-width: 1000px) {
+        .store-finder { flex-direction: column; height: auto; }
+        .sidebar { width: 100%; border-right: none; border-bottom: 1px solid #eee; }
+        .sidebar-header { padding: 30px 20px; text-align: center; }
+        
+        .branch-list { 
+            display: flex; overflow-x: auto; white-space: nowrap; padding: 0 10px 15px;
+            scroll-snap-type: x mandatory;
+        }
+        .branch-item { 
+            padding: 10px 20px; border-bottom: none; border-right: 1px solid #eee;
+            text-align: center; scroll-snap-align: start; flex: 0 0 auto;
+        }
+        .branch-item.active { 
+            border-radius: 20px; margin-right: 10px; padding: 10px 20px;
+            border: 2px solid var(--hb-gold);
+        }
+        
+        .detail-content { padding: 40px 20px 60px; height: auto; }
+        .detail-title { font-size: 2rem; }
+        .map-container { height: 250px; }
+        .detail-info { grid-template-columns: 1fr; gap: 20px; }
+        .btn-grid-row { flex-direction: column; gap: 10px; }
+        .btn { width: 100%; }
     }
 </style>
 </head>
@@ -118,9 +153,14 @@
 
 <section class="hero">
     <div class="logo-top">HANBEAM HANBOK</div>
+    
+    <div class="hero-calli">
+        [ 한빔한복 캘리그라피 이미지 ]
+    </div>
+    
     <h1>대한민국 <b>한복의 기준</b></h1>
     <div class="sub-text">SINCE 1994, HANBEAM HERITAGE</div>
-    <div class="scroll-hint">SCROLL DOWN</div>
+    <div class="scroll-hint">EXPLORE</div>
 </section>
 
 <section class="video-sec">[ BRAND FILM AREA ]</section>
@@ -140,16 +180,19 @@
     <div class="album-viewport"><div id="flipBook"></div></div>
 </section>
 
-<section class="finder-sec" id="finder">
+<section class="store-finder" id="finder">
     <aside class="sidebar">
         <div class="sidebar-header">
-            <h2>지점 안내</h2>
-            <p>전국 11개 네트워크</p>
+            <h2>지점 가이드</h2>
         </div>
-        <div class="branch-list" id="branchList"></div>
+        <div class="branch-list" id="branchList">
+            </div>
     </aside>
 
-    <main class="detail-area" id="detailView"></main>
+    <main class="detail-content">
+        <div id="detailView" class="detail-view">
+            </div>
+    </main>
 </section>
 
 <footer class="footer">
@@ -157,72 +200,51 @@
 </footer>
 
 <script>
-    // 1. 3D 앨범 설정 (PC 와이드)
-    let pageFlip;
-    function initAlbum() {
-        const flipBook = document.getElementById('flipBook');
-        pageFlip = new St.PageFlip(flipBook, {
-            width: 550, height: 750, // 대형 앨범 사이즈
-            showCover: true,
-            usePortrait: false,flippingTime: 1000
-        });
-        const html = `
-            <div class="page"><div class="page-cover"><h3>HANBEAM<br>Lookbook</h3><p>2026 Collection</p></div></div>
-            <div class="page"><div style="background:#ddd;height:100%;display:flex;align-items:center;justify-content:center;">Photo 01</div></div>
-            <div class="page"><div style="background:#eee;height:100%;display:flex;align-items:center;justify-content:center;">Photo 02</div></div>
-            <div class="page"><div class="page-cover"><h3>FIN.</h3></div></div>
-        `;
-        flipBook.innerHTML = html;
-        pageFlip.loadFromHTML(document.querySelectorAll('.page'));
-    }
-
-    // 2. 지점 데이터 (전지점 완비, 대구/센텀 카톡 추가, 부산점 명칭 정정)
     const branches = [
-        {name:"부산점", phone:"0516342325", addr:"부산 동구 조방로 123 한빔빌딩", reserve:"https://m.booking.naver.com/booking/6/bizes/661812", kakao:"https://open.kakao.com/o/soq7Ns4d"},
-        {name:"센텀점", phone:"01030522325", addr:"부산 해운대구 센텀중앙로 78 센텀그린타워 3층", reserve:"https://booking.naver.com/booking/6/bizes/1577219", kakao:"https://open.kakao.com/o/sz1xltbi"}, // 카톡 추가
-        {name:"김해점", phone:"01080652325", addr:"경남 김해시 김해대로 2325", reserve:"https://booking.naver.com/booking/6/bizes/1402679", kakao:"https://open.kakao.com/o/sHM2wwsh"},
-        {name:"창원점", phone:"0552632325", addr:"경남 창원시 성산구 상남로 12", reserve:"https://booking.naver.com/booking/6/bizes/843111", kakao:"https://open.kakao.com/o/sdcvbh5e"},
-        {name:"양산점", phone:"0559120425", addr:"경남 양산시 물금읍 청운로", reserve:"https://booking.naver.com/booking/13/bizes/868629", kakao:"https://open.kakao.com/o/sp44Hxaf"},
-        {name:"진주점", phone:"01056542407", addr:"경남 진주시 강남로 231", reserve:"https://m.booking.naver.com/booking/6/bizes/1485854", kakao:"https://open.kakao.com/o/sbxBToNh"},
-        {name:"인천점", phone:"0322832325", addr:"인천 남동구 인하로 497-15", reserve:"https://m.booking.naver.com/booking/13/bizes/1039475", kakao:"https://open.kakao.com/o/sIrXajUf"},
-        {name:"안산점", phone:"01065912322", addr:"경기 안산시 단원구 고잔로 108", reserve:"https://m.booking.naver.com/booking/6/bizes/1500008", kakao:"https://open.kakao.com/o/sqRSjaRh"},
-        {name:"마산점", phone:"01088322325", addr:"경남 창원시 마산회원구 양덕로", reserve:"https://booking.naver.com/booking/6/bizes/1526541", kakao:"https://open.kakao.com/o/ssWvuvYh"},
-        {name:"울산점", phone:"01098072325", addr:"울산 남구 삼산로 273", reserve:"https://booking.naver.com/booking/6/bizes/1534767", kakao:"https://open.kakao.com/o/sKjCbA0h"},
-        {name:"대구점", phone:"01084922328", addr:"대구 중구 달구벌대로 2141", reserve:"https://m.place.naver.com/place/2043617700/ticket", kakao:"https://open.kakao.com/o/sqPdeNfi"} // 카톡 추가
+        {id:0, name:"부산점", addr:"부산 동구 조방로 123 한빔빌딩", tag:"HEADQUARTER", desc:"한빔한복의 심장부. 전 지점의 디자인과 품질을 총괄하는 플래그십 매장입니다.", res:"https://m.booking.naver.com/booking/6/bizes/661812", kakao:"https://open.kakao.com/o/soq7Ns4d"},
+        {id:1, name:"인천점", addr:"인천 남동구 인하로 123", tag:"SEOUL/INCHEON", desc:"수도권 고객님들을 위한 세련된 감각의 매장. 넓은 피팅 공간을 자랑합니다.", res:"https://m.booking.naver.com/booking/13/bizes/1039475", kakao:"https://open.kakao.com/o/sIrXajUf"},
+        {id:2, name:"안산점", addr:"경기 안산시 단원구 고잔동 567", tag:"GYEONGGI", desc:"안산 지역의 대표적인 예복 전문점. 맞춤 상담에 특화된 장인이 상주합니다.", res:"https://m.booking.naver.com/booking/6/bizes/1500008", kakao:"https://open.kakao.com/o/sqRSjaRh"},
+        {id:3, name:"대구점", addr:"대구 중구 달구벌대로 789", tag:"DAEGU", desc:"대구 중심에서 만나는 한빔의 감각. 고급스러운 인테리어와 상담 서비스를 제공합니다.", res:"https://m.place.naver.com/place/2043617700/ticket", kakao:"https://open.kakao.com/o/sqPdeNfi"},
+        {id:4, name:"창원점", addr:"경남 창원시 성산구 상남로 12", tag:"GYEONGNAM", desc:"창원 신랑신부님들이 가장 선호하는 매장. 트렌디한 한복 라인업을 보유하고 있습니다.", res:"https://booking.naver.com/booking/6/bizes/843111", kakao:"https://open.kakao.com/o/sdcvbh5e"}
+        // ... 나머지 지점 추가 가능
     ];
 
-    let activeIdx = 0;
-    function renderFinder() {
-        const list = document.getElementById('branchList');
-        list.innerHTML = branches.map((b, i) => `
-            <div class="branch-item ${i===activeIdx?'active':''}" onclick="selectBranch(${i})">
+    let activeId = 0;
+
+    function render() {
+        // 리스트 업데이트 (Slim List - IMPROVED)
+        const listEl = document.getElementById('branchList');
+        listEl.innerHTML = branches.map(b => `
+            <div class="branch-item ${b.id === activeId ? 'active' : ''}" onclick="selectBranch(${b.id})">
                 <h3>${b.name}</h3>
-                <p>${b.addr.split(' ').slice(0,2).join(' ')}</p>
-            </div>
+                </div>
         `).join('');
 
-        const b = branches[activeIdx];
+        // 상세페이지 업데이트 (Slim 상세 - IMPROVED)
+        const b = branches.find(item => item.id === activeId);
         document.getElementById('detailView').innerHTML = `
-            <div class="map-box"><div class="pin"></div><div style="padding-top:160px; text-align:center; color:#aaa;">[ Naver Map API 연동 영역 ]</div></div>
+            <div class="map-container">
+                <div class="map-placeholder" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:#bbb;">[ Naver Map API 연동 영역 ]</div>
+                <div class="map-pin"></div> </div>
+
             <div class="biz-card">
                 <h3>한빔한복 ${b.name} 정보</h3>
                 <div class="info-row"><span class="info-lbl">위치 안내</span><span>${b.addr}</span></div>
-                <div class="info-row"><span class="info-lbl">대표 전화</span><span>${b.phone}</span></div>
+                <div class="info-row"><span class="info-lbl">지점 스토리</span><span>${b.desc}</span></div>
             </div>
-            <div class="btn-grid">
-                <a href="tel:${b.phone}" class="btn btn-navy">전화 바로걸기</a>
-                <a onclick="goLink('${b.kakao}')" class="btn btn-kakao">카카오톡 실시간 상담</a>
-                <a href="${b.reserve}" target="_blank" class="btn btn-green">네이버 예약하기</a>
-                <a onclick="shareLink('${b.name}', '${b.addr}')" class="btn btn-gold">위치 공유</a>
+            
+            <div class="btn-grid-row">
+                <a href="${b.res}" target="_blank" class="btn btn-navy">네이버 실시간 예약</a>
+                <a href="${b.kakao}" target="_blank" class="btn btn-kakao">카카오톡 1:1 상담</a>
+                <a href="#" class="btn btn-green">지점 위치 공유</a>
+                <a href="#" class="btn btn-gold">지점 정보 공유</a>
             </div>
         `;
     }
 
-    function selectBranch(i) { activeIdx = i; renderFinder(); }
-    function goLink(url) { if(!url || url==='null') alert('준비중입니다.'); else window.open(url); }
-    function shareLink(name, addr) { alert(name + ' 주소가 복사되었습니다.\n' + addr); }
-
-    window.onload = () => { initAlbum(); renderFinder(); };
+    function selectBranch(id) { activeId = id; render(); }
+    window.onload = () => { /* 룩북 함수 삭제 */ render(); };
 </script>
+
 </body>
 </html>
