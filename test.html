@@ -1,32 +1,45 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>네이버 지도 인증 테스트</title>
-    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=p92c8gq59k"></script>
+    <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=p92c8gq59k"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            text-align: center;
+            font-size: 20px;
+            margin: 20px 0;
+        }
+        #map {
+            width: 100%;
+            height: 500px;
+            background: #eee;
+        }
+    </style>
 </head>
 <body>
-    <h1 style="text-align:center;">지도 인증 테스트 중...</h1>
-    <div id="map" style="width:100%; height:500px; background:#eee;"></div>
+    <h1>지도 인증 테스트 중...</h1>
+    <div id="map"></div>
 
     <script>
-        window.onload = function() {
-            // 네이버 객체가 로드되었는지 확인
-            if (typeof naver !== 'undefined' && naver.maps) {
-                var mapOptions = {
-                    center: new naver.maps.LatLng(35.1381, 129.0621), // 부산점 좌표
-                    zoom: 16
-                };
-                var map = new naver.maps.Map('map', mapOptions);
-                var marker = new naver.maps.Marker({
-                    position: new naver.maps.LatLng(35.1381, 129.0621),
-                    map: map
-                });
-                console.log("지도 생성 성공!");
-            } else {
-                alert("네이버 지도 객체를 찾을 수 없습니다. 인증 설정을 확인하세요.");
-            }
-        };
+        const center = new naver.maps.LatLng(35.1381, 129.0621);
+
+        const map = new naver.maps.Map('map', {
+            center: center,
+            zoom: 16
+        });
+
+        new naver.maps.Marker({
+            position: center,
+            map: map
+        });
+
+        console.log('지도 생성 성공');
     </script>
 </body>
 </html>
