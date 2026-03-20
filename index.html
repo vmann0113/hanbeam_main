@@ -121,9 +121,18 @@
 <footer style="padding:60px; background:#111; color:#444; text-align:center; font-size:0.9rem;">© 2026 HANBEAM HANBOK.</footer>
 
 <script>
-    let curS = 0; const sImgs = document.querySelectorAll('#hqSlides img');
-    if(sImgs.length > 0) setInterval(() => { sImgs[curS].classList.remove('active'); curS = (curS + 1) % sImgs.length; sImgs[curS].classList.add('active'); }, 4000);
+    // 1. 매장 슬라이드 (보존)
+    let curS = 0; 
+    const sImgs = document.querySelectorAll('#hqSlides img');
+    if(sImgs.length > 0) {
+        setInterval(() => { 
+            sImgs[curS].classList.remove('active'); 
+            curS = (curS + 1) % sImgs.length; 
+            sImgs[curS].classList.add('active'); 
+        }, 4000);
+    }
 
+    // 2. 룩북 무한 루프 (보존)
     const ALBUMS = {
         wedding: ["assets/img/lookbook/wedding/wedding_01.webp", "assets/img/lookbook/wedding/wedding_02.webp", "assets/img/lookbook/wedding/wedding_03.webp", "assets/img/lookbook/wedding/wedding_04.webp", "assets/img/lookbook/wedding/wedding_05.webp", "assets/img/lookbook/wedding/wedding_06.webp"],
         mother: ["assets/img/lookbook/mother/mother_01.webp", "assets/img/lookbook/mother/mother_02.webp", "assets/img/lookbook/mother/mother_03.webp", "assets/img/lookbook/mother/mother_04.webp", "assets/img/lookbook/mother/mother_05.webp", "assets/img/lookbook/mother/mother_06.webp"]
@@ -132,6 +141,7 @@
     let pFlip = null;
     function loadAlbum(cat) {
         const target = document.getElementById('albumTarget');
+        if(!target) return;
         target.style.opacity = '0';
         setTimeout(() => {
             document.getElementById('btnWed').className = (cat==='wedding' ? 'tab-btn active' : 'tab-btn');
@@ -140,18 +150,31 @@
             target.innerHTML = '<div id="flipBook"></div>';
             const fb = document.getElementById('flipBook');
             const arr = ALBUMS[cat];
+            
+            // 이미지 자동 복제 무한 루프
             const totalSet = [...arr, ...arr, ...arr]; 
             let h = '';
             totalSet.forEach(img => { 
                 h += `<div class="page"><img src="${img}" onerror="this.onerror=null; this.src='assets/img/logo.png';"></div>`; 
             });
             fb.innerHTML = h;
-            pFlip = new St.PageFlip(fb, { width: 850, height: 850, showCover: false, usePortrait: false, drawShadow: true, swipeDistance: 150, flippingTime: 1200 });
+            
+            pFlip = new St.PageFlip(fb, { 
+                width: 850, height: 850, showCover: false, usePortrait: false, 
+                drawShadow: true, swipeDistance: 150, flippingTime: 1200 
+            });
             pFlip.loadFromHTML(document.querySelectorAll('.page'));
             target.style.opacity = '1'; 
         }, 300);
     }
-<script src="map-logic.js"></script>
+
+    // 초기 실행 (룩북 시작)
+    window.onload = () => { 
+        loadAlbum('wedding'); 
+        if(typeof renderS === 'function') renderS(0); 
+    };
 </script>
+
+<script src="map-logic.js"></script>
 </body>
 </html>
