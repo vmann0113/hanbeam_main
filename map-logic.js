@@ -11,15 +11,14 @@ const branches = [
     {name:"안산점", phone:"010-6591-2322", addr:"경기 안산시 단원구 고잔로 108", reserve:"https://m.booking.naver.com/booking/6/bizes/1500008", kakao:"https://open.kakao.com/o/sqRSjaRh", lat:37.3162, lng:126.8302},
     {name:"마산점", phone:"010-8832-2325", addr:"경남 창원시 마산회원구 양덕로", reserve:"https://booking.naver.com/booking/6/bizes/1526541", kakao:"https://open.kakao.com/o/ssWvuvYh", lat:35.2341, lng:128.5834},
     {name:"울산점", phone:"010-9807-2325", addr:"울산 남구 삼산로 273", reserve:"https://booking.naver.com/booking/6/bizes/1534767", kakao:"https://open.kakao.com/o/sKjCbA0h", lat:35.5392, lng:129.3352},
-    {name:"대구점", phone:"010-8492-2328", addr:"대구 중구 달구벌대로 2141", reserve:"https://m.place.naver.com/place/2043617700/ticket", kakao:"https://open.kakao.com/o/sqPdeNfi", lat:35.8642, lng:128.5931}
+    {name:"대구점", phone:"010-8492-2328", addr:"대구 중구 달구벌대로 2141", reserve:"https://m.place.naver.com/place/2043617700/ticket", kakao:"https://open.kakao.com/o/sqPdeNfi", lat:35.8642, lng:128.5931},
+    {name:"양산점", phone:"055-365-2325", addr:"경남 양산시 물금읍 야리2길 7", reserve:"https://m.booking.naver.com/booking/6/bizes/1577219", kakao:"https://open.kakao.com/o/soq7Ns4d", lat:35.3281, lng:129.0221}
 ];
 
 let mapObj = null;
 let marker = null;
 
-// [자동 실행] 페이지 로드 시 첫 지점 실행
 window.addEventListener('load', () => {
-    // 0.5초 대기 후 실행 (안정성 확보)
     setTimeout(() => {
         if (typeof naver !== 'undefined') {
             renderS(0);
@@ -31,18 +30,14 @@ function renderS(idx) {
     const b = branches[idx];
     const listEl = document.getElementById('branchList');
     const infoBox = document.getElementById('branchInfoBox');
-    const mapContainer = document.getElementById('naverMap');
+    if (!listEl || !infoBox) return;
 
-    if (!listEl || !infoBox || !mapContainer) return;
-
-    // 1. 왼쪽 지점 목록 (기존 디자인 유지)
     listEl.innerHTML = branches.map((item, i) => `
         <div class="branch-item ${i === idx ? 'active' : ''}" onclick="renderS(${i})">
             <h3>${item.name}</h3>
         </div>
     `).join('');
 
-    // 2. 우측 상세 정보 업데이트 (기존 디자인 유지)
     infoBox.innerHTML = `
         <div class="biz-card">
             <h2>한빔한복 ${b.name}</h2>
@@ -57,24 +52,13 @@ function renderS(idx) {
         </div>
     `;
 
-    // 3. 네이버 지도 (성공했던 로직 적용)
     const p = new naver.maps.LatLng(b.lat, b.lng);
-
     if (!mapObj) {
-        // 최초 생성
-        mapObj = new naver.maps.Map('naverMap', {
-            center: p,
-            zoom: 16
-        });
-        marker = new naver.maps.Marker({
-            position: p,
-            map: mapObj
-        });
+        mapObj = new naver.maps.Map('naverMap', { center: p, zoom: 16 });
+        marker = new naver.maps.Marker({ position: p, map: mapObj });
     } else {
-        // 이미 있으면 위치만 이동 (깜빡임 없음)
         mapObj.setCenter(p);
         marker.setPosition(p);
-        // 레이아웃 보정
         setTimeout(() => { mapObj.autoResize(); }, 100);
     }
 }
