@@ -3,10 +3,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover">
-    <meta name="referrer" content="always">
+    <meta name="referrer" content="no-referrer-when-downgrade">
     <title>한빔한복 공식 홈페이지</title>
 
-    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=90rd8k25s2"></script>
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=pgxefrkkuy"></script>
     <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
@@ -16,7 +16,7 @@
         * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
         body { margin: 0; font-family: 'Pretendard', sans-serif; background: #fff; color: #333; overflow-x: hidden; }
 
-        /* 1. Hero (기존 디자인 철저 유지) */
+        /* 1. Hero (디자인 유지) */
         .hero { height: 100vh; background: linear-gradient(135deg, var(--hb-navy), var(--hb-navy-light), var(--hb-navy)); color: #fff; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative; overflow: hidden; }
         .hero::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23fff' fill-opacity='0.03'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7z'/%3E%3C/g%3E%3C/svg%3E"); background-repeat: repeat; animation: patternWave 60s linear infinite; opacity: 0.4; z-index: 1; }
         @keyframes patternWave { from { background-position: 0 0; } to { background-position: 1000px 500px; } }
@@ -27,7 +27,7 @@
         .hero h1 b { font-weight: 700; color: var(--hb-gold); }
         .hero .sub-text { margin-top: 25px; font-size: 1.1rem; opacity: 0.6; letter-spacing: 4px; }
 
-        /* 2. Video & Main Store (기존 디자인 철저 유지) */
+        /* 2. Video & Main Store (디자인 유지) */
         .video-sec { width: 100vw; height: 75vh; background: #000; overflow: hidden; display: flex; justify-content: center; align-items: center; margin-left: 50%; transform: translateX(-50%); }
         .video-sec video { min-width: 100%; min-height: 100%; object-fit: cover; }
         .main-store { padding: 120px 20px; background: var(--hb-bg); text-align: center; }
@@ -37,24 +37,15 @@
         .main-store h2 { font-size: 3rem; color: var(--hb-navy); margin-bottom: 25px; } 
         .main-store p { font-size: 1.44rem; color: #666; max-width: 1000px; margin: 0 auto; font-weight: 400; line-height: 1.6; }
 
-        /* 3. Lookbook: Scale Up & Logo Middle-size (수정 반영) */
+        /* 3. Lookbook: Square & Size Expansion (디자인 유지) */
         .lookbook-sec { padding: 120px 0; background: #fff; text-align: center; }
         .tab-btn { padding: 15px 45px; border: 2px solid var(--hb-gold); background: #fff; color: var(--hb-gold); cursor: pointer; font-weight: 700; border-radius: 50px; margin: 0 10px; font-size: 1.1rem; transition: 0.3s; }
         .tab-btn.active { background: var(--hb-gold); color: #fff; }
-        
-        .album-viewport { margin: 50px auto; width: 95vw; max-width: 900px; height: 900px; display: flex; justify-content: center; align-items: center; transition: opacity 0.4s; }
+        .album-viewport { margin: 50px auto; width: 95vw; max-width: 850px; height: 850px; display: flex; justify-content: center; align-items: center; transition: opacity 0.4s; }
         .page { background: #fff; border: 1px solid #eee; overflow: hidden; backface-visibility: hidden; }
         .page img { width: 100%; height: 100%; object-fit: contain; background: #fff; }
-        
-        .page-cover { background: var(--hb-navy); color: #fff; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 100px; position: relative; background-image: url("https://www.transparenttextures.com/patterns/leather.png"); }
-        .page-cover::before { content: ''; position: absolute; top: 30px; bottom: 30px; left: 30px; right: 30px; border: 8px solid var(--hb-gold); opacity: 0.8; pointer-events: none; }
-        
-        /* 룩북 로고 25px로 재조정 (점처럼 보이지 않게) */
-        .cover-logo { width: 25px !important; height: auto !important; margin-bottom: 20px; background: transparent !important; z-index: 2; display: block; }
-        .cover-title { font-size: 1.3rem; font-weight: 700; letter-spacing: 5px; color: #fff; margin-bottom: 5px; z-index: 2; }
-        .cover-sub { font-family: 'Great Vibes', cursive; font-size: 1.1rem; color: var(--hb-gold); z-index: 2; }
 
-        /* 4. Store Finder (기존 디자인 철저 유지) */
+        /* 4. Store Finder (디자인 유지) */
         .finder-sec { display: flex; height: 85vh; border-top: 1px solid #eee; background: #fff; }
         .sidebar { width: 320px; border-right: 1px solid #eee; display: flex; flex-direction: column; }
         .sidebar-header { padding: 40px 30px 15px; text-align: right; }
@@ -127,11 +118,11 @@
 <footer style="padding:60px; background:#111; color:#444; text-align:center; font-size:0.9rem;">© 2026 HANBEAM HANBOK.</footer>
 
 <script>
-    // 1. 매장 슬라이드
+    // 1. 매장 슬라이드 (유지)
     let curS = 0; const sImgs = document.querySelectorAll('#hqSlides img');
     if(sImgs.length > 0) setInterval(() => { sImgs[curS].classList.remove('active'); curS = (curS + 1) % sImgs.length; sImgs[curS].classList.add('active'); }, 4000);
 
-    // 2. 룩북 제어 (v=7 캐시 강제 무력화)
+    // 2. 룩북 제어 (수정: 표지 제거 & 초기 1,2번 spread & 홀수 무한 루프 시뮬레이션)
     const ALBUMS = {
         wedding: ["assets/img/lookbook/wedding/wedding_01.webp", "assets/img/lookbook/wedding/wedding_02.webp", "assets/img/lookbook/wedding/wedding_03.webp", "assets/img/lookbook/wedding/wedding_04.webp", "assets/img/lookbook/wedding/wedding_05.webp", "assets/img/lookbook/wedding/wedding_06.webp"],
         mother: ["assets/img/lookbook/mother/mother_01.webp", "assets/img/lookbook/mother/mother_02.webp", "assets/img/lookbook/mother/mother_03.webp", "assets/img/lookbook/mother/mother_04.webp", "assets/img/lookbook/mother/mother_05.webp", "assets/img/lookbook/mother/mother_06.webp"]
@@ -147,35 +138,56 @@
             if(pFlip) { pFlip.destroy(); pFlip = null; }
             target.innerHTML = '<div id="flipBook"></div>';
             const fb = document.getElementById('flipBook');
-            const korT = (cat === 'wedding') ? '웨딩룩북' : '혼주룩북';
-            let h = `<div class="page"><div class="page-cover"><img src="assets/img/logo_lookbook.png?v=7" class="cover-logo" onerror="this.src='assets/img/logo.png';"><div class="cover-title">${korT}</div><div class="cover-sub">Hanbeam Collection</div></div></div>`;
-            ALBUMS[cat].forEach(img => { h += `<div class="page"><img src="${img}" onerror="this.src='https://via.placeholder.com/900x900?text=Photo'"></div>`; });
-            h += `<div class="page"><div class="page-cover"><h3>THE END</h3></div></div>`;
+            const arr = ALBUMS[cat];
+            
+            let h = '';
+            // 요청하신 표지(Cover)와 뒷표지(THE END) 생성 코드를 제거했습니다.
+            // 대신 이미지 리스트 DOM을 다수 복제하여 앨범 컨테이너에 담습니다.
+            // page-flip.js의 표준 북릿 방식(double mode)을 유지하면서 5번|1번 짝을 이루게 하려면 복제가 가장 깨끗합니다.
+            
+            // 홀수 장수 시뮬레이션을 위해 DOM 노드를 3회 복제 (책이 무한히 끝나지 않는 시각 효과)
+            const duplicatedDOMArr = [...arr, ...arr, ...arr]; 
+            
+            duplicatedDOMArr.forEach(img => { 
+                h += `<div class="page"><img src="${img}" onerror="this.src='https://via.placeholder.com/750x750?text=Photo'"></div>`; 
+            });
             fb.innerHTML = h;
-            pFlip = new St.PageFlip(fb, { width: 900, height: 900, showCover: true, usePortrait: false, drawShadow: true, swipeDistance: 150, flippingTime: 1200 });
+            
+            // pFlip 구성 변경: showCover: false를 적용하여 초기 [1,2] spread를 강제합니다.
+            pFlip = new St.PageFlip(fb, { 
+                width: 750, 
+                height: 750, 
+                showCover: false, // 표지를 없애고 0번|1번(DOM 인덱스) spread로 시작
+                usePortrait: false, 
+                drawShadow: true, 
+                swipeDistance: 150, 
+                flippingTime: 1200 
+            });
             pFlip.loadFromHTML(document.querySelectorAll('.page'));
             target.style.opacity = '1'; 
         }, 300);
     }
 
-    // 3. 지점 및 지도 (네이버 공식 가이드 기반 - 중복 생성 방지 픽스)
+    // 3. 지점 및 지도 (수정 3 반영: 콜백 방식 강화 - 유지)
     function renderS(idx) {
         const l = document.getElementById('branchList');
         l.innerHTML = branches.map((b, i) => `<div class="branch-item ${i===idx?'active':''}" onclick="renderS(${i})"><h3>${b.name}</h3></div>`).join('');
         const b = branches[idx];
         document.getElementById('detailView').innerHTML = `<div id="naverMap"></div><div class="biz-card"><h2>한빔한복 ${b.name}</h2><div class="info-row"><span class="info-lbl">위치</span><span>${b.addr}</span></div><div class="info-row"><span class="info-lbl">전화</span><span>${b.phone}</span></div></div><div class="btn-row"><a href="tel:${b.phone}" class="btn btn-navy">전화걸기</a><a href="${b.kakao}" target="_blank" class="btn btn-kakao">카톡상담</a><a href="${b.reserve}" target="_blank" class="btn btn-green">네이버예약</a><a href="https://map.naver.com/v5/search/${encodeURIComponent('한빔한복 '+b.name)}" target="_blank" class="btn btn-gold">위치 공유</a></div>`;
         
-        // 공식 문서 지침: 지도 객체 생성 로직 최적화
-        setTimeout(() => {
+        // 지도가 0.1초 만에 꺼지지 않도록 하는 핵심 로직 (유지)
+        const tryInitMap = () => {
             const mapC = document.getElementById('naverMap');
-            if (typeof naver !== 'undefined' && naver.maps && mapC) {
+            if (typeof naver !== 'undefined' && naver.maps && naver.maps.Map && mapC) {
                 const p = new naver.maps.LatLng(b.lat, b.lng);
-                // 중요: 지도를 변수(map)에 담아 딱 한 번만 생성
                 const map = new naver.maps.Map(mapC, { center: p, zoom: 16 });
-                // 마커는 위에서 만든 'map' 변수를 그대로 사용해야 인증 에러가 안 납니다.
                 new naver.maps.Marker({ position: p, map: map });
+            } else {
+                // 아직 로드가 안됐다면 100ms 뒤 다시 시도
+                setTimeout(tryInitMap, 100);
             }
-        }, 200);
+        };
+        tryInitMap();
     }
 
     const branches = [
