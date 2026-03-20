@@ -1,7 +1,19 @@
-/**
- * 한빔한복 지점 안내 및 네이버 지도 로직
- */
-let mapObj = null; 
+// 1. 데이터 선언 (이 부분이 없어서 ReferenceError가 발생했던 것입니다)
+const branches = [
+    {name:"부산점", phone:"051-634-2325", addr:"부산 동구 조방로 123", reserve:"https://m.booking.naver.com/booking/6/bizes/661812", kakao:"https://open.kakao.com/o/soq7Ns4d", lat:35.1381, lng:129.0621},
+    {name:"센텀점", phone:"010-3052-2325", addr:"부산 해운대구 센텀중앙로 78", reserve:"https://booking.naver.com/booking/6/bizes/1577219", kakao:"https://open.kakao.com/o/sz1xltbi", lat:35.1742, lng:129.1275},
+    {name:"김해점", phone:"010-8065-2325", addr:"경남 김해시 김해대로 2325", reserve:"https://booking.naver.com/booking/6/bizes/1402679", kakao:"https://open.kakao.com/o/sHM2wwsh", lat:35.2285, lng:128.8781},
+    {name:"창원점", phone:"055-263-2325", addr:"경남 창원시 성산구 상남로 12", reserve:"https://booking.naver.com/booking/6/bizes/843111", kakao:"https://open.kakao.com/o/sdcvbh5e", lat:35.2211, lng:128.6834},
+    {name:"양산점", phone:"055-912-0425", addr:"경남 양산시 물금읍 청운로", reserve:"https://booking.naver.com/booking/13/bizes/868629", kakao:"https://open.kakao.com/o/sp44Hxaf", lat:35.3282, lng:129.0145},
+    {name:"진주점", phone:"010-5654-2407", addr:"경남 진주시 강남로 231", reserve:"https://m.booking.naver.com/booking/6/bizes/1485854", kakao:"https://open.kakao.com/o/sbxBToNh", lat:35.1834, lng:128.0872},
+    {name:"인천점", phone:"032-283-2325", addr:"인천 남동구 인하로 497-15", reserve:"https://m.booking.naver.com/booking/13/bizes/1039475", kakao:"https://open.kakao.com/o/sIrXajUf", lat:37.4442, lng:126.7025},
+    {name:"안산점", phone:"010-6591-2322", addr:"경기 안산시 단원구 고잔로 108", reserve:"https://m.booking.naver.com/booking/6/bizes/1500008", kakao:"https://open.kakao.com/o/sqRSjaRh", lat:37.3162, lng:126.8302},
+    {name:"마산점", phone:"010-8832-2325", addr:"경남 창원시 마산회원구 양덕로", reserve:"https://booking.naver.com/booking/6/bizes/1526541", kakao:"https://open.kakao.com/o/ssWvuvYh", lat:35.2341, lng:128.5834},
+    {name:"울산점", phone:"010-9807-2325", addr:"울산 남구 삼산로 273", reserve:"https://booking.naver.com/booking/6/bizes/1534767", kakao:"https://open.kakao.com/o/sKjCbA0h", lat:35.5392, lng:129.3352},
+    {name:"대구점", phone:"010-8492-2328", addr:"대구 중구 달구벌대로 2141", reserve:"https://m.place.naver.com/place/2043617700/ticket", kakao:"https://open.kakao.com/o/sqPdeNfi", lat:35.8642, lng:128.5931}
+];
+
+let mapObj = null;
 let marker = null;
 
 function renderS(idx) {
@@ -10,16 +22,16 @@ function renderS(idx) {
     const infoBox = document.getElementById('branchInfoBox');
     const mapContainer = document.getElementById('naverMap');
 
-    if(!listEl || !infoBox || !mapContainer) return;
+    if (!listEl || !infoBox || !mapContainer) return;
 
-    // 1. 왼쪽 리스트 활성화 UI 처리
+    // 1. 리스트 활성화 UI
     listEl.innerHTML = branches.map((item, i) => `
         <div class="branch-item ${i === idx ? 'active' : ''}" onclick="renderS(${i})">
             <h3>${item.name}</h3>
         </div>
     `).join('');
 
-    // 2. 우측 상세 정보(텍스트+버튼)만 업데이트
+    // 2. 상세정보 텍스트 업데이트
     infoBox.innerHTML = `
         <div class="biz-card">
             <h2>한빔한복 ${b.name}</h2>
@@ -34,26 +46,24 @@ function renderS(idx) {
         </div>
     `;
 
-    // 3. 네이버 지도 초기화 및 이동
+    // 3. 네이버 지도 로직
     const p = new naver.maps.LatLng(b.lat, b.lng);
 
     if (!mapObj) {
-        // 처음 실행 시 지도 생성
+        // 처음 한 번만 생성
         mapObj = new naver.maps.Map(mapContainer, {
             center: p,
-            zoom: 16,
-            // 모바일에서 지도가 잘리거나 쏠리는 현상 방지
-            size: new naver.maps.Size(mapContainer.offsetWidth, 450) 
+            zoom: 16
         });
         marker = new naver.maps.Marker({
             position: p,
             map: mapObj
         });
     } else {
-        // 이미 생성된 경우 위치만 이동
+        // 위치만 이동 (매우 빠름)
         mapObj.setCenter(p);
         marker.setPosition(p);
-        // 레이아웃 깨짐 방지를 위한 사이즈 재계산
-        mapObj.autoResize(); 
+        // 레이아웃 보정
+        setTimeout(() => { mapObj.autoResize(); }, 100);
     }
 }
