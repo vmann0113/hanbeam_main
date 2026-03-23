@@ -112,6 +112,16 @@
     font-weight: 700;
     color: #c5a059; /* 한빔 골드 */
 }
+        /* 기존에 있던 .hero h1 b { ... } 바로 아래에 넣으세요 */
+.hero .sub-text {
+    margin-top: 25px;       /* 로고/제목과의 간격 */
+    font-size: 0.9rem;      /* 글자 크기 (살짝 작게가 고급스러워요) */
+    color: #c5a059;         /* ✨ 한빔 골드 컬러 적용 */
+    letter-spacing: 6px;    /* 글자 사이 간격 (명품 브랜드 느낌) */
+    font-weight: 300;       /* 글자 두께를 가늘게 */
+    opacity: 0.9;           /* 너무 쨍하지 않게 살짝 투명도 조절 */
+    text-transform: uppercase; /* 무조건 대문자로 표시 */
+}
         /* 2. Main Store */
         .video-sec { width: 100%; height: auto; aspect-ratio: 16 / 9; background: #000; overflow: hidden; }
         .video-sec video { width: 100%; height: 100%; object-fit: cover; }
@@ -159,6 +169,11 @@
 
         @media (max-width: 768px) {
             .hero { height: 60vh; } 
+            .hero .sub-text { 
+        font-size: 0.75rem; /* 모바일에서는 글자를 더 작게 */
+        letter-spacing: 3px; /* 간격도 살짝 좁게 */
+        margin-top: 15px; 
+    }
             .pc-hide { display: block; }
             .main-store { padding: 60px 20px; }
             .main-store h2 { font-size: 2rem; }
