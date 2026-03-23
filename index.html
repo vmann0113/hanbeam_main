@@ -18,93 +18,113 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
     
     <style>
-      /* 1. 컬러: 깊이감 있는 흑색과 황금색 (보존) */
+      /* 1. 컬러: 블랙 & 골드 세팅 */
 :root { 
-    --hb-black-base: #050505;    /* 묵직한 원단 기본색 */
-    --hb-black-glow: #1a1a1a;    /* 비단 결 광택색 */
-    --hb-gold: #c5a059;          /* 은은한 놋쇠 느낌의 골드 */
+    --hb-black-base: #050505; 
+    --hb-black-glow: #151515; 
+    --hb-gold: #c5a059; 
 }
 
-/* 2. Hero 섹션: 비단 원단 베이스 (보존 및 정렬 강화) */
+/* 2. Hero 섹션: 중앙 정렬 및 비단 결 */
 .hero { 
     height: 100vh; 
-    /* 비단의 미세한 가로 결(Thread) 효과 추가 */
+    /* 미세한 실 결 질감 */
     background: 
         repeating-linear-gradient(0deg, rgba(255,255,255,0.03) 0px, transparent 1px, transparent 2px),
         linear-gradient(135deg, var(--hb-black-base), var(--hb-black-glow), var(--hb-black-base));
     background-size: 100% 2px, 100% 100%;
     color: #fff; 
-    display: flex; flex-direction: column; 
+    display: flex; 
+    flex-direction: column; 
     justify-content: center; /* 수직 중앙 */
-    align-items: center;     /* 수평 중앙 (로고 정렬 픽스) */
-    text-align: center; position: relative; overflow: hidden; padding: 20px; 
+    align-items: center;     /* 수평 중앙 */
+    text-align: center; 
+    position: relative; 
+    overflow: hidden; 
+    padding: 20px; 
 }
 
-/* 🏆 흐르는 비단 자수 문양 (투명도 낮춰서 도트 느낌 완전 제거) */
+/* 🏆 흐르는 비단 문양 (선명도 대폭 상향) */
 .hero::after { 
     content: ""; 
     position: absolute; 
     top: -50%; left: -50%; width: 200%; height: 200%;
-    /* 구름처럼 흐르는 전통 문양 패턴 */
-    background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9 15c2.5-3 6.5-5 11-5s8.5 2 11 5 6.5 5 11 5 8.5-2 11-5' stroke='%23fff' stroke-opacity='0.02' fill='none'/%3E%3Cpath d='M69 75c2.5-3 6.5-5 11-5s8.5 2 11 5 6.5 5 11 5 8.5-2 11-5' stroke='%23fff' stroke-opacity='0.02' fill='none'/%3E%3C/svg%3E");
+    /* 선명도를 높인 전통 구름 문양 (stroke-opacity를 0.1로 상향) */
+    background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9 15c2.5-3 6.5-5 11-5s8.5 2 11 5 6.5 5 11 5 8.5-2 11-5' stroke='%23ffffff' stroke-opacity='0.12' stroke-width='1' fill='none'/%3E%3Cpath d='M69 75c2.5-3 6.5-5 11-5s8.5 2 11 5 6.5 5 11 5 8.5-2 11-5' stroke='%23ffffff' stroke-opacity='0.12' stroke-width='1' fill='none'/%3E%3C/svg%3E");
     background-repeat: repeat; 
-    animation: silkFlow 60s linear infinite; 
-    opacity: 0.3; /* 더 은은하게 */
-    filter: blur(0.5px); /* 문양을 실에 새긴 것처럼 살짝 뭉개줌 */
+    animation: silkFlow 50s linear infinite; 
+    opacity: 0.8; /* 전체 투명도 상향 */
     z-index: 1;
     pointer-events: none;
 }
 
-/* 🏆 비단 위로 흐르는 광택(Sheen) 레이어 (투명도 대폭 낮춤 & 속도 늦춤) */
+/* 🏆 은은한 광택 레이어 (매우 부드럽게 유지) */
 .hero::before {
     content: "";
     position: absolute;
-    top: 0; left: -100%; width: 60%; height: 100%;
-    /* 투명도를 0.05에서 0.01로 대폭 낮추어 은은한 실크 윤기만 남김 */
-    background: linear-gradient(110deg, transparent, rgba(255,255,255,0.015), transparent);
-    transform: skewX(-25deg);
-    animation: shine 15s ease-in-out infinite; /* 8초에서 15초로 느리게 */
+    top: 0; left: -100%; width: 50%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.02), transparent);
+    transform: skewX(-20deg);
+    animation: shine 12s ease-in-out infinite;
     z-index: 2;
     pointer-events: none;
 }
 
-/* 움직임 정의 */
+/* 문양 흐름 */
 @keyframes silkFlow { 
-    from { transform: rotate(0deg) translate(0, 0); } 
-    to { transform: rotate(2deg) translate(-120px, -60px); } 
+    from { transform: translate(0, 0); } 
+    to { transform: translate(-120px, -120px); } 
 }
 
-/* 광택 움직임 (대폭 느리게 수정) */
+/* 광택 움직임 */
 @keyframes shine {
     0% { left: -100%; }
-    30% { left: 150%; } /* 30%까지만 보이고 사라짐 */
-    100% { left: 150%; } /* 나머지 시간은 대기 */
+    20% { left: 150%; }
+    100% { left: 150%; }
 }
 
-/* 3. 내부 콘텐츠 (글자 및 로고) */
-.hero-content { position: relative; z-index: 10; filter: drop-shadow(0 0 20px rgba(0,0,0,0.8)); width: 100%; }
-
-/* 🏆 [정렬 중요] 로고 구역 중앙 정렬 완료 */
-.logo-area { 
-    width: 90%; 
-    max-width: 400px; /* 로고 최대 크기 제한 */
-    margin: 0 auto 30px; /* 수평 중앙 정렬 (0 auto) */
+/* 3. 내부 콘텐츠 (중앙 정렬 픽스) */
+.hero-content { 
+    position: relative; 
+    z-index: 10; 
+    width: 100%; 
+    max-width: 800px;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    align-items: center; /* 내부 요소들 수평 중앙 정렬 */
+}
+
+/* 로고 중앙 정렬 */
+.logo-area { 
+    width: 100%;
+    max-width: 420px; 
+    margin: 0 auto 40px; 
 }
 .logo-area img { 
-    max-width: 100%; /* 반응형 */
+    width: 100%; 
     height: auto; 
     display: block; 
-    margin: 0 auto; /* 이미지 자체 중앙 정렬 */
-    filter: brightness(1.1); 
+    filter: brightness(1.1) drop-shadow(0 0 10px rgba(0,0,0,0.5)); 
 }
 
-.hero h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 200; letter-spacing: -1px; }
-.hero h1 b { font-weight: 700; color: var(--hb-gold); text-shadow: 0 0 15px rgba(197,160,89,0.3); }
+.hero h1 { 
+    font-size: clamp(2.5rem, 6vw, 4.5rem); 
+    font-weight: 200; 
+    margin: 0; 
+    line-height: 1.2;
+}
+.hero h1 b { 
+    font-weight: 700; 
+    color: var(--hb-gold); 
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
 
-.hero .sub-text { margin-top: 25px; font-size: 1.1rem; opacity: 0.7; letter-spacing: 5px; }
+.hero .sub-text { 
+    margin-top: 25px; 
+    font-size: 1.1rem; 
+    opacity: 0.8; 
+    letter-spacing: 5px; 
+}
         /* 2. Main Store */
         .video-sec { width: 100%; height: auto; aspect-ratio: 16 / 9; background: #000; overflow: hidden; }
         .video-sec video { width: 100%; height: 100%; object-fit: cover; }
