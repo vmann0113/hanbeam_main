@@ -18,18 +18,54 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
     
     <style>
-        :root { --hb-navy: #0A1D37; --hb-gold: #B8977E; --hb-bg: #F9F7F5; --hb-navy-light: #1A3A5F; }
-        * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
-        body { margin: 0; font-family: 'Pretendard', sans-serif; background: #fff; color: #333; overflow-x: hidden; width: 100%; }
+        /* 1. 컬러 변수 수정 (블랙 & 골드) */
+:root { 
+    --hb-navy: #000000;         /* 딥 블랙 */
+    --hb-gold: #C0A080;         /* 샴페인 골드 */
+    --hb-bg: #F9F7F5; 
+    --hb-navy-light: #151515;   /* 비단 질감을 위한 소프트 블랙 */
+}
 
-        /* 1. Hero */
-        .hero { height: 100vh; background: linear-gradient(135deg, var(--hb-navy), var(--hb-navy-light), var(--hb-navy)); color: #fff; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative; overflow: hidden; padding: 20px; }
-        .logo-area { width: 90%; max-width: 450px; margin: 0 auto 30px; }
-        .logo-area img { width: 100%; height: auto; display: block; }
-        .hero h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 200; margin: 0; line-height: 1.2; }
-        .hero h1 b { font-weight: 700; color: var(--hb-gold); }
-        .hero .sub-text { margin-top: 20px; font-size: 1.1rem; opacity: 0.6; letter-spacing: 4px; }
+/* 2. Hero 섹션 (흐르는 효과 복구) */
+.hero { 
+    height: 100vh; 
+    /* 깊이감 있는 블랙 그라데이션 */
+    background: linear-gradient(135deg, var(--hb-navy), var(--hb-navy-light), var(--hb-navy)); 
+    color: #fff; 
+    display: flex; flex-direction: column; justify-content: center; align-items: center; 
+    text-align: center; position: relative; overflow: hidden; padding: 20px; 
+}
 
+/* 🏆 흐르는 비단 문양 효과 (가장 중요한 부분) */
+.hero::after { 
+    content: ''; 
+    position: absolute; 
+    top: 0; left: 0; 
+    width: 200%; height: 200%; /* 대각선 흐름을 위해 영역 확장 */
+    background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23fff' fill-opacity='0.03'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7z'/%3E%3C/g%3E%3C/svg%3E"); 
+    background-repeat: repeat; 
+    animation: patternWave 80s linear infinite; /* 천천히 흐르도록 시간 조절 */
+    opacity: 0.15; /* 블랙 위에서 은은하게 보이도록 조절 */
+    z-index: 1; 
+    pointer-events: none;
+}
+
+/* 문양이 대각선으로 부드럽게 흐르는 애니메이션 */
+@keyframes patternWave { 
+    from { transform: translate(0, 0); } 
+    to { transform: translate(-400px, -400px); } 
+}
+
+.hero-content { z-index: 10; width: 100%; position: relative; }
+
+.logo-area { width: 90%; max-width: 450px; margin: 0 auto 30px; }
+.logo-area img { width: 100%; height: auto; display: block; }
+
+.hero h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 200; margin: 0; line-height: 1.2; }
+/* 제목 강조 골드 컬러 */
+.hero h1 b { font-weight: 700; color: var(--hb-gold); }
+
+.hero .sub-text { margin-top: 20px; font-size: 1.1rem; opacity: 0.6; letter-spacing: 4px; }
         /* 2. Main Store */
         .video-sec { width: 100%; height: auto; aspect-ratio: 16 / 9; background: #000; overflow: hidden; }
         .video-sec video { width: 100%; height: 100%; object-fit: cover; }
