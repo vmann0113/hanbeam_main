@@ -18,101 +18,81 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
     
     <style>
-      /* 1. Eliminate previous offending elements (실지렁이 제거) */
-.hero::before, .hero::after { content: none; animation: none; }
-
-/* 2. 컬러 변수: 딥 블랙 & 골드 */
+      /* 1. 기본 색상 정의 */
 :root { 
-    --hb-black-base: #000000;         /* 칠흑 같은 블랙 */
-    --hb-black-silk: #111111;         /* 원단 광택용 */
-    --hb-gold: #c5a059;               /* 고급스러운 골드 */
+    --hb-black: #050505; 
+    --hb-gold: #c5a059; 
 }
 
-/* 3. Hero 섹션 본체: 중앙 정렬 및 블랙 실크 베이스 */
+/* 2. Hero 섹션: 정중앙 정렬 및 실크 베이스 */
 .hero { 
     height: 100vh; 
-    background-color: var(--hb-black-base);
-    /* 🏆 은은한 실크 사선 결 (Diagonal Thread Grain) */
+    background-color: var(--hb-black);
+    /* 🏆 실크 원단 느낌의 미세한 사선 결 */
     background-image: repeating-linear-gradient(
         135deg,
-        rgba(255, 255, 255, 0.01) 0px,
-        rgba(255, 255, 255, 0.01) 1px,
+        rgba(255, 255, 255, 0.02) 0px,
+        rgba(255, 255, 255, 0.02) 1px,
         transparent 1px,
         transparent 4px
     );
     color: #fff; 
     display: flex; 
     flex-direction: column; 
-    justify-content: center; /* 수직 중앙 */
-    align-items: center;     /* 수평 중앙 (로고 정렬 픽스) */
+    justify-content: center; 
+    align-items: center; 
     text-align: center; 
     position: relative; 
     overflow: hidden; 
-    padding: 20px; 
 }
 
-/* 🏆 기하학적 전통 격자무늬 (실지렁이 제거, 진짜 전통 패턴 추가) */
-.pattern-layer {
+/* 🏆 전통 격자무늬 레이어 (실지렁이 대신 직선 격자) */
+.hero::before {
+    content: "";
     position: absolute;
-    top: 0; left: -50%; width: 200%; height: 100%;
-    /* 🏆 우아한 전통 격자무늬 (Geometric Lattice Pattern) 
-       직선과 사선으로만 이루어져 있어 지렁이처럼 보이지 않습니다. */
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg stroke='%23ffffff' stroke-opacity='0.03' stroke-width='1' fill='none'%3E%3Cpath d='M50 0L100 50L50 100L0 50Z'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
-    background-repeat: repeat; 
-    animation: traditionalFlow 90s linear infinite; /* 대폭 느리게 설정 */
-    opacity: 0.5; /* 은은하게 설정 */
-    filter: blur(0.3px); /* 원단에 새긴 듯한 느낌 */
+    top: -50%; left: -50%; width: 200%; height: 200%;
+    /* 우아한 전통 마름모 격자 (직선이라 깔끔합니다) */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg stroke='%23ffffff' stroke-opacity='0.08' stroke-width='1' fill='none'%3E%3Cpath d='M40 0L80 40L40 80L0 40Z'/%3E%3C/g%3E%3C/svg%3E");
+    background-repeat: repeat;
+    animation: patternFlow 80s linear infinite; /* 아주 천천히 흐름 */
+    opacity: 0.6;
     z-index: 1;
     pointer-events: none;
 }
 
-/* 🏆 은은한 광택 레이어 (매우 부드럽게 유지, 느리게) */
-.shine-layer {
+/* 🏆 아주 느리고 은은한 광택 (1% 투명도) */
+.hero::after {
+    content: "";
     position: absolute;
-    top: 0; left: -100%; width: 50%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.01), transparent);
+    top: 0; left: -100%; width: 60%; height: 100%;
+    background: linear-gradient(110deg, transparent, rgba(255,255,255,0.015), transparent);
     transform: skewX(-20deg);
-    animation: shine 30s ease-in-out infinite;
+    animation: slowShine 25s ease-in-out infinite; /* 25초 주기로 아주 느리게 */
     z-index: 2;
     pointer-events: none;
 }
 
-/* 움직임 정의 */
-/* 전통 무늬 천천히 흐름 */
-@keyframes traditionalFlow { 
-    from { transform: translate(0, 0); } 
-    to { transform: translate(-100px, -100px); } 
-}
-
-/* 광택 움직임 (매우 느리게) */
-@keyframes shine {
-    0% { left: -100%; }
-    15% { left: 150%; }
-    100% { left: 150%; }
-}
-
-/* 4. 내부 콘텐츠 (중앙 정렬 픽스) */
+/* 3. 내부 콘텐츠 (중앙 정렬 및 시인성) */
 .hero-content { 
     position: relative; 
     z-index: 10; 
-    width: 100%; 
-    max-width: 800px;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center; /* 내부 요소 중앙 정렬 */
+    align-items: center; /* 로고와 글자 수평 중앙 정렬 */
 }
 
-/* 로고 중앙 정렬 */
 .logo-area { 
-    width: 100%;
-    max-width: 420px; 
-    margin: 0 auto 40px; 
+    width: 90%; 
+    max-width: 400px; 
+    margin: 0 auto 30px; 
 }
 .logo-area img { 
     width: 100%; 
     height: auto; 
     display: block; 
-    filter: brightness(1.1) drop-shadow(0 0 10px rgba(0,0,0,0.5)); 
+    margin: 0 auto; 
+    filter: brightness(1.1) drop-shadow(0 0 10px rgba(0,0,0,0.8));
 }
 
 .hero h1 { 
@@ -124,7 +104,6 @@
 .hero h1 b { 
     font-weight: 700; 
     color: var(--hb-gold); 
-    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
 }
 
 .hero .sub-text { 
@@ -132,6 +111,18 @@
     font-size: 1.1rem; 
     opacity: 0.8; 
     letter-spacing: 5px; 
+}
+
+/* 애니메이션 정의 */
+@keyframes patternFlow {
+    from { transform: translate(0, 0); }
+    to { transform: translate(-160px, -160px); }
+}
+
+@keyframes slowShine {
+    0% { left: -120%; }
+    20% { left: 150%; } /* 천천히 슥 지나가고 */
+    100% { left: 150%; } /* 한참을 기다림 */
 }
         /* 2. Main Store */
         .video-sec { width: 100%; height: auto; aspect-ratio: 16 / 9; background: #000; overflow: hidden; }
