@@ -18,69 +18,92 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
     
     <style>
-      /* 1. 컬러: 블랙 & 골드 세팅 */
+      /* 1. 컬러: 깊이감 있는 흑색과 황금색 (보존) */
 :root { 
-    --hb-black-base: #050505; 
-    --hb-black-glow: #151515; 
-    --hb-gold: #c5a059; 
+    --hb-black-base: #050505;    /* 묵직한 원단 기본색 */
+    --hb-black-glow: #151515;    /* 원단 윤기색 */
+    --hb-gold: #c5a059;          /* 은은한 놋쇠 느낌의 골드 */
 }
 
-/* 2. Hero 섹션: 중앙 정렬 및 비단 결 */
+/* 2. Hero 섹션 본체: 블랙 실크 원단 질감 */
 .hero { 
     height: 100vh; 
-    /* 미세한 실 결 질감 */
-    background: 
-        repeating-linear-gradient(0deg, rgba(255,255,255,0.03) 0px, transparent 1px, transparent 2px),
-        linear-gradient(135deg, var(--hb-black-base), var(--hb-black-glow), var(--hb-black-base));
-    background-size: 100% 2px, 100% 100%;
+    /* 깊은 블랙 그라데이션 베이스 */
+    background: linear-gradient(135deg, var(--hb-black-base), var(--hb-black-glow), var(--hb-black-base));
     color: #fff; 
     display: flex; 
     flex-direction: column; 
     justify-content: center; /* 수직 중앙 */
-    align-items: center;     /* 수평 중앙 */
+    align-items: center;     /* 수평 중앙 (정렬 픽스) */
     text-align: center; 
     position: relative; 
     overflow: hidden; 
     padding: 20px; 
 }
 
-/* 🏆 흐르는 비단 문양 (선명도 대폭 상향) */
+/* 🏆 은은한 실크 사선 결 (사선 질감 추가) */
 .hero::after { 
     content: ""; 
     position: absolute; 
-    top: -50%; left: -50%; width: 200%; height: 200%;
-    /* 선명도를 높인 전통 구름 문양 (stroke-opacity를 0.1로 상향) */
-    background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9 15c2.5-3 6.5-5 11-5s8.5 2 11 5 6.5 5 11 5 8.5-2 11-5' stroke='%23ffffff' stroke-opacity='0.12' stroke-width='1' fill='none'/%3E%3Cpath d='M69 75c2.5-3 6.5-5 11-5s8.5 2 11 5 6.5 5 11 5 8.5-2 11-5' stroke='%23ffffff' stroke-opacity='0.12' stroke-width='1' fill='none'/%3E%3C/svg%3E");
-    background-repeat: repeat; 
-    animation: silkFlow 50s linear infinite; 
-    opacity: 0.8; /* 전체 투명도 상향 */
+    top: 0; left: 0; right: 0; bottom: 0;
+    /* 가느다란 사선 질감 (실크의 결) */
+    background-image: repeating-linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.04) 0px,
+        rgba(255, 255, 255, 0.04) 1px,
+        transparent 1px,
+        transparent 8px
+    );
+    opacity: 0.5; /* 질감의 투명도 */
+    filter: blur(0.3px); /* 실크의 부드러움 */
     z-index: 1;
     pointer-events: none;
 }
 
-/* 🏆 은은한 광택 레이어 (매우 부드럽게 유지) */
+/* 🏆 진짜 전통 문양 자수 (실지렁이 제거, 전통 무늬 추가) */
+.hero .lookbook-guide {
+    /* 기존 룩북 가이드 스타일과 동일 */
+    font-size: 1.1rem; color: var(--hb-gold); margin-bottom: 20px; font-weight: 500;
+}
+/* 이전에 .hero::after에 있던 것을 여기에 전통 문양으로 넣습니다 */
+.hero-content::after {
+    content: "";
+    position: absolute;
+    top: -50%; left: -50%; width: 200%; height: 200%;
+    /* 우아한 전통 운문(구름) 및 덩굴 문양 */
+    background-image: url("data:image/svg+xml,%3Csvg width='160' height='160' viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 20c5-5 15-7 25-7s20 2 25 7 15 7 25 7 20-2 25-7M30 60c5-5 15-7 25-7s20 2 25 7 15 7 25 7 20-2 25-7M130 140c5-5 15-7 25-7s20 2 25 7 15 7 25 7 20-2 25-7M70 100c5-5 15-7 25-7s20 2 25 7 15 7 25 7 20-2 25-7' stroke='%23ffffff' stroke-opacity='0.12' stroke-width='1' fill='none'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    animation: traditionalFlow 80s linear infinite; /* 천천히 흐르도록 시간 증가 */
+    opacity: 0.6;
+    filter: blur(0.5px);
+    z-index: -1; /* hero-content 뒤로 보내기 */
+    pointer-events: none;
+}
+
+/* 🏆 은은한 광택 레이어 (매우 부드럽게 유지, 속도 느리게) */
 .hero::before {
     content: "";
     position: absolute;
     top: 0; left: -100%; width: 50%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.02), transparent);
-    transform: skewX(-20deg);
-    animation: shine 12s ease-in-out infinite;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.015), transparent);
+    transform: skewX(-25deg);
+    animation: shineSubtle 30s ease-in-out infinite; /* 12초에서 30초로 대폭 느리게 */
     z-index: 2;
     pointer-events: none;
 }
 
-/* 문양 흐름 */
-@keyframes silkFlow { 
+/* 움직임 정의 */
+/* 전통 문양 천천히 흐름 */
+@keyframes traditionalFlow { 
     from { transform: translate(0, 0); } 
-    to { transform: translate(-120px, -120px); } 
+    to { transform: translate(-160px, -160px); } 
 }
 
-/* 광택 움직임 */
-@keyframes shine {
+/* 광택 움직임 (대폭 느리게 수정, 긴 대기 시간) */
+@keyframes shineSubtle {
     0% { left: -100%; }
-    20% { left: 150%; }
-    100% { left: 150%; }
+    15% { left: 150%; } /* 한번 쓱 지나가고 */
+    100% { left: 150%; } /* 나머지 시간은 안 보임 */
 }
 
 /* 3. 내부 콘텐츠 (중앙 정렬 픽스) */
@@ -91,7 +114,7 @@
     max-width: 800px;
     display: flex;
     flex-direction: column;
-    align-items: center; /* 내부 요소들 수평 중앙 정렬 */
+    align-items: center; /* 내부 요소들 중앙 정렬 */
 }
 
 /* 로고 중앙 정렬 */
