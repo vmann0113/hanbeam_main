@@ -18,55 +18,73 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
     
     <style>
-        /* 1. 색상 정의 (블랙 & 골드) */
+       /* 1. 컬러: 깊이감 있는 흑색과 황금색 */
 :root { 
-    --hb-black: #000000;         /* 칠흑 같은 블랙 */
-    --hb-black-soft: #111111;    /* 비단 광택용 */
-    --hb-gold: #C0A080;          /* 고급스러운 골드 */
+    --hb-black-base: #050505;    /* 묵직한 원단 기본색 */
+    --hb-black-glow: #1a1a1a;    /* 비단 결 광택색 */
+    --hb-gold: #c5a059;          /* 은은한 놋쇠 느낌의 골드 */
 }
 
-/* 2. Hero 섹션 전체 (기존 .hero 지우고 이걸로 교체) */
+/* 2. Hero 섹션: 비단 원단 베이스 */
 .hero { 
     height: 100vh; 
-    /* 깊이감 있는 블랙 비단 그라데이션 */
-    background: linear-gradient(135deg, var(--hb-black), var(--hb-black-soft), var(--hb-black)); 
+    /* 비단의 미세한 가로 결(Thread) 효과 추가 */
+    background: 
+        repeating-linear-gradient(0deg, rgba(255,255,255,0.03) 0px, transparent 1px, transparent 2px),
+        linear-gradient(135deg, var(--hb-black-base), var(--hb-black-glow), var(--hb-black-base));
+    background-size: 100% 2px, 100% 100%;
     color: #fff; 
     display: flex; flex-direction: column; justify-content: center; align-items: center; 
-    text-align: center; position: relative; overflow: hidden; padding: 20px; 
-    z-index: 1; /* 기반 레이어 설정 */
+    text-align: center; position: relative; overflow: hidden; 
 }
 
-/* 🏆 흐르는 비단 자수 레이어 */
+/* 🏆 흐르는 비단 자수 문양 (점 대신 전통 구름/덩굴 문양 느낌) */
 .hero::after { 
     content: ""; 
     position: absolute; 
-    top: 0; left: 0; right: 0; bottom: 0;
-    /* 은은한 흰색 문양 (투명도 0.04로 조절해서 매우 고급스러움) */
-    background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23fff' fill-opacity='0.04'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7z'/%3E%3C/g%3E%3C/svg%3E"); 
+    top: -50%; left: -50%; width: 200%; height: 200%;
+    /* 구름처럼 흐르는 전통 문양 패턴 */
+    background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9 15c2.5-3 6.5-5 11-5s8.5 2 11 5 6.5 5 11 5 8.5-2 11-5' stroke='%23fff' stroke-opacity='0.03' fill='none'/%3E%3Cpath d='M69 75c2.5-3 6.5-5 11-5s8.5 2 11 5 6.5 5 11 5 8.5-2 11-5' stroke='%23fff' stroke-opacity='0.03' fill='none'/%3E%3C/svg%3E");
     background-repeat: repeat; 
-    /* 🌊 흐르는 마법: 30초 동안 대각선으로 무한 반복 */
-    animation: silkFlow 30s linear infinite; 
-    z-index: -1; /* 배경 뒤로 보내기 */
-    pointer-events: none;
+    animation: silkFlow 60s linear infinite; 
+    opacity: 0.4;
+    filter: blur(0.5px); /* 문양을 실에 새긴 것처럼 살짝 뭉개줌 */
+    z-index: 1;
 }
 
-/* 🏆 비단이 흐르는 움직임 정의 */
+/* 🏆 비단 위로 흐르는 광택(Sheen) 레이어 추가 */
+.hero::before {
+    content: "";
+    position: absolute;
+    top: 0; left: -100%; width: 50%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+    transform: skewX(-25deg);
+    animation: shine 8s ease-in-out infinite;
+    z-index: 2;
+}
+
+/* 움직임 정의 */
 @keyframes silkFlow { 
-    from { background-position: 0 0; } 
-    to { background-position: 160px 160px; } 
+    from { transform: rotate(0deg) translate(0, 0); } 
+    to { transform: rotate(2deg) translate(-120px, -60px); } 
 }
 
-/* 3. 내부 콘텐츠 (텍스트 및 로고) */
-.hero-content { position: relative; z-index: 10; width: 100%; }
+@keyframes shine {
+    0% { left: -100%; }
+    50% { left: 150%; }
+    100% { left: 150%; }
+}
 
-.logo-area { width: 90%; max-width: 450px; margin: 0 auto 30px; }
-.logo-area img { width: 100%; height: auto; display: block; }
+/* 3. 내부 콘텐츠 (글자 및 로고) */
+.hero-content { position: relative; z-index: 10; filter: drop-shadow(0 0 20px rgba(0,0,0,0.8)); }
 
-.hero h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 200; margin: 0; line-height: 1.2; color: #fff; }
-/* 한복의 기준 - 골드 강조 */
-.hero h1 b { font-weight: 700; color: var(--hb-gold); }
+.logo-area { width: 400px; margin-bottom: 30px; }
+.logo-area img { width: 100%; filter: brightness(1.1); }
 
-.hero .sub-text { margin-top: 25px; font-size: 1.1rem; opacity: 0.6; letter-spacing: 4px; color: #fff; }
+.hero h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 200; letter-spacing: -1px; }
+.hero h1 b { font-weight: 700; color: var(--hb-gold); text-shadow: 0 0 15px rgba(197,160,89,0.3); }
+
+.hero .sub-text { margin-top: 25px; font-size: 1.1rem; opacity: 0.7; letter-spacing: 5px; }
         /* 2. Main Store */
         .video-sec { width: 100%; height: auto; aspect-ratio: 16 / 9; background: #000; overflow: hidden; }
         .video-sec video { width: 100%; height: 100%; object-fit: cover; }
