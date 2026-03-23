@@ -18,14 +18,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
     
     <style>
-       /* 1. 컬러: 깊이감 있는 흑색과 황금색 */
+      /* 1. 컬러: 깊이감 있는 흑색과 황금색 (보존) */
 :root { 
     --hb-black-base: #050505;    /* 묵직한 원단 기본색 */
     --hb-black-glow: #1a1a1a;    /* 비단 결 광택색 */
     --hb-gold: #c5a059;          /* 은은한 놋쇠 느낌의 골드 */
 }
 
-/* 2. Hero 섹션: 비단 원단 베이스 */
+/* 2. Hero 섹션: 비단 원단 베이스 (보존 및 정렬 강화) */
 .hero { 
     height: 100vh; 
     /* 비단의 미세한 가로 결(Thread) 효과 추가 */
@@ -34,33 +34,38 @@
         linear-gradient(135deg, var(--hb-black-base), var(--hb-black-glow), var(--hb-black-base));
     background-size: 100% 2px, 100% 100%;
     color: #fff; 
-    display: flex; flex-direction: column; justify-content: center; align-items: center; 
-    text-align: center; position: relative; overflow: hidden; 
+    display: flex; flex-direction: column; 
+    justify-content: center; /* 수직 중앙 */
+    align-items: center;     /* 수평 중앙 (로고 정렬 픽스) */
+    text-align: center; position: relative; overflow: hidden; padding: 20px; 
 }
 
-/* 🏆 흐르는 비단 자수 문양 (점 대신 전통 구름/덩굴 문양 느낌) */
+/* 🏆 흐르는 비단 자수 문양 (투명도 낮춰서 도트 느낌 완전 제거) */
 .hero::after { 
     content: ""; 
     position: absolute; 
     top: -50%; left: -50%; width: 200%; height: 200%;
     /* 구름처럼 흐르는 전통 문양 패턴 */
-    background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9 15c2.5-3 6.5-5 11-5s8.5 2 11 5 6.5 5 11 5 8.5-2 11-5' stroke='%23fff' stroke-opacity='0.03' fill='none'/%3E%3Cpath d='M69 75c2.5-3 6.5-5 11-5s8.5 2 11 5 6.5 5 11 5 8.5-2 11-5' stroke='%23fff' stroke-opacity='0.03' fill='none'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9 15c2.5-3 6.5-5 11-5s8.5 2 11 5 6.5 5 11 5 8.5-2 11-5' stroke='%23fff' stroke-opacity='0.02' fill='none'/%3E%3Cpath d='M69 75c2.5-3 6.5-5 11-5s8.5 2 11 5 6.5 5 11 5 8.5-2 11-5' stroke='%23fff' stroke-opacity='0.02' fill='none'/%3E%3C/svg%3E");
     background-repeat: repeat; 
     animation: silkFlow 60s linear infinite; 
-    opacity: 0.4;
+    opacity: 0.3; /* 더 은은하게 */
     filter: blur(0.5px); /* 문양을 실에 새긴 것처럼 살짝 뭉개줌 */
     z-index: 1;
+    pointer-events: none;
 }
 
-/* 🏆 비단 위로 흐르는 광택(Sheen) 레이어 추가 */
+/* 🏆 비단 위로 흐르는 광택(Sheen) 레이어 (투명도 대폭 낮춤 & 속도 늦춤) */
 .hero::before {
     content: "";
     position: absolute;
-    top: 0; left: -100%; width: 50%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+    top: 0; left: -100%; width: 60%; height: 100%;
+    /* 투명도를 0.05에서 0.01로 대폭 낮추어 은은한 실크 윤기만 남김 */
+    background: linear-gradient(110deg, transparent, rgba(255,255,255,0.015), transparent);
     transform: skewX(-25deg);
-    animation: shine 8s ease-in-out infinite;
+    animation: shine 15s ease-in-out infinite; /* 8초에서 15초로 느리게 */
     z-index: 2;
+    pointer-events: none;
 }
 
 /* 움직임 정의 */
@@ -69,17 +74,32 @@
     to { transform: rotate(2deg) translate(-120px, -60px); } 
 }
 
+/* 광택 움직임 (대폭 느리게 수정) */
 @keyframes shine {
     0% { left: -100%; }
-    50% { left: 150%; }
-    100% { left: 150%; }
+    30% { left: 150%; } /* 30%까지만 보이고 사라짐 */
+    100% { left: 150%; } /* 나머지 시간은 대기 */
 }
 
 /* 3. 내부 콘텐츠 (글자 및 로고) */
-.hero-content { position: relative; z-index: 10; filter: drop-shadow(0 0 20px rgba(0,0,0,0.8)); }
+.hero-content { position: relative; z-index: 10; filter: drop-shadow(0 0 20px rgba(0,0,0,0.8)); width: 100%; }
 
-.logo-area { width: 400px; margin-bottom: 30px; }
-.logo-area img { width: 100%; filter: brightness(1.1); }
+/* 🏆 [정렬 중요] 로고 구역 중앙 정렬 완료 */
+.logo-area { 
+    width: 90%; 
+    max-width: 400px; /* 로고 최대 크기 제한 */
+    margin: 0 auto 30px; /* 수평 중앙 정렬 (0 auto) */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.logo-area img { 
+    max-width: 100%; /* 반응형 */
+    height: auto; 
+    display: block; 
+    margin: 0 auto; /* 이미지 자체 중앙 정렬 */
+    filter: brightness(1.1); 
+}
 
 .hero h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 200; letter-spacing: -1px; }
 .hero h1 b { font-weight: 700; color: var(--hb-gold); text-shadow: 0 0 15px rgba(197,160,89,0.3); }
