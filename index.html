@@ -18,95 +18,80 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
     
     <style>
-      /* 1. 컬러: 깊이감 있는 흑색과 황금색 (보존) */
+      /* 1. Eliminate previous offending elements (실지렁이 제거) */
+.hero::before, .hero::after { content: none; animation: none; }
+
+/* 2. 컬러 변수: 딥 블랙 & 골드 */
 :root { 
-    --hb-black-base: #050505;    /* 묵직한 원단 기본색 */
-    --hb-black-glow: #151515;    /* 원단 윤기색 */
-    --hb-gold: #c5a059;          /* 은은한 놋쇠 느낌의 골드 */
+    --hb-black-base: #000000;         /* 칠흑 같은 블랙 */
+    --hb-black-silk: #111111;         /* 원단 광택용 */
+    --hb-gold: #c5a059;               /* 고급스러운 골드 */
 }
 
-/* 2. Hero 섹션 본체: 블랙 실크 원단 질감 */
+/* 3. Hero 섹션 본체: 중앙 정렬 및 블랙 실크 베이스 */
 .hero { 
     height: 100vh; 
-    /* 깊은 블랙 그라데이션 베이스 */
-    background: linear-gradient(135deg, var(--hb-black-base), var(--hb-black-glow), var(--hb-black-base));
+    background-color: var(--hb-black-base);
+    /* 🏆 은은한 실크 사선 결 (Diagonal Thread Grain) */
+    background-image: repeating-linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.01) 0px,
+        rgba(255, 255, 255, 0.01) 1px,
+        transparent 1px,
+        transparent 4px
+    );
     color: #fff; 
     display: flex; 
     flex-direction: column; 
     justify-content: center; /* 수직 중앙 */
-    align-items: center;     /* 수평 중앙 (정렬 픽스) */
+    align-items: center;     /* 수평 중앙 (로고 정렬 픽스) */
     text-align: center; 
     position: relative; 
     overflow: hidden; 
     padding: 20px; 
 }
 
-/* 🏆 은은한 실크 사선 결 (사선 질감 추가) */
-.hero::after { 
-    content: ""; 
-    position: absolute; 
-    top: 0; left: 0; right: 0; bottom: 0;
-    /* 가느다란 사선 질감 (실크의 결) */
-    background-image: repeating-linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.04) 0px,
-        rgba(255, 255, 255, 0.04) 1px,
-        transparent 1px,
-        transparent 8px
-    );
-    opacity: 0.5; /* 질감의 투명도 */
-    filter: blur(0.3px); /* 실크의 부드러움 */
+/* 🏆 기하학적 전통 격자무늬 (실지렁이 제거, 진짜 전통 패턴 추가) */
+.pattern-layer {
+    position: absolute;
+    top: 0; left: -50%; width: 200%; height: 100%;
+    /* 🏆 우아한 전통 격자무늬 (Geometric Lattice Pattern) 
+       직선과 사선으로만 이루어져 있어 지렁이처럼 보이지 않습니다. */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg stroke='%23ffffff' stroke-opacity='0.03' stroke-width='1' fill='none'%3E%3Cpath d='M50 0L100 50L50 100L0 50Z'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
+    background-repeat: repeat; 
+    animation: traditionalFlow 90s linear infinite; /* 대폭 느리게 설정 */
+    opacity: 0.5; /* 은은하게 설정 */
+    filter: blur(0.3px); /* 원단에 새긴 듯한 느낌 */
     z-index: 1;
     pointer-events: none;
 }
 
-/* 🏆 진짜 전통 문양 자수 (실지렁이 제거, 전통 무늬 추가) */
-.hero .lookbook-guide {
-    /* 기존 룩북 가이드 스타일과 동일 */
-    font-size: 1.1rem; color: var(--hb-gold); margin-bottom: 20px; font-weight: 500;
-}
-/* 이전에 .hero::after에 있던 것을 여기에 전통 문양으로 넣습니다 */
-.hero-content::after {
-    content: "";
-    position: absolute;
-    top: -50%; left: -50%; width: 200%; height: 200%;
-    /* 우아한 전통 운문(구름) 및 덩굴 문양 */
-    background-image: url("data:image/svg+xml,%3Csvg width='160' height='160' viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 20c5-5 15-7 25-7s20 2 25 7 15 7 25 7 20-2 25-7M30 60c5-5 15-7 25-7s20 2 25 7 15 7 25 7 20-2 25-7M130 140c5-5 15-7 25-7s20 2 25 7 15 7 25 7 20-2 25-7M70 100c5-5 15-7 25-7s20 2 25 7 15 7 25 7 20-2 25-7' stroke='%23ffffff' stroke-opacity='0.12' stroke-width='1' fill='none'/%3E%3C/svg%3E");
-    background-repeat: repeat;
-    animation: traditionalFlow 80s linear infinite; /* 천천히 흐르도록 시간 증가 */
-    opacity: 0.6;
-    filter: blur(0.5px);
-    z-index: -1; /* hero-content 뒤로 보내기 */
-    pointer-events: none;
-}
-
-/* 🏆 은은한 광택 레이어 (매우 부드럽게 유지, 속도 느리게) */
-.hero::before {
-    content: "";
+/* 🏆 은은한 광택 레이어 (매우 부드럽게 유지, 느리게) */
+.shine-layer {
     position: absolute;
     top: 0; left: -100%; width: 50%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.015), transparent);
-    transform: skewX(-25deg);
-    animation: shineSubtle 30s ease-in-out infinite; /* 12초에서 30초로 대폭 느리게 */
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.01), transparent);
+    transform: skewX(-20deg);
+    animation: shine 30s ease-in-out infinite;
     z-index: 2;
     pointer-events: none;
 }
 
 /* 움직임 정의 */
-/* 전통 문양 천천히 흐름 */
+/* 전통 무늬 천천히 흐름 */
 @keyframes traditionalFlow { 
     from { transform: translate(0, 0); } 
-    to { transform: translate(-160px, -160px); } 
+    to { transform: translate(-100px, -100px); } 
 }
 
-/* 광택 움직임 (대폭 느리게 수정, 긴 대기 시간) */
-@keyframes shineSubtle {
+/* 광택 움직임 (매우 느리게) */
+@keyframes shine {
     0% { left: -100%; }
-    15% { left: 150%; } /* 한번 쓱 지나가고 */
-    100% { left: 150%; } /* 나머지 시간은 안 보임 */
+    15% { left: 150%; }
+    100% { left: 150%; }
 }
 
-/* 3. 내부 콘텐츠 (중앙 정렬 픽스) */
+/* 4. 내부 콘텐츠 (중앙 정렬 픽스) */
 .hero-content { 
     position: relative; 
     z-index: 10; 
@@ -114,7 +99,7 @@
     max-width: 800px;
     display: flex;
     flex-direction: column;
-    align-items: center; /* 내부 요소들 중앙 정렬 */
+    align-items: center; /* 내부 요소 중앙 정렬 */
 }
 
 /* 로고 중앙 정렬 */
