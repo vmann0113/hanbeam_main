@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
     
     <style>
-     /* 1. Hero 섹션: 배경과 패턴을 한 번에 정의 */
+     /* 1. Hero 섹션: 배경과 패턴 설정 */
 .hero {
     height: 100vh;
     display: flex;
@@ -26,35 +26,64 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    position: relative;
-    overflow: hidden;
+    position: relative; /* 광택의 기준점 */
+    overflow: hidden;    /* 광택이 화면 밖으로 나가지 않게 함 */
     padding: 20px;
 
-    /* 🏆 멀티 백그라운드 설정 (위에서부터 쌓입니다) */
+    /* 🏆 배경에서 광택 레이어를 빼고 패턴과 베이스만 남깁니다 */
     background: 
-        /* 레이어 1: 은은한 광택 (가장 위) */
-        linear-gradient(110deg, transparent, rgba(255,255,255,0.01) 40%, rgba(255,255,255,0.01) 60%, transparent),
-        /* 레이어 2: 전통 문양 이미지 */
         url('/assets/img/traditional_pattern.png'),
-        /* 레이어 3: 베이스 블랙 그라데이션 (가장 아래) */
         radial-gradient(circle at center, #151515 0%, #000000 100%);
 
-    background-repeat: no-repeat, repeat, no-repeat;
-    background-size: 200% 100%, 500px, 100% 100%; /* 패턴 크기 350px로 설정 */
+    background-repeat: repeat, no-repeat;
+    background-size: 500px, 100% 100%; /* 패턴 크기 유지 */
     
-    /* 광택과 패턴 흐름을 한꺼번에 제어 */
+    /* 패턴 흐름 애니메이션 */
     animation: heroAnimation 60s linear infinite;
 }
 
-/* 🏆 애니메이션: 패턴이 천천히 흐르게 만듭니다 */
-@keyframes heroAnimation {
-    0% { background-position: -150% 0, 0 0, 0 0; }
-    100% { background-position: 150% 0, -350px -350px, 0 0; }
+/* 🏆 [추가] 실크 광택 레이어: 패턴 위, 글자 아래에 위치 */
+.hero::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -150%; /* 시작 위치 */
+    width: 100%;
+    height: 100%;
+    
+    /* 은은한 대각선 광택 (투명도 0.02로 매우 고급스럽게) */
+    background: linear-gradient(
+        110deg, 
+        transparent 0%, 
+        rgba(255, 255, 255, 0.01) 45%, 
+        rgba(255, 255, 255, 0.03) 50%, 
+        rgba(255, 255, 255, 0.01) 55%, 
+        transparent 100%
+    );
+    
+    transform: skewX(-25deg); /* 비스듬한 빛의 각도 */
+    animation: flowSheen 15s ease-in-out infinite; /* 15초마다 한 번씩 흐름 */
+    z-index: 2; /* 패턴(1)보다 높고 콘텐츠(10)보다 낮음 */
+    pointer-events: none;
 }
 
-/* 2. 내부 콘텐츠 정렬 */
+/* 🏆 애니메이션 1: 패턴 흐름 */
+@keyframes heroAnimation {
+    0% { background-position: 0 0, 0 0; }
+    100% { background-position: -500px -500px, 0 0; }
+}
+
+/* 🏆 애니메이션 2: 광택 흐름 (추가) */
+@keyframes flowSheen {
+    0% { left: -150%; opacity: 0; }
+    20% { left: 150%; opacity: 1; } /* 슥 지나가는 구간 */
+    100% { left: 150%; opacity: 0; } /* 대기 구간 */
+}
+
+/* 2. 내부 콘텐츠 정렬 (z-index 확인) */
 .hero-content {
-    z-index: 10;
+    z-index: 10; /* 광택 레이어보다 위에 오도록 설정 */
+    position: relative;
     width: 100%;
 }
 
