@@ -48,7 +48,7 @@
     position: absolute;
     top: 0;
     left: -150%; /* 시작 위치 */
-    width: 100%;
+    width: 150%;
     height: 100%;
     
     /* 은은한 대각선 광택 (투명도 0.02로 매우 고급스럽게) */
@@ -62,7 +62,7 @@
     );
     
     transform: skewX(-25deg); /* 비스듬한 빛의 각도 */
-    animation: flowSheen 15s ease-in-out infinite; /* 15초마다 한 번씩 흐름 */
+    animation: flowSheen 25s ease-in-out infinite; /* 15초마다 한 번씩 흐름 */
     z-index: 2; /* 패턴(1)보다 높고 콘텐츠(10)보다 낮음 */
     pointer-events: none;
 }
@@ -76,7 +76,7 @@
 /* 🏆 애니메이션 2: 광택 흐름 (추가) */
 @keyframes flowSheen {
     0% { left: -150%; opacity: 0; }
-    20% { left: 150%; opacity: 1; } /* 슥 지나가는 구간 */
+    50% { left: 150%; opacity: 1; } /* 슥 지나가는 구간 */
     100% { left: 150%; opacity: 0; } /* 대기 구간 */
 }
 
