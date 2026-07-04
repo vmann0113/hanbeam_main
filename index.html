@@ -1,258 +1,677 @@
-<!doctype html>
-<html lang="ko"> 
+<!DOCTYPE html>
+<html lang="ko">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover">
-    <meta name="referrer" content="no-referrer-when-downgrade"> 
-    
-    <title>한빔한복 | 혼주·웨딩 한복대여 전문 | 전국 지점 안내</title>
-    
-    <meta name="description" content="대한민국 한복의 기준 한빔한복. 품격 있는 혼주한복, 웨딩촬영 한복대여 및 맞춤 전문. 종로·강남 등 전국 매장에서 2026 신상 룩북을 직접 확인하세요.">
-    
-    <meta name="keywords" content="한빔한복, 혼주한복, 웨딩한복, 한복대여, 부산한복대여, 센텀한복대여, 울산한복대여, 양산한복대여, 창원한복대여, 마산한복대여, 김해한복대여, 대구한복대여, 진주한복대여, 인천한복대여, 안산한복대여, 결혼식한복">
-    <meta name="robots" content="index,follow">
-    <meta name="naver-site-verification" content="ae2f48a890278ba75ec4b5b715075a2372cef182" />
-
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="한빔한복 - 대한민국 한복의 기준">
-    <meta property="og:description" content="고급 혼주·웨딩 한복대여 및 2026 신상 룩북 안내">
-    <meta property="og:image" content="https://hanbeam.co.kr/assets/img/headimg.png?v=1"> 
-    <meta property="og:url" content="https://hanbeam.co.kr">
-    
-    <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=p92c8gq59k"></script>
-    <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
-    
-    <style>
-        :root {
-    --hb-gold: #c5a059;
-    --hb-bg: #F9F7F5;
-    --hb-navy: #000000;
-}
-
-/* 1. Hero 섹션 */
-.hero {
-    height: 100vh; display: flex; flex-direction: column; justify-content: center;
-    align-items: center; text-align: center; position: relative; overflow: hidden; padding: 20px;
-    background: url('/assets/img/traditional_pattern.png'), radial-gradient(circle at center, #151515 0%, #000000 100%);
-    background-repeat: repeat, no-repeat; background-size: 700px, 100% 100%;
-    animation: heroAnimation 120s linear infinite;
-}
-
-.hero::after {
-    content: ""; position: absolute; top: 0; left: -150%; width: 150%; height: 100%;
-    background: linear-gradient(110deg, transparent 0%, rgba(255, 255, 255, 0.01) 45%, rgba(255, 255, 255, 0.03) 50%, rgba(255, 255, 255, 0.01) 55%, transparent 100%);
-    transform: skewX(-25deg); animation: flowSheen 25s ease-in-out infinite; z-index: 2; pointer-events: none;
-}
-
-@keyframes heroAnimation { 0% { background-position: 0 0, 0 0; } 100% { background-position: -500px -500px, 0 0; } }
-@keyframes flowSheen { 0% { left: -150%; opacity: 0; } 50% { left: 150%; opacity: 1; } 100% { left: 150%; opacity: 0; } }
-
-.hero-content { z-index: 10; position: relative; width: 100%; }
-.logo-area { width: 90%; max-width: 420px; margin: 0 auto 35px; }
-.logo-area img { width: 100%; height: auto; display: block; margin: 0 auto; filter: brightness(1.1) drop-shadow(0 0 15px rgba(0,0,0,0.9)); }
-.hero h1 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 200; margin: 0; color: #fff; }
-.hero h1 b { font-weight: 700; color: #c5a059; }
-.hero .sub-text { margin-top: 25px; font-size: 0.9rem; color: #c5a059; letter-spacing: 6px; font-weight: 300; opacity: 0.9; text-transform: uppercase; }
-
-/* 2. Main Store & Video */
-.video-sec { width: 100%; height: auto; aspect-ratio: 16 / 9; background: #000; overflow: hidden; }
-.video-sec video { width: 100%; height: 100%; object-fit: cover; }
-.main-store { padding: 120px 20px; background: var(--hb-bg); text-align: center; }
-.hq-slideshow { width: 100%; max-width: 1200px; aspect-ratio: 16 / 9; margin: 0 auto 60px; position: relative; border-radius: 4px; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.1); }
-.hq-slideshow img { position: absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity: 0; transition: opacity 2s ease-in-out; }
-.hq-slideshow img.active { opacity: 1; }
-.main-store h2 { font-size: 3rem; color: #111; margin-bottom: 25px; }
-.main-store p { font-size: 1.44rem; color: #666; max-width: 1000px; margin: 0 auto; font-weight: 400; line-height: 1.6; }
-.pc-hide { display: none; }
-
-/* 3. Lookbook */
-.lookbook-sec { padding: 120px 0; background: #fff; text-align: center; transition: background 0.6s ease; }
-.lookbook-sec.active-focus { background: #111; color: #fff; }
-.lookbook-sec.active-focus h2, .lookbook-sec.active-focus p { color: #fff !important; }
-.tab-btn { padding: 15px 45px; border: 2px solid var(--hb-gold); background: #fff; color: var(--hb-gold); cursor: pointer; font-weight: 700; border-radius: 50px; margin: 10px; font-size: 1.1rem; transition: 0.3s; display: inline-block; }
-.tab-btn.active { background: var(--hb-gold); color: #fff !important; }
-.album-viewport { margin: 50px auto; width: 90%; max-width: 850px; height: 850px; display: flex; justify-content: center; align-items: center; position: relative; }
-.page { background: #fff; cursor: pointer; }
-.page img { width: 100%; height: 100%; object-fit: contain; }
-
-/* 4. Store Finder & Buttons */
-.finder-sec { display: flex; flex-direction: row; border-top: 1px solid #eee; background: #fff; min-height: 750px; }
-.sidebar { width: 300px; border-right: 1px solid #eee; display: flex; flex-direction: column; background: #fff; }
-.sidebar-header { padding: 30px 25px 10px; text-align: right; }
-.sidebar-header h2 { font-size: 1.4rem; margin: 0; color: #111; }
-.branch-list { flex: 1; overflow-y: hidden; }
-.branch-item { padding: 10px 25px; cursor: pointer; text-align: right; border-bottom: 1px solid #f9f9f9; transition: 0.2s; }
-.branch-item h3 { margin: 0; font-size: 1.05rem; font-weight: 400; color: #888; }
-.branch-item.active { background: #111; color: #fff; }
-.branch-item.active h3 { color: #fff; font-weight: 700; }
-.detail-area { flex: 1; background: var(--hb-bg); padding: 30px; }
-#naverMap { width: 100%; height: 400px; border-radius: 12px; margin-bottom: 20px; border: 1px solid #ddd; }
-
-/* 🏆 지점 안내 카드 및 버튼 색상 복구 */
-.biz-card { background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); text-align: left; }
-.biz-card h2 { font-size: 2rem; color: #111; border-bottom: 2px solid var(--hb-gold); padding-bottom: 10px; margin-bottom: 20px; }
-.info-row { display: flex; margin-bottom: 12px; font-size: 1.1rem; }
-.info-lbl { width: 80px; font-weight: 700; color: #888; }
-.btn-row { display: flex; gap: 10px; margin-top: 25px; flex-wrap: wrap; }
-
-.btn { flex: 1; min-width: 120px; padding: 15px 5px; text-align: center; border-radius: 8px; font-weight: 700; font-size: 1.05rem; text-decoration: none; color: #fff; transition: 0.3s; display: inline-block; }
-.btn-navy { background: #111; color: #fff; }
-.btn-kakao { background: #FEE500; color: #3C1E1E !important; } /* 카카오 노란색 */
-.btn-green { background: #03C75A; color: #fff !important; }  /* 네이버 초록색 */
-.btn-gold { background: var(--hb-gold); color: #fff; }
-
-/* 모바일 전용 스타일 */
-@media (max-width: 768px) {
-    .hero { height: 60vh; } 
-    .hero h1 { font-size: 1.8rem; line-height: 1.4; word-break: keep-all; padding: 0 10px; }
-    .hero .sub-text { font-size: 0.75rem; letter-spacing: 3px; margin-top: 15px; }
-    
-    .pc-hide { display: block; }
-    .main-store { padding: 60px 20px; }
-    .main-store h2 { font-size: 2rem; }
-    .main-store p { font-size: 1.1rem; }
-    .album-viewport { height: 450px; margin: 20px auto; }
-    
-    .finder-sec { flex-direction: column; min-height: auto; }
-    .sidebar { width: 100%; }
-    .branch-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 15px; }
-    .branch-item { padding: 12px 5px; text-align: center; border: 1px solid #eee; border-radius: 8px; }
-    .branch-item h3 { text-align: center; font-size: 0.9rem; }
-    #naverMap { height: 300px; }
-    .btn-row { display: grid; grid-template-columns: 1fr 1fr; }
-}
-    </style>
-</head>
-<body>
-
-<section class="hero">
-    <div class="hero-content">
-        <div class="logo-area"><img src="assets/img/logo.png" alt="Logo"></div>
-        <h1>대한민국 <b>한복의 기준</b></h1>
-        <div class="sub-text">SINCE 2022, HANBEAM HERITAGE</div>
-    </div>
-</section>
-
-<section class="video-sec">
-    <video autoplay loop muted playsinline><source src="assets/video/brand_video.mp4" type="video/mp4"></video>
-</section>
-
-<section class="main-store">
-    <div class="hq-slideshow" id="hqSlides">
-        <img src="assets/img/hq_01.webp" class="active"><img src="assets/img/hq_02.webp"><img src="assets/img/hq_03.webp">
-    </div>
-    <h2>한빔한복의 편안한 전지점 매장</h2>
-    <p>넓고 깨끗한 한빔한복의 매장에 <br class="pc-hide">부모님을 모시고 편하게 방문하세요!</p>
-</section>
-
-<section class="lookbook-sec">
-    <h2 style="font-size:2.5rem; margin-bottom:10px;">2026 Lookbook</h2>
-    <p id="lookbookGuide" style="color:var(--hb-gold); margin-bottom:20px;">옆으로 넘겨보세요</p>
-    <div style="margin-bottom:30px;">
-        <button class="tab-btn active" id="btnWed" onclick="changeTab('wedding', this)">웨딩 촬영</button>
-        <button class="tab-btn" id="btnMot" onclick="changeTab('mother', this)">혼주 한복</button>
-    </div>
-    <div class="album-viewport" id="albumTarget"><div id="flipBook"></div></div>
-</section>
-
-<section class="finder-sec">
-    <aside class="sidebar">
-        <div class="sidebar-header"><h2>지점 안내</h2></div>
-        <div class="branch-list" id="branchList"></div>
-    </aside>
-    <main class="detail-area" id="detailView">
-        <div id="naverMap"></div>
-        <div id="branchInfoBox"></div>
-    </main>
-</section>
-
-<footer style="padding:40px 20px; background:#111; color:#444; text-align:center; font-size:0.8rem;">© 2026 HANBEAM HANBOK.</footer>
-
-<script>
-    /* 1. 매장 슬라이드 */
-    let curS = 0; const sImgs = document.querySelectorAll('#hqSlides img');
-    if(sImgs.length > 0) setInterval(() => { sImgs[curS].classList.remove('active'); curS = (curS + 1) % sImgs.length; sImgs[curS].classList.add('active'); }, 4000);
-
-    /* 2. 룩북 암전 감지 */
-    const lbSec = document.querySelector('.lookbook-sec');
-    window.addEventListener('scroll', () => {
-        const rect = lbSec.getBoundingClientRect();
-        if (rect.top < window.innerHeight/2 && rect.bottom > window.innerHeight/2) {
-            lbSec.classList.add('active-focus');
-        } else {
-            lbSec.classList.remove('active-focus');
-        }
-    });
-
-    /* 3. 룩북 로직 (고정/무한루프/터치 해결) */
-    const ALBUM_CONFIG = {
-        wedding: { path: "assets/img/lookbook/wedding/wedding_", count: 5 },
-        mother: { path: "assets/img/lookbook/mother/mother_", count: 6 }
-    };
-
-    let pFlip = null;
-    function loadAlbum(cat) {
-        const target = document.getElementById('albumTarget');
-        const guide = document.getElementById('lookbookGuide');
-        const isMobile = window.innerWidth <= 768;
-        
-        target.style.opacity = '1';
-        guide.innerText = isMobile ? "터치해서 넘겨보세요" : "옆으로 넘겨보세요";
-
-        if(pFlip) { pFlip.destroy(); pFlip = null; }
-        target.innerHTML = '<div id="flipBook"></div>';
-        
-        const fb = document.getElementById('flipBook');
-        const cfg = ALBUM_CONFIG[cat];
-        
-        const renderSet = () => {
-            let s = '';
-            for(let i=1; i <= cfg.count; i++) {
-                let num = i < 10 ? '0' + i : i;
-                s += `<div class="page" onclick="handlePageClick()"><img src="${cfg.path}${num}.webp"></div>`;
-            }
-            if(!isMobile && (cfg.count % 2 !== 0)) {
-                s += `<div class="page" onclick="handlePageClick()"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></div>`;
-            }
-            return s;
-        };
-        
-        fb.innerHTML = renderSet() + renderSet() + renderSet();
-        const baseCount = (!isMobile && (cfg.count % 2 !== 0)) ? cfg.count + 1 : cfg.count;
-
-        pFlip = new St.PageFlip(fb, { 
-            width: isMobile ? 320 : 850, height: isMobile ? 450 : 850, 
-            showCover: false, usePortrait: isMobile, drawShadow: true, flippingTime: 800,
-            startPage: baseCount, clickEventForward: isMobile, swipeDistance: 30, showPageCorners: false, mobileScrollSupport: true
-        });
-        pFlip.loadFromHTML(document.querySelectorAll('.page'));
-        
-        pFlip.on('flip', (e) => {
-            const total = baseCount * 3;
-            if (e.data >= total - (isMobile ? 1 : 2)) {
-                setTimeout(() => { pFlip.turnToPage(baseCount); }, 100);
-            }
-            if (e.data < 1) {
-                setTimeout(() => { pFlip.turnToPage(baseCount); }, 100);
-            }
-        });
-    }
-    function handlePageClick() { if(pFlip) pFlip.flipNext(); }
-
-    window.onload = () => { loadAlbum('wedding'); };
-    window.onresize = () => { loadAlbum(document.getElementById('btnWed').classList.contains('active') ? 'wedding' : 'mother'); };
-    /* 버튼 색상 변경 + 앨범 로드 합치기 */
-function changeTab(cat, btn) {
-    // 1. 모든 버튼에서 'active' 클래스 제거
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    // 2. 현재 누른 버튼에 'active' 클래스 추가
-    btn.classList.add('active');
-    // 3. 기존에 있던 로직 실행
-    loadAlbum(cat);
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>한빔한복 | 대한민국 한복의 기준 · 혼주·웨딩 한복 대여·맞춤 전문</title>
+<meta name="description" content="한빔한복은 혼주·웨딩 한복 대여 및 맞춤 전문 브랜드입니다. 전국 11개 직영 지점(부산·센텀·김해·창원·진주·대구·울산·양산·인천·안산·마산), 전 지점 주차 완비, 합리적인 대여 비용, 지점 간 대여·반납 서비스.">
+<meta name="keywords" content="한빔한복,혼주한복,웨딩한복,한복대여,한복맞춤,부산한복,대구한복,울산한복,창원한복,김해한복,진주한복,양산한복,인천한복,안산한복,마산한복,센텀한복,혼주한복대여">
+<meta name="author" content="(주)한빔">
+<meta name="robots" content="index, follow">
+<meta name="naver-site-verification" content="">
+<meta name="google-site-verification" content="">
+<link rel="canonical" href="https://hanbeam.co.kr/">
+<meta name="theme-color" content="#14121A">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="한빔한복">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="한빔한복 | 대한민국 한복의 기준">
+<meta property="og:description" content="혼주·웨딩 한복 대여 및 맞춤 전문. 전국 11개 직영 지점, 전 지점 주차 완비.">
+<meta property="og:url" content="https://hanbeam.co.kr/">
+<meta property="og:image" content="https://hanbeam.co.kr/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="한빔한복 | 대한민국 한복의 기준">
+<meta name="twitter:description" content="혼주·웨딩 한복 대여 및 맞춤 전문. 전국 11개 직영 지점.">
+<meta name="twitter:image" content="https://hanbeam.co.kr/og-image.jpg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ClothingStore",
+  "name": "한빔한복",
+  "alternateName": "HANBEAM HANBOK",
+  "description": "혼주·웨딩 한복 대여 및 맞춤 전문 브랜드. 전국 11개 직영 지점.",
+  "url": "https://hanbeam.co.kr/",
+  "logo": "https://hanbeam.co.kr/favicon.png",
+  "image": "https://hanbeam.co.kr/og-image.jpg",
+  "foundingDate": "2022",
+  "priceRange": "₩₩",
+  "areaServed": "KR",
+  "department": [
+    { "@type": "ClothingStore", "name": "한빔한복 부산점", "telephone": "051-634-2325", "address": { "@type": "PostalAddress", "streetAddress": "부산광역시 부산진구 자유평화로 17, 3층", "addressCountry": "KR" } },
+    { "@type": "ClothingStore", "name": "한빔한복 센텀점", "telephone": "010-3052-2325", "address": { "@type": "PostalAddress", "streetAddress": "부산광역시 해운대구 센텀서로 30, 3층 304호", "addressCountry": "KR" } },
+    { "@type": "ClothingStore", "name": "한빔한복 김해점", "telephone": "010-8065-2325", "address": { "@type": "PostalAddress", "streetAddress": "경상남도 김해시 내외중앙로 137, 1층 146·147호", "addressCountry": "KR" } },
+    { "@type": "ClothingStore", "name": "한빔한복 창원점", "telephone": "055-263-2325", "address": { "@type": "PostalAddress", "streetAddress": "경상남도 창원시 성산구 동산로 208-2, 1층", "addressCountry": "KR" } },
+    { "@type": "ClothingStore", "name": "한빔한복 진주점", "telephone": "010-5654-2407", "address": { "@type": "PostalAddress", "streetAddress": "경상남도 진주시 에나로 103-7, 1층 102호", "addressCountry": "KR" } },
+    { "@type": "ClothingStore", "name": "한빔한복 대구점", "telephone": "010-8492-2328", "address": { "@type": "PostalAddress", "streetAddress": "대구광역시 동구 메디밸리로 19, 대동타워 303호", "addressCountry": "KR" } },
+    { "@type": "ClothingStore", "name": "한빔한복 울산점", "telephone": "010-9807-2325", "address": { "@type": "PostalAddress", "streetAddress": "울산광역시 북구 명촌23길 71, 2층", "addressCountry": "KR" } },
+    { "@type": "ClothingStore", "name": "한빔한복 양산점", "telephone": "055-912-0425", "address": { "@type": "PostalAddress", "streetAddress": "경상남도 양산시 물금읍 부산대학로 144, 2층", "addressCountry": "KR" } },
+    { "@type": "ClothingStore", "name": "한빔한복 인천점", "telephone": "032-283-2325", "address": { "@type": "PostalAddress", "streetAddress": "인천광역시 부평구 체육관로 34, 4층 402호", "addressCountry": "KR" } },
+    { "@type": "ClothingStore", "name": "한빔한복 안산점", "telephone": "010-6591-2322", "address": { "@type": "PostalAddress", "streetAddress": "경기도 안산시 단원구 이삭5길 13, 2층", "addressCountry": "KR" } },
+    { "@type": "ClothingStore", "name": "한빔한복 마산점", "telephone": "010-8832-2325", "address": { "@type": "PostalAddress", "streetAddress": "경상남도 창원시 마산합포구 합포로 236, 1층 105호", "addressCountry": "KR" } }
+  ]
 }
 </script>
+<script src="./support.js"></script>
+</head>
+<body>
+<noscript>
+  <div style="max-width:760px;margin:0 auto;padding:40px 24px;font-family:sans-serif;line-height:1.7;color:#222;">
+    <h1>한빔한복 — 대한민국 한복의 기준</h1>
+    <p>한빔한복은 혼주·웨딩 한복 대여 및 맞춤 전문 브랜드입니다. 전 지점 직영, 주차 완비, 합리적인 대여 비용, 지점 간 대여·반납 서비스를 제공합니다.</p>
+    <h2>전국 11개 지점</h2>
+    <ul>
+      <li>한빔한복 부산점 — 부산광역시 부산진구 자유평화로 17, 3층 · 051-634-2325</li>
+      <li>한빔한복 센텀점 — 부산광역시 해운대구 센텀서로 30, 3층 304호 · 010-3052-2325</li>
+      <li>한빔한복 김해점 — 경상남도 김해시 내외중앙로 137, 1층 146·147호 · 010-8065-2325</li>
+      <li>한빔한복 창원점 — 경상남도 창원시 성산구 동산로 208-2, 1층 · 055-263-2325</li>
+      <li>한빔한복 진주점 — 경상남도 진주시 에나로 103-7, 1층 102호 · 010-5654-2407</li>
+      <li>한빔한복 대구점 — 대구광역시 동구 메디밸리로 19, 대동타워 303호 · 010-8492-2328</li>
+      <li>한빔한복 울산점 — 울산광역시 북구 명촌23길 71, 2층 · 010-9807-2325</li>
+      <li>한빔한복 양산점 — 경상남도 양산시 물금읍 부산대학로 144, 2층 · 055-912-0425</li>
+      <li>한빔한복 인천점 — 인천광역시 부평구 체육관로 34, 4층 402호 · 032-283-2325</li>
+      <li>한빔한복 안산점 — 경기도 안산시 단원구 이삭5길 13, 2층 · 010-6591-2322</li>
+      <li>한빔한복 마산점 — 경상남도 창원시 마산합포구 합포로 236, 1층 105호 · 010-8832-2325</li>
+    </ul>
+    <p>(주)한빔 · 대표자 이은수</p>
+  </div>
+</noscript>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>window.navermap_authFailure=function(){window.__hbMapAuthFail=true;var f=document.getElementById('hb-map-fallback');if(f)f.style.display='flex';};</script>
+<script src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=p92c8gq59k&submodules=geocoder"></script>
+<style>
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:#1A181F;word-break:keep-all;}
+  ::selection{background:rgba(212,175,90,.3);color:#fff;}
+  .hb-scroll::-webkit-scrollbar{height:6px;}
+  .hb-scroll::-webkit-scrollbar-thumb{background:rgba(212,175,90,.4);border-radius:99px;}
+  .hb-scroll::-webkit-scrollbar-track{background:transparent;}
+  @keyframes hbpulse{0%,100%{box-shadow:0 0 22px rgba(212,175,90,.3);}50%{box-shadow:0 0 38px rgba(212,175,90,.55);}}
+  @keyframes hbfloat{0%,100%{transform:translateY(0);}50%{transform:translateY(7px);}}
+  @keyframes hbshimmer{0%{background-position:-140% 0;}60%,100%{background-position:240% 0;}}
+  @keyframes hbsheen{0%{transform:translateX(-120%) skewX(-18deg);}100%{transform:translateX(320%) skewX(-18deg);}}
+  /* premium hover microinteractions (inline styles can't do :hover on children) */
+  .hb-card{transition:transform .5s cubic-bezier(.22,1,.36,1),box-shadow .5s cubic-bezier(.22,1,.36,1),border-color .5s ease;}
+  .hb-card:hover{transform:translateY(-6px);}
+  .hb-lift-dark:hover{box-shadow:0 20px 50px rgba(0,0,0,.4),0 0 0 1px rgba(220,182,98,.5);border-color:rgba(220,182,98,.5)!important;}
+  .hb-lift-light:hover{box-shadow:0 22px 48px rgba(168,132,47,.18);border-color:rgba(168,132,47,.6)!important;}
+  .hb-look{overflow:hidden;}
+  .hb-look img{transition:transform .9s cubic-bezier(.22,1,.36,1);}
+  .hb-look:hover img{transform:scale(1.07);}
+  .hb-look:hover{box-shadow:0 16px 40px rgba(0,0,0,.45),0 0 0 1px rgba(244,213,138,.6);}
+  .hb-btn{position:relative;overflow:hidden;transition:transform .3s ease,box-shadow .3s ease,background .3s ease;}
+  .hb-btn:hover{transform:translateY(-2px);}
+  .hb-btn::after{content:"";position:absolute;top:0;left:0;width:40%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);transform:translateX(-120%) skewX(-18deg);}
+  .hb-btn:hover::after{animation:hbsheen .7s ease;}
+  .hb-gold-text{background:linear-gradient(120deg,#F7DD9A 0%,#D6A848 30%,#FBE8B8 50%,#D6A848 70%,#F7DD9A 100%);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;}
+  @media (max-width:600px){ .hb-lead{display:none!important;} }
+</style>
+</helmet>
 
-<script src="map-logic.js"></script>
+<div style="{{ rootVars }}font-family:'Noto Sans KR',sans-serif;color:#EFEBE2;background:#1A181F;min-height:100vh;width:100%;overflow-x:hidden;word-break:keep-all;text-wrap:pretty;">
+
+  <!-- Sticky header -->
+  <header style="position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:center;gap:clamp(14px,2.5vw,26px);flex-wrap:wrap;padding:12px clamp(18px,5vw,48px);background:rgba(19,17,23,.72);backdrop-filter:blur(14px);border-bottom:1px solid rgba(212,175,90,.18);">
+    <span class="hb-lead" style="display:inline-flex;align-items:center;gap:9px;font-family:'Space Grotesk',monospace;font-size:12px;letter-spacing:.14em;color:#b89a52;"><span style="width:5px;height:5px;background:var(--g-grad,linear-gradient(135deg,#F4D58A,#C9952F));transform:rotate(45deg);"></span>전국 11개 지점 · 혼주·웨딩 한복 전문</span>
+    <a href="#branches" style-hover="filter:brightness(1.07);box-shadow:0 8px 30px rgba(220,182,98,.5);transform:translateY(-1px);" style="text-decoration:none;display:inline-flex;align-items:center;gap:11px;padding:11px 14px 11px 24px;background:var(--g-grad,linear-gradient(135deg,#F4D58A,#C9952F));color:#171419;font-size:14px;font-weight:700;letter-spacing:.04em;box-shadow:0 3px 22px rgba(220,182,98,.34);transition:transform .25s ease,box-shadow .25s ease,filter .25s ease;">
+      <span style="display:flex;flex-direction:column;line-height:1.15;text-align:left;"><span style="font-family:'Space Grotesk',monospace;font-size:9px;font-weight:600;letter-spacing:.22em;color:rgba(23,20,25,.6);">RESERVATION</span><span>예약 문의</span></span>
+      <span style="width:24px;height:24px;border-radius:50%;background:rgba(23,20,25,.16);display:inline-flex;align-items:center;justify-content:center;font-family:'Space Grotesk',monospace;font-size:12px;font-weight:600;">→</span>
+    </a>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section style="position:relative;min-height:92vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:clamp(60px,12vh,120px) 24px clamp(50px,9vh,90px);overflow:hidden;background:#14121A;">
+    <div style="position:absolute;inset:0;z-index:0;">
+      <img src="assets/web/hero.jpg" alt="한복을 입은 커플" style="width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block;">
+    </div>
+    <div style="position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(120% 58% at 50% -8%,rgba(220,182,98,.20) 0%,rgba(20,18,26,0) 55%),linear-gradient(180deg,rgba(18,16,22,.72) 0%,rgba(18,16,22,.40) 36%,rgba(18,16,22,.52) 68%,rgba(18,16,22,.92) 100%);"></div>
+    <div style="position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.5;background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22120%22><filter id=%22n%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%222%22/></filter><rect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22 opacity=%220.05%22/></svg>');"></div>
+    <div style="position:absolute;inset:clamp(14px,2.5vw,30px);z-index:2;pointer-events:none;border:1px solid rgba(220,182,98,.28);"></div>
+    <div style="position:absolute;top:clamp(14px,2.5vw,30px);left:clamp(14px,2.5vw,30px);z-index:2;pointer-events:none;width:16px;height:16px;border-top:1px solid rgba(244,213,138,.9);border-left:1px solid rgba(244,213,138,.9);"></div>
+    <div style="position:absolute;top:clamp(14px,2.5vw,30px);right:clamp(14px,2.5vw,30px);z-index:2;pointer-events:none;width:16px;height:16px;border-top:1px solid rgba(244,213,138,.9);border-right:1px solid rgba(244,213,138,.9);"></div>
+    <div style="position:absolute;bottom:clamp(14px,2.5vw,30px);left:clamp(14px,2.5vw,30px);z-index:2;pointer-events:none;width:16px;height:16px;border-bottom:1px solid rgba(244,213,138,.9);border-left:1px solid rgba(244,213,138,.9);"></div>
+    <div style="position:absolute;bottom:clamp(14px,2.5vw,30px);right:clamp(14px,2.5vw,30px);z-index:2;pointer-events:none;width:16px;height:16px;border-bottom:1px solid rgba(244,213,138,.9);border-right:1px solid rgba(244,213,138,.9);"></div>
+
+    <img src="assets/footer_logo.png" alt="한빔한복 로고" style="position:relative;z-index:2;width:clamp(84px,11vw,112px);height:auto;display:block;filter:drop-shadow(0 0 24px rgba(220,182,98,.6));">
+    <div style="position:relative;z-index:2;display:flex;align-items:center;gap:clamp(10px,2vw,18px);margin-top:clamp(20px,3vh,30px);text-shadow:0 1px 10px rgba(0,0,0,.55);">
+      <span style="width:5px;height:5px;background:var(--g-hi,#F4D58A);transform:rotate(45deg);box-shadow:0 0 8px rgba(244,213,138,.8);"></span>
+      <span class="hb-gold-text" style="font-family:'Space Grotesk',monospace;font-size:clamp(17px,2.6vw,24px);font-weight:600;letter-spacing:.34em;padding-left:.34em;animation:hbshimmer 6s linear infinite;">HANBEAM HANBOK</span>
+      <span style="width:5px;height:5px;background:var(--g-hi,#F4D58A);transform:rotate(45deg);box-shadow:0 0 8px rgba(244,213,138,.8);"></span>
+    </div>
+    <h1 style="position:relative;z-index:2;font-family:'Noto Serif KR',serif;font-size:clamp(40px,7vw,86px);line-height:1.32;font-weight:500;margin:clamp(26px,4vh,42px) 0 0;color:#FAF7F0;text-shadow:0 4px 34px rgba(0,0,0,.5);">대한민국<br><span class="hb-gold-text" style="font-weight:700;animation:hbshimmer 7s linear infinite;">한복의 기준</span></h1>
+    <div style="position:relative;z-index:2;display:flex;align-items:center;gap:12px;justify-content:center;margin-top:clamp(26px,4vh,40px);text-shadow:0 1px 8px rgba(0,0,0,.5);">
+      <span style="width:clamp(28px,5vw,52px);height:1px;background:linear-gradient(90deg,transparent,var(--g-mid,#E2C176));"></span>
+      <span style="font-family:'Space Grotesk',monospace;font-size:clamp(12px,1.3vw,13px);letter-spacing:.24em;color:#D8C49A;">SINCE 2022 — HERITAGE</span>
+      <span style="width:clamp(28px,5vw,52px);height:1px;background:linear-gradient(90deg,var(--g-mid,#E2C176),transparent);"></span>
+    </div>
+    <a href="#branches" class="hb-btn" style="position:relative;z-index:2;display:inline-flex;align-items:center;gap:9px;margin-top:clamp(30px,4.5vh,46px);padding:16px 40px;background:var(--g-grad,linear-gradient(135deg,#F4D58A,#C9952F));color:#14121A;font-size:15px;font-weight:700;letter-spacing:.02em;text-decoration:none;box-shadow:0 0 32px rgba(220,182,98,.45);">예약 문의<span style="font-family:'Space Grotesk',monospace;font-weight:500;">→</span></a>
+    <div style="position:absolute;bottom:28px;left:0;right:0;z-index:2;display:flex;flex-direction:column;align-items:center;gap:7px;color:#bcae8e;font-family:'Space Grotesk',monospace;font-size:11px;letter-spacing:.2em;text-shadow:0 1px 6px rgba(0,0,0,.5);">SCROLL<div style="width:1px;height:26px;background:linear-gradient(180deg,var(--g-mid,#E2C176),transparent);animation:hbfloat 2.2s ease-in-out infinite;"></div></div>
+  </section>
+
+  <!-- ===== BRAND FILM ===== -->
+  <section style="position:relative;width:100%;min-height:clamp(440px,80vh,820px);display:flex;align-items:center;justify-content:center;background:linear-gradient(160deg,#322E3A,#1E1B26);border-top:1px solid rgba(212,175,90,.3);border-bottom:1px solid rgba(212,175,90,.3);overflow:hidden;">
+    <video id="hb-film" playsinline preload="none" poster="assets/web/look-13.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;z-index:0;transition:opacity .6s ease;background:#1E1B26;">
+      <source src="assets/video/brand_video.mp4" type="video/mp4">
+    </video>
+    <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0,rgba(255,255,255,.025) 1px,transparent 1px,transparent 4px);pointer-events:none;"></div>
+    <div style="position:absolute;top:18px;left:clamp(18px,5vw,40px);font-family:'Space Grotesk',monospace;font-size:12px;letter-spacing:.18em;color:var(--g-mid,#D6B66A);">[ BRAND_FILM.mp4 ]</div>
+    <div style="position:absolute;top:16px;right:clamp(16px,5vw,36px);width:12px;height:12px;border-top:1px solid var(--g-mid,#D6B66A);border-right:1px solid var(--g-mid,#D6B66A);"></div>
+    <div style="position:absolute;bottom:16px;left:clamp(16px,5vw,36px);width:12px;height:12px;border-bottom:1px solid var(--g-mid,#D6B66A);border-left:1px solid var(--g-mid,#D6B66A);"></div>
+    <div id="hb-film-overlay" data-reveal style="text-align:center;padding:24px;position:relative;z-index:2;">
+      <div onClick="{{ playFilm }}" style="width:clamp(64px,8vw,86px);height:clamp(64px,8vw,86px);margin:0 auto;border-radius:50%;border:1px solid rgba(212,175,90,.6);display:flex;align-items:center;justify-content:center;background:rgba(212,175,90,.12);animation:hbpulse 3s ease-in-out infinite;cursor:pointer;backdrop-filter:blur(2px);">
+        <div style="width:0;height:0;border-left:17px solid var(--g-hi,#F4D58A);border-top:11px solid transparent;border-bottom:11px solid transparent;margin-left:4px;"></div>
+      </div>
+      <div style="font-family:'Noto Serif KR',serif;font-size:clamp(22px,3vw,36px);line-height:1.5;font-weight:400;margin-top:clamp(26px,4vh,40px);color:#F5F1E8;">한 벌의 한복이,<br>가장 빛나는 하루를 완성합니다.</div>
+      <div style="font-family:'Space Grotesk',monospace;font-size:clamp(12px,1.2vw,13px);letter-spacing:.22em;color:#BBA77A;margin-top:18px;">BRAND FILM · WEDDING</div>
+    </div>
+  </section>
+
+  <!-- ===== ATELIER (light) ===== -->
+  <section style="width:100%;background:#F3EDE1;color:#2A2620;padding:clamp(64px,11vw,128px) clamp(20px,5vw,40px);">
+    <div style="max-width:1100px;margin:0 auto;width:100%;">
+      <div data-reveal style="display:flex;align-items:center;gap:12px;font-family:'Space Grotesk',monospace;font-size:13px;letter-spacing:.16em;color:#A8842F;margin-bottom:clamp(20px,3vw,30px);"><span>01</span><span style="width:5px;height:5px;background:currentColor;transform:rotate(45deg);flex:none;"></span><span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(168,132,47,.5),rgba(168,132,47,.12));"></span><span>ATELIER</span></div>
+      <div style="display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,64px);align-items:center;">
+        <div data-reveal style="flex:1 1 320px;">
+          <h2 style="font-family:'Noto Serif KR',serif;font-size:clamp(28px,4vw,48px);line-height:1.4;font-weight:500;margin:0;color:#221E18;">편안한<br>전 지점 매장</h2>
+          <p style="font-size:clamp(15px,1.5vw,17px);line-height:1.95;color:#5C5446;margin:clamp(18px,2.5vw,28px) 0 clamp(24px,3vw,36px);max-width:430px;">넓고 깨끗한 한빔한복 매장에 부모님을 모시고 편하게 방문하세요. 전 지점 직영으로, 어느 매장에서나 동일한 품격의 응대를 약속드립니다.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;">
+            <span style="padding:9px 16px;border:1px solid rgba(168,132,47,.5);font-family:'Space Grotesk',monospace;font-size:12.5px;letter-spacing:.04em;color:#8a6c22;">전 지점 직영</span>
+            <span style="padding:9px 16px;border:1px solid rgba(168,132,47,.5);font-family:'Space Grotesk',monospace;font-size:12.5px;letter-spacing:.04em;color:#8a6c22;">프리미엄 1:1 응대</span>
+            <span style="padding:9px 16px;border:1px solid rgba(168,132,47,.5);font-family:'Space Grotesk',monospace;font-size:12.5px;letter-spacing:.04em;color:#8a6c22;">넓은 주차 공간</span>
+          </div>
+        </div>
+        <div data-reveal style="flex:1 1 360px;position:relative;aspect-ratio:4/3;">
+          <img src="assets/web/store.jpg" alt="한빔한복 매장 내부" style="width:100%;height:100%;object-fit:cover;display:block;border:1px solid rgba(168,132,47,.4);">
+          <div style="position:absolute;top:10px;left:10px;width:12px;height:12px;border-top:1px solid #A8842F;border-left:1px solid #A8842F;pointer-events:none;"></div>
+          <div style="position:absolute;bottom:10px;right:10px;width:12px;height:12px;border-bottom:1px solid #A8842F;border-right:1px solid #A8842F;pointer-events:none;"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== GUIDE (한복 선택 가이드, light) ===== -->
+  <section style="width:100%;background:#FBF6EC;color:#2A2620;border-top:1px solid rgba(168,132,47,.3);padding:clamp(64px,11vw,128px) clamp(20px,5vw,40px);">
+    <div style="max-width:1100px;margin:0 auto;width:100%;">
+      <div data-reveal style="display:flex;align-items:center;gap:12px;font-family:'Space Grotesk',monospace;font-size:13px;letter-spacing:.16em;color:#A8842F;margin-bottom:clamp(20px,3vw,30px);"><span>02</span><span style="width:5px;height:5px;background:currentColor;transform:rotate(45deg);flex:none;"></span><span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(168,132,47,.5),rgba(168,132,47,.12));"></span><span>SELECTION GUIDE</span></div>
+      <h2 data-reveal style="font-family:'Noto Serif KR',serif;font-size:clamp(28px,4.5vw,50px);font-weight:500;margin:0;text-align:center;color:#221E18;">한복, <span style="color:#B5872A;">이렇게</span> 고르세요</h2>
+      <p data-reveal style="text-align:center;font-size:clamp(15px,1.5vw,17px);color:#5C5446;margin:clamp(16px,2vw,22px) auto clamp(40px,5vw,60px);max-width:540px;line-height:1.9;">같은 한복도 어떻게 고르느냐에 따라 품격이 달라집니다. 한빔한복이 오랜 경험으로 다섯 가지를 짚어드립니다.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:clamp(12px,1.6vw,18px);">
+
+        <div data-reveal class="hb-card hb-lift-light" style="background:#FFFFFF;border:1px solid rgba(168,132,47,.3);box-shadow:0 2px 16px rgba(168,132,47,.06);padding:clamp(24px,2.6vw,32px) clamp(20px,2.2vw,26px);">
+          <div style="display:flex;align-items:center;justify-content:space-between;"><span style="font-family:'Space Grotesk',monospace;font-size:12px;letter-spacing:.12em;color:#A8842F;">01</span><span style="font-family:'Space Grotesk',monospace;font-size:10.5px;letter-spacing:.14em;color:#a99e84;">TPO</span></div>
+          <div style="width:46px;height:46px;margin-top:clamp(16px,2vw,22px);display:flex;align-items:center;justify-content:center;border:1px solid rgba(168,132,47,.45);color:#B5872A;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" stroke-linecap="round"><path d="M8 3.5 12 6l4-2.5 4 3-2.2 3.2V21H6.2V9.7L4 6.5z"/><path d="M12 6v15"/></svg>
+          </div>
+          <div style="font-family:'Noto Serif KR',serif;font-size:clamp(18px,1.9vw,21px);font-weight:600;margin-top:clamp(16px,2vw,22px);line-height:1.4;color:#221E18;">자리에 맞는 격을 갖추다</div>
+          <div style="font-size:14px;color:#5C5446;line-height:1.75;margin-top:11px;">혼주·하객·돌·예단까지, 자리마다 어울리는 한복의 격이 다릅니다.</div>
+          <div style="font-size:14px;color:#9a7420;line-height:1.75;margin-top:8px;">가장 먼저 ‘어떤 자리에 입으실지’부터 헤아립니다.</div>
+        </div>
+
+        <div data-reveal class="hb-card hb-lift-light" style="background:#FFFFFF;border:1px solid rgba(168,132,47,.3);box-shadow:0 2px 16px rgba(168,132,47,.06);padding:clamp(24px,2.6vw,32px) clamp(20px,2.2vw,26px);">
+          <div style="display:flex;align-items:center;justify-content:space-between;"><span style="font-family:'Space Grotesk',monospace;font-size:12px;letter-spacing:.12em;color:#A8842F;">02</span><span style="font-family:'Space Grotesk',monospace;font-size:10.5px;letter-spacing:.14em;color:#a99e84;">FIT</span></div>
+          <div style="width:46px;height:46px;margin-top:clamp(16px,2vw,22px);display:flex;align-items:center;justify-content:center;border:1px solid rgba(168,132,47,.45);color:#B5872A;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M12 3v18"/><path d="M8 5h8M8 12h8M8 19h8"/></svg>
+          </div>
+          <div style="font-family:'Noto Serif KR',serif;font-size:clamp(18px,1.9vw,21px);font-weight:600;margin-top:clamp(16px,2vw,22px);line-height:1.4;color:#221E18;">체형을 살리는 한 끗</div>
+          <div style="font-size:14px;color:#5C5446;line-height:1.75;margin-top:11px;">저고리 길이와 치마선의 위치가 키와 비율을 다르게 보이게 합니다.</div>
+          <div style="font-size:14px;color:#9a7420;line-height:1.75;margin-top:8px;">입는 분의 체형에 맞춘 섬세한 보정이 핵심입니다.</div>
+        </div>
+
+        <div data-reveal class="hb-card hb-lift-light" style="background:#FFFFFF;border:1px solid rgba(168,132,47,.3);box-shadow:0 2px 16px rgba(168,132,47,.06);padding:clamp(24px,2.6vw,32px) clamp(20px,2.2vw,26px);">
+          <div style="display:flex;align-items:center;justify-content:space-between;"><span style="font-family:'Space Grotesk',monospace;font-size:12px;letter-spacing:.12em;color:#A8842F;">03</span><span style="font-family:'Space Grotesk',monospace;font-size:10.5px;letter-spacing:.14em;color:#a99e84;">COLOR</span></div>
+          <div style="width:46px;height:46px;margin-top:clamp(16px,2vw,22px);display:flex;align-items:center;justify-content:center;border:1px solid rgba(168,132,47,.45);color:#B5872A;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="9.2" cy="9.5" r="4"/><circle cx="14.8" cy="9.5" r="4"/><circle cx="12" cy="14.5" r="4"/></svg>
+          </div>
+          <div style="font-family:'Noto Serif KR',serif;font-size:clamp(18px,1.9vw,21px);font-weight:600;margin-top:clamp(16px,2vw,22px);line-height:1.4;color:#221E18;">얼굴빛을 살리는 배색</div>
+          <div style="font-size:14px;color:#5C5446;line-height:1.75;margin-top:11px;">저고리와 치마, 고름과 깃의 배색이 첫인상을 좌우합니다.</div>
+          <div style="font-size:14px;color:#9a7420;line-height:1.75;margin-top:8px;">얼굴빛을 화사하게 살리는 색의 조화를 찾습니다.</div>
+        </div>
+
+        <div data-reveal class="hb-card hb-lift-light" style="background:#FFFFFF;border:1px solid rgba(168,132,47,.3);box-shadow:0 2px 16px rgba(168,132,47,.06);padding:clamp(24px,2.6vw,32px) clamp(20px,2.2vw,26px);">
+          <div style="display:flex;align-items:center;justify-content:space-between;"><span style="font-family:'Space Grotesk',monospace;font-size:12px;letter-spacing:.12em;color:#A8842F;">04</span><span style="font-family:'Space Grotesk',monospace;font-size:10.5px;letter-spacing:.14em;color:#a99e84;">FABRIC</span></div>
+          <div style="width:46px;height:46px;margin-top:clamp(16px,2vw,22px);display:flex;align-items:center;justify-content:center;border:1px solid rgba(168,132,47,.45);color:#B5872A;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M3 8c3-3.2 6 3.2 9 0s6-3.2 9 0"/><path d="M3 14c3-3.2 6 3.2 9 0s6-3.2 9 0"/></svg>
+          </div>
+          <div style="font-family:'Noto Serif KR',serif;font-size:clamp(18px,1.9vw,21px);font-weight:600;margin-top:clamp(16px,2vw,22px);line-height:1.4;color:#221E18;">계절을 담은 원단</div>
+          <div style="font-size:14px;color:#5C5446;line-height:1.75;margin-top:11px;">같은 디자인이라도 소재에 따라 품격과 착용감이 달라집니다.</div>
+          <div style="font-size:14px;color:#9a7420;line-height:1.75;margin-top:8px;">계절과 자리에 맞는 원단을 가려 권해드립니다.</div>
+        </div>
+
+        <div data-reveal class="hb-card hb-lift-light" style="background:#FFFFFF;border:1px solid rgba(168,132,47,.3);box-shadow:0 2px 16px rgba(168,132,47,.06);padding:clamp(24px,2.6vw,32px) clamp(20px,2.2vw,26px);">
+          <div style="display:flex;align-items:center;justify-content:space-between;"><span style="font-family:'Space Grotesk',monospace;font-size:12px;letter-spacing:.12em;color:#A8842F;">05</span><span style="font-family:'Space Grotesk',monospace;font-size:10.5px;letter-spacing:.14em;color:#a99e84;">FINISH</span></div>
+          <div style="width:46px;height:46px;margin-top:clamp(16px,2vw,22px);display:flex;align-items:center;justify-content:center;border:1px solid rgba(168,132,47,.45);color:#B5872A;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M4 20 18 6"/><path d="M16 4.5 19.5 8"/><path d="M6.5 13.5l1.4 1.4M9.5 10.5l1.4 1.4" stroke-dasharray="0.1 2.6"/></svg>
+          </div>
+          <div style="font-family:'Noto Serif KR',serif;font-size:clamp(18px,1.9vw,21px);font-weight:600;margin-top:clamp(16px,2vw,22px);line-height:1.4;color:#221E18;">완성도를 가르는 마감</div>
+          <div style="font-size:14px;color:#5C5446;line-height:1.75;margin-top:11px;">깃과 동정, 고름의 균형, 그리고 한 땀의 바느질까지.</div>
+          <div style="font-size:14px;color:#9a7420;line-height:1.75;margin-top:8px;">보이지 않는 곳의 마감이 한복의 완성도를 결정합니다.</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SERVICE (편의서비스) ===== -->
+  <section style="width:100%;background:#15131B;border-top:1px solid rgba(212,175,90,.22);padding:clamp(64px,11vw,128px) clamp(20px,5vw,40px);">
+    <div style="max-width:1100px;margin:0 auto;width:100%;">
+      <div data-reveal style="display:flex;align-items:center;gap:12px;font-family:'Space Grotesk',monospace;font-size:13px;letter-spacing:.16em;color:var(--g-mid,#D6B66A);margin-bottom:clamp(20px,3vw,30px);"><span>03</span><span style="width:5px;height:5px;background:currentColor;transform:rotate(45deg);flex:none;box-shadow:0 0 7px currentColor;"></span><span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(212,175,90,.5),rgba(212,175,90,.08));"></span><span>SERVICE</span></div>
+      <h2 data-reveal style="font-family:'Noto Serif KR',serif;font-size:clamp(28px,4.5vw,50px);font-weight:500;margin:0;text-align:center;line-height:1.4;">모두 맡기시고,<br><span style="color:var(--g-mid,#D6B66A);">한복에만 집중하세요</span></h2>
+      <p data-reveal style="text-align:center;font-size:clamp(15px,1.5vw,17px);color:#b6ac95;margin:clamp(16px,2vw,22px) auto clamp(40px,5vw,60px);max-width:520px;line-height:1.9;">주차부터 픽업까지, 한빔한복이 고심해 준비한 고객 만족 서비스로 부모님을 모시는 그날을 편안하게 만들어 드립니다.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:clamp(14px,2vw,20px);">
+
+        <div data-reveal class="hb-card hb-lift-dark" style="background:linear-gradient(160deg,rgba(212,175,90,.07),rgba(255,255,255,.015));border:1px solid rgba(212,175,90,.22);padding:clamp(28px,3vw,38px) clamp(24px,2.5vw,30px);">
+          <div style="font-family:'Space Grotesk',monospace;font-size:12px;letter-spacing:.14em;color:var(--g-mid,#D6B66A);">01</div>
+          <div style="width:48px;height:48px;margin-top:clamp(16px,2vw,22px);display:flex;align-items:center;justify-content:center;border:1px solid rgba(212,175,90,.4);color:var(--g-hi,#F4D58A);">
+            <svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s6.5-5.7 6.5-11A6.5 6.5 0 0 0 5.5 10c0 5.3 6.5 11 6.5 11z"/><path d="M9.8 13V6.6h3a2 2 0 0 1 0 4h-3"/></svg>
+          </div>
+          <div style="font-family:'Noto Serif KR',serif;font-size:clamp(19px,2vw,23px);font-weight:600;margin-top:clamp(18px,2vw,24px);line-height:1.4;">전 지점 건물 주차 완비</div>
+          <div style="font-size:14.5px;color:#a7a08f;line-height:1.8;margin-top:10px;">모든 지점이 주차 가능한 건물에 위치해, 부모님을 편히 모시고 방문하실 수 있습니다.</div>
+        </div>
+
+        <div data-reveal class="hb-card hb-lift-dark" style="background:linear-gradient(160deg,rgba(212,175,90,.07),rgba(255,255,255,.015));border:1px solid rgba(212,175,90,.22);padding:clamp(28px,3vw,38px) clamp(24px,2.5vw,30px);">
+          <div style="font-family:'Space Grotesk',monospace;font-size:12px;letter-spacing:.14em;color:var(--g-mid,#D6B66A);">02</div>
+          <div style="width:48px;height:48px;margin-top:clamp(16px,2vw,22px);display:flex;align-items:center;justify-content:center;border:1px solid rgba(212,175,90,.4);color:var(--g-hi,#F4D58A);">
+            <svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7.5" r="4"/><path d="M10.4 6h2.4a1.1 1.1 0 0 1 0 2.2h-2.4M11.6 4.8v5.4M10.6 7.1h2.8"/><path d="M3 15c3.2 2.4 6 3.3 9 3.3s5.8-.9 9-3.3"/></svg>
+          </div>
+          <div style="font-family:'Noto Serif KR',serif;font-size:clamp(19px,2vw,23px);font-weight:600;margin-top:clamp(18px,2vw,24px);line-height:1.4;">합리적인 대여 비용</div>
+          <div style="font-size:14.5px;color:#a7a08f;line-height:1.8;margin-top:10px;">거품 없는 합리적인 가격으로, 부담 없이 품격 있는 한복을 준비하세요.</div>
+        </div>
+
+        <div data-reveal class="hb-card hb-lift-dark" style="background:linear-gradient(160deg,rgba(212,175,90,.07),rgba(255,255,255,.015));border:1px solid rgba(212,175,90,.22);padding:clamp(28px,3vw,38px) clamp(24px,2.5vw,30px);">
+          <div style="font-family:'Space Grotesk',monospace;font-size:12px;letter-spacing:.14em;color:var(--g-mid,#D6B66A);">03</div>
+          <div style="width:48px;height:48px;margin-top:clamp(16px,2vw,22px);display:flex;align-items:center;justify-content:center;border:1px solid rgba(212,175,90,.4);color:var(--g-hi,#F4D58A);">
+            <svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8.5" r="5"/><path d="M9.7 8.5 11.2 10l3.1-3.1"/><path d="M8.8 12.7 7.5 20l4.5-2.2L16.5 20l-1.3-7.3"/></svg>
+          </div>
+          <div style="font-family:'Noto Serif KR',serif;font-size:clamp(19px,2vw,23px);font-weight:600;margin-top:clamp(18px,2vw,24px);line-height:1.4;">철저한 한복 관리 시스템</div>
+          <div style="font-size:14.5px;color:#a7a08f;line-height:1.8;margin-top:10px;">체계적인 세탁·관리 시스템으로 언제나 최상의 컨디션의 한복을 제공합니다.</div>
+        </div>
+
+        <div data-reveal class="hb-card hb-lift-dark" style="background:linear-gradient(160deg,rgba(212,175,90,.07),rgba(255,255,255,.015));border:1px solid rgba(212,175,90,.22);padding:clamp(28px,3vw,38px) clamp(24px,2.5vw,30px);">
+          <div style="font-family:'Space Grotesk',monospace;font-size:12px;letter-spacing:.14em;color:var(--g-mid,#D6B66A);">04</div>
+          <div style="width:48px;height:48px;margin-top:clamp(16px,2vw,22px);display:flex;align-items:center;justify-content:center;border:1px solid rgba(212,175,90,.4);color:var(--g-hi,#F4D58A);">
+            <svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.6 11 4l8 3.6-8 3.6z"/><path d="M3 7.6v7.2L11 18M11 11.2v6.8"/><path d="M19 7.6v4.2"/><circle cx="18" cy="17.5" r="3.5"/><path d="M16.6 17.6l1 1 1.8-2"/></svg>
+          </div>
+          <div style="font-family:'Noto Serif KR',serif;font-size:clamp(19px,2vw,23px);font-weight:600;margin-top:clamp(18px,2vw,24px);line-height:1.4;">지점 간 대여·반납 서비스</div>
+          <div style="font-size:14.5px;color:#a7a08f;line-height:1.8;margin-top:10px;">대여한 지점이 아니어도 가까운 지점에서 반납 — 번거로움을 덜어 드립니다.</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== LOOKBOOK ===== -->
+  <section style="max-width:1100px;margin:0 auto;width:100%;padding:clamp(64px,11vw,128px) clamp(20px,5vw,40px);">
+    <div data-reveal style="display:flex;align-items:center;gap:12px;font-family:'Space Grotesk',monospace;font-size:13px;letter-spacing:.16em;color:var(--g-mid,#D6B66A);margin-bottom:clamp(20px,3vw,30px);"><span>04</span><span style="width:5px;height:5px;background:currentColor;transform:rotate(45deg);flex:none;box-shadow:0 0 7px currentColor;"></span><span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(212,175,90,.5),rgba(212,175,90,.08));"></span><span>COLLECTION</span></div>
+    <div data-reveal style="margin-bottom:clamp(24px,3.5vw,40px);">
+      <h2 style="font-family:'Noto Serif KR',serif;font-size:clamp(30px,4.5vw,54px);font-weight:500;margin:0;">혼주한복부터<br>웨딩한복까지</h2>
+      <p style="font-size:clamp(15px,1.5vw,17px);color:#b6ac95;margin:clamp(14px,2vw,20px) 0 0;max-width:480px;line-height:1.9;">직접 디자인하고 생산하여 최신 디자인 한복을 최다 보유 — 웨딩 한복 투어 1순위, 한빔한복에서 합리적으로 선택하세요.</p>
+    </div>
+    <div data-reveal style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:clamp(20px,3vw,28px);">
+      <div style="font-family:'Space Grotesk',monospace;font-size:13px;letter-spacing:.12em;color:var(--g-mid,#D6B66A);">2026 LOOKBOOK</div>
+      <div style="display:flex;gap:10px;">
+        <button style="{{ weddingTabStyle }}" onClick="{{ setWedding }}">웨딩 촬영</button>
+        <button style="{{ honjuTabStyle }}" onClick="{{ setHonju }}">혼주 한복</button>
+      </div>
+    </div>
+    <div class="hb-scroll" style="display:flex;gap:clamp(14px,2vw,22px);overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:14px;">
+      <sc-for list="{{ cards }}" as="c" hint-placeholder-count="6">
+        <div class="hb-look" style="flex:none;width:clamp(210px,58vw,300px);aspect-ratio:3/4;border:1px solid rgba(212,175,90,.24);scroll-snap-align:start;position:relative;background:#1f1d26;transition:box-shadow .5s ease;">
+          <img src="{{ c.src }}" alt="한빔한복 룩북" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center 22%;display:block;">
+          <div style="position:absolute;top:13px;left:13px;font-family:'Space Grotesk',monospace;font-size:12px;letter-spacing:.08em;color:#F4D58A;text-shadow:0 1px 5px rgba(0,0,0,.6);">{{ c.code }}</div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="font-family:'Space Grotesk',monospace;font-size:12px;letter-spacing:.12em;color:#8a8068;margin-top:8px;">← 옆으로 넘겨보세요 →</div>
+  </section>
+
+  <!-- ===== ACCESSORY (light) ===== -->
+  <section style="width:100%;background:#F3EDE1;color:#2A2620;padding:clamp(64px,11vw,128px) clamp(20px,5vw,40px);">
+    <div style="max-width:1100px;margin:0 auto;width:100%;">
+      <div data-reveal style="display:flex;align-items:center;gap:12px;font-family:'Space Grotesk',monospace;font-size:13px;letter-spacing:.16em;color:#A8842F;margin-bottom:clamp(20px,3vw,30px);"><span>05</span><span style="width:5px;height:5px;background:currentColor;transform:rotate(45deg);flex:none;"></span><span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(168,132,47,.5),rgba(168,132,47,.12));"></span><span>ALL-INCLUSIVE</span></div>
+      <div style="display:flex;flex-wrap:wrap;gap:clamp(28px,4vw,52px);align-items:stretch;">
+        <div data-reveal style="flex:1.5 1 360px;display:flex;flex-direction:column;">
+          <div style="font-size:clamp(15px,1.6vw,17px);color:#8a6c22;font-weight:500;margin-bottom:10px;">촌스러운 한복가방·악세사리 NO! 추가요금 NO!</div>
+          <h2 style="font-family:'Noto Serif KR',serif;font-size:clamp(27px,4vw,46px);line-height:1.4;font-weight:500;margin:0;color:#221E18;">최신 트렌드 고급<br>악세사리 풀세트 포함</h2>
+          <p style="font-size:clamp(15px,1.5vw,17px);line-height:1.95;color:#5C5446;margin:clamp(18px,2.5vw,26px) 0 0;max-width:480px;">한복 한 벌이면 끝 — 별도 비용 걱정 없이 빛나는 하루를 완성하는 풀세트를 그대로 함께 드립니다.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:clamp(22px,3vw,30px);">
+            <sc-for list="{{ accessories }}" as="a" hint-placeholder-count="6">
+              <span style="display:inline-flex;align-items:center;padding:9px 14px;background:#FCF8EF;border:1px solid rgba(168,132,47,.4);font-size:13px;color:#4a4336;white-space:nowrap;letter-spacing:.01em;">{{ a }}</span>
+            </sc-for>
+          </div>
+        </div>
+        <div data-reveal style="flex:1 1 280px;position:relative;display:flex;min-height:clamp(240px,30vw,340px);">
+          <img src="assets/web/accessory-set.jpg" alt="혼주 한복 악세사리 풀세트 착용 모습" style="width:100%;height:100%;object-fit:cover;object-position:center 32%;display:block;border:1px solid rgba(168,132,47,.4);">
+          <div style="position:absolute;top:10px;left:10px;width:13px;height:13px;border-top:1px solid #A8842F;border-left:1px solid #A8842F;pointer-events:none;"></div>
+          <div style="position:absolute;bottom:10px;right:10px;width:13px;height:13px;border-bottom:1px solid #A8842F;border-right:1px solid #A8842F;pointer-events:none;"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CHECKLIST (혼주한복 선택) ===== -->
+  <section style="width:100%;background:#15131B;border-top:1px solid rgba(212,175,90,.22);padding:clamp(64px,11vw,128px) clamp(20px,5vw,40px);">
+    <div style="max-width:1100px;margin:0 auto;width:100%;">
+      <div data-reveal style="display:flex;align-items:center;gap:12px;font-family:'Space Grotesk',monospace;font-size:13px;letter-spacing:.16em;color:var(--g-mid,#D6B66A);margin-bottom:clamp(20px,3vw,30px);"><span>06</span><span style="width:5px;height:5px;background:currentColor;transform:rotate(45deg);flex:none;box-shadow:0 0 7px currentColor;"></span><span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(212,175,90,.5),rgba(212,175,90,.08));"></span><span>CHECKLIST</span></div>
+      <h2 data-reveal style="font-family:'Noto Serif KR',serif;font-size:clamp(28px,4.5vw,50px);font-weight:500;margin:0 0 clamp(10px,1.5vw,16px);text-align:center;">계약 전, <span style="color:var(--g-mid,#D6B66A);">이것만은</span> 확인하세요</h2>
+      <p data-reveal style="text-align:center;font-size:clamp(15px,1.5vw,17px);color:#b6ac95;margin:0 auto clamp(40px,5vw,56px);max-width:480px;line-height:1.9;">좋은 한복만큼 중요한 건 좋은 매장 — 계약 전 꼭 확인해야 할 6가지에 한빔한복은 모두 자신 있게 답합니다.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(12px,1.5vw,16px);margin-bottom:clamp(40px,5vw,56px);">
+        <sc-for list="{{ checklist }}" as="q" hint-placeholder-count="6">
+          <div data-reveal style="display:flex;align-items:center;gap:16px;background:linear-gradient(160deg,rgba(212,175,90,.06),rgba(255,255,255,.012));border:1px solid rgba(212,175,90,.2);padding:clamp(18px,2vw,22px) clamp(20px,2.2vw,26px);">
+            <span style="flex:none;width:30px;height:30px;display:flex;align-items:center;justify-content:center;background:var(--g-grad,linear-gradient(135deg,#F4D58A,#C9952F));color:#15131B;font-weight:700;font-size:15px;">✓</span>
+            <span style="font-size:clamp(15px,1.6vw,17px);color:#EFEBE2;line-height:1.5;">{{ q }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <div data-reveal style="text-align:center;border-top:1px solid rgba(212,175,90,.22);padding-top:clamp(36px,5vw,52px);">
+        <div style="font-family:'Noto Serif KR',serif;font-size:clamp(22px,3vw,34px);font-weight:500;line-height:1.5;color:#F5F1E8;">“혼주한복은 부모님을<br>반드시 모시고 가야 합니다.”</div>
+        <p style="font-size:clamp(14px,1.5vw,16px);color:#a7a08f;line-height:1.95;margin:clamp(20px,2.5vw,28px) auto 0;max-width:560px;">주차부터 상담까지 불편하지 않고, 갑작스러운 피팅 비용에 당황할 일 없으며, 정신없는 예식에도 대여·반납이 편리해야 합니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BRANCHES (light) ===== -->
+  <section id="branches" style="width:100%;background:#F1EADC;color:#2A2620;border-top:1px solid rgba(168,132,47,.25);padding:clamp(64px,11vw,128px) clamp(20px,5vw,40px);">
+    <div style="max-width:1100px;margin:0 auto;width:100%;">
+      <div data-reveal style="display:flex;align-items:center;gap:12px;font-family:'Space Grotesk',monospace;font-size:13px;letter-spacing:.16em;color:#A8842F;margin-bottom:clamp(18px,2.5vw,26px);"><span>07</span><span style="width:5px;height:5px;background:currentColor;transform:rotate(45deg);flex:none;"></span><span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(168,132,47,.5),rgba(168,132,47,.12));"></span><span>FIND US</span></div>
+      <h2 data-reveal style="font-family:'Noto Serif KR',serif;font-size:clamp(30px,4.5vw,54px);font-weight:500;margin:0 0 clamp(28px,4vw,44px);text-align:center;color:#221E18;">전국 <span style="color:#B5872A;">11</span>개 지점</h2>
+      <div style="display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin-bottom:clamp(28px,4vw,44px);">
+        <sc-for list="{{ branches }}" as="b" hint-placeholder-count="11">
+          <button style="{{ b.style }}" onClick="{{ b.onClick }}">{{ b.name }}</button>
+        </sc-for>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:clamp(16px,2.5vw,28px);align-items:stretch;">
+        <!-- detail -->
+        <div style="flex:1 1 300px;display:flex;flex-direction:column;">
+          <div style="flex:1;background:#FCF8EF;border:1px solid rgba(168,132,47,.4);padding:clamp(24px,3vw,34px);">
+            <div style="font-family:'Space Grotesk',monospace;font-size:12px;letter-spacing:.14em;color:#A8842F;">{{ branchCode }}</div>
+            <div style="font-family:'Noto Serif KR',serif;font-size:clamp(24px,3vw,32px);font-weight:500;margin-top:10px;color:#221E18;">{{ currentName }}</div>
+            <div style="font-size:13.5px;color:#9a8f78;margin-top:5px;min-height:1px;">{{ currentRegion }}</div>
+            <div style="height:1px;background:rgba(168,132,47,.28);margin:clamp(16px,2.2vw,22px) 0;"></div>
+            <div style="display:flex;gap:14px;font-size:15px;line-height:1.6;margin-bottom:13px;"><span style="color:#A8842F;min-width:40px;font-family:'Space Grotesk',monospace;font-size:12px;letter-spacing:.04em;">LOC</span><span style="{{ locStyle }}">{{ currentLoc }}</span></div>
+            <div style="display:flex;gap:14px;font-size:15px;"><span style="color:#A8842F;min-width:40px;font-family:'Space Grotesk',monospace;font-size:12px;letter-spacing:.04em;">TEL</span><span style="{{ telStyle }}">{{ currentTel }}</span></div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;">
+            <button class="hb-btn" onClick="{{ callBranch }}" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:16px;border:none;background:var(--g-grad,linear-gradient(135deg,#F4D58A,#C9952F));color:#2A2620;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6.3 3h3l1.4 4.2L8.6 9.4a12 12 0 0 0 5.5 5.5l2.2-2.1 4.2 1.4v3a2 2 0 0 1-2.1 2A16 16 0 0 1 4.3 5.1 2 2 0 0 1 6.3 3z"/></svg>전화 걸기</button>
+            <button class="hb-btn" onClick="{{ kakaoBranch }}" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:16px;border:1px solid rgba(168,132,47,.5);background:#fff;color:#4a4336;font-size:14px;font-weight:500;cursor:pointer;font-family:inherit;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5h16v9.5H9.5L4.5 18.8V5.5z"/></svg>카톡 상담</button>
+            <button class="hb-btn" onClick="{{ bookBranch }}" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:16px;border:1px solid rgba(168,132,47,.5);background:#fff;color:#4a4336;font-size:14px;font-weight:500;cursor:pointer;font-family:inherit;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5.5" width="16" height="14.5" rx="1.5"/><path d="M4 9.5h16M8.5 3.5v3.5M15.5 3.5v3.5"/></svg>네이버 예약</button>
+            <button class="hb-btn" onClick="{{ mapBranch }}" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:16px;border:1px solid rgba(168,132,47,.5);background:#fff;color:#4a4336;font-size:14px;font-weight:500;cursor:pointer;font-family:inherit;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.4 7-12a7 7 0 1 0-14 0c0 5.6 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>지도·길찾기</button>
+          </div>
+        </div>
+        <!-- map -->
+        <div style="flex:1.3 1 380px;position:relative;min-height:clamp(280px,40vh,420px);border:1px solid rgba(168,132,47,.35);overflow:hidden;">
+          <div id="hb-map" style="position:absolute;inset:0;width:100%;height:100%;background:linear-gradient(135deg,#E9E0CF,#DBCFB6);"></div>
+          <div id="hb-map-fallback" style="display:none;position:absolute;inset:0;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:28px;background:linear-gradient(135deg,#E9E0CF,#DBCFB6);">
+            <div style="position:relative;width:16px;height:16px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:#C9952F;box-shadow:0 0 18px rgba(168,132,47,.6);"></div>
+            <div style="font-family:'Space Grotesk',monospace;font-size:12px;letter-spacing:.12em;color:#A8842F;margin-top:6px;">NAVER MAP</div>
+            <div style="font-size:13px;line-height:1.7;color:#7a6f57;">지도는 등록된 도메인<br>(hanbeam.co.kr)에서 표시됩니다.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer style="position:relative;background:#110F16;text-align:center;padding:clamp(48px,7vw,80px) 24px;border-top:1px solid rgba(212,175,90,.18);overflow:hidden;">
+    <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(244,213,138,.6),transparent);"></div>
+    <div style="width:clamp(80px,10vw,100px);height:clamp(80px,10vw,100px);margin:0 auto;border-radius:50%;border:1px solid rgba(220,182,98,.4);display:flex;align-items:center;justify-content:center;position:relative;">
+      <div style="position:absolute;inset:6px;border-radius:50%;border:1px solid rgba(220,182,98,.18);"></div>
+      <img src="assets/footer_logo.png" alt="한빔한복 로고" style="width:56%;height:auto;display:block;">
+    </div>
+    <div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-top:22px;">
+      <span style="width:26px;height:1px;background:linear-gradient(90deg,transparent,rgba(220,182,98,.6));"></span>
+      <span style="width:5px;height:5px;background:var(--g-mid,#D6B66A);transform:rotate(45deg);"></span>
+      <span style="width:26px;height:1px;background:linear-gradient(90deg,rgba(220,182,98,.6),transparent);"></span>
+    </div>
+    <div style="font-size:13.5px;color:#9a9384;line-height:1.9;margin-top:20px;">혼주·웨딩 한복대여 및 맞춤 전문 · 전국 11개 지점</div>
+    <div style="font-size:12.5px;color:#7e7868;line-height:1.9;margin-top:12px;">(주)한빔 · 대표자 이은수</div>
+    <div style="font-family:'Space Grotesk',monospace;font-size:11px;letter-spacing:.18em;color:#6b6856;margin-top:16px;">© 2026 HANBEAM HANBOK. ALL RIGHTS RESERVED.</div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:[&quot;#F4D58A&quot;,&quot;#D6B66A&quot;,&quot;#C9952F&quot;],&quot;options&quot;:[[&quot;#F4D58A&quot;,&quot;#D6B66A&quot;,&quot;#C9952F&quot;],[&quot;#F3E3B3&quot;,&quot;#D9BE7E&quot;,&quot;#B89A52&quot;],[&quot;#F4C9B0&quot;,&quot;#D99878&quot;,&quot;#B5694A&quot;],[&quot;#E8C07A&quot;,&quot;#C99A4B&quot;,&quot;#9E7430&quot;]],&quot;tsType&quot;:&quot;string[]&quot;},&quot;revealMotion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = { tab: 'wedding', branch: 0 };
+
+  // 카톡 채널 / 네이버 예약 공통 링크 — 실제 URL을 넣으면 모든 지점 버튼에 적용됩니다.
+  // 지점별로 다르면 각 branch에 booking:'...', kakao:'...' 를 추가하세요.
+  links = { kakao: '', naverBooking: '' };
+
+  branches = [
+    { name: '부산점', region: '부산진구 범천동', addr: '부산광역시 부산진구 자유평화로 17, 3층', tel: '051-634-2325', lat: 35.1432, lng: 129.0645, geo: '부산 부산진구 자유평화로 17', booking: 'https://m.booking.naver.com/booking/6/bizes/661812', kakao: 'https://open.kakao.com/o/soq7Ns4d' },
+    { name: '센텀점', region: '해운대구 우동', addr: '부산광역시 해운대구 센텀서로 30, 3층 304호 (벡스코 비즈니스호텔)', tel: '010-3052-2325', lat: 35.1748, lng: 129.1271, geo: '부산 해운대구 센텀서로 30', booking: 'https://booking.naver.com/booking/6/bizes/1577219', kakao: 'https://open.kakao.com/o/sz1xltbi' },
+    { name: '대구점', region: '동구 신서혁신도시', addr: '대구광역시 동구 메디밸리로 19, 대동타워 303호', tel: '010-8492-2328', lat: 35.8753, lng: 128.7456, geo: '대구 동구 메디밸리로 19', booking: 'https://m.place.naver.com/place/2043617700/ticket', kakao: 'https://open.kakao.com/o/sqPdeNfi' },
+    { name: '울산점', region: '북구 명촌동', addr: '울산광역시 북구 명촌23길 71, 2층', tel: '010-9807-2325', lat: 35.5583, lng: 129.3621, geo: '울산 북구 명촌23길 71', booking: 'https://booking.naver.com/booking/6/bizes/1534767', kakao: 'https://open.kakao.com/o/sKjCbA0h' },
+    { name: '창원점', region: '성산구 사파동', addr: '경상남도 창원시 성산구 동산로 208-2, 1층', tel: '055-263-2325', lat: 35.2274, lng: 128.6811, geo: '창원 성산구 동산로 208-2', booking: 'https://booking.naver.com/booking/6/bizes/843111', kakao: 'https://open.kakao.com/o/sdcvbh5e' },
+    { name: '마산점', region: '마산합포구 산호동', addr: '경상남도 창원시 마산합포구 합포로 236, 1층 105호', tel: '010-8832-2325', lat: 35.2201, lng: 128.5744, geo: '창원 마산합포구 합포로 236', booking: 'https://booking.naver.com/booking/6/bizes/1526541', kakao: 'https://open.kakao.com/o/ssWvuvYh' },
+    { name: '양산점', region: '물금읍', addr: '경상남도 양산시 물금읍 부산대학로 144, 2층', tel: '055-912-0425', lat: 35.3070, lng: 129.0100, geo: '양산 물금읍 부산대학로 144', booking: 'https://booking.naver.com/booking/13/bizes/868629', kakao: 'https://open.kakao.com/o/sp44Hxaf' },
+    { name: '김해점', region: '김해시 내동 휴앤락몰', addr: '경상남도 김해시 내외중앙로 137, 1층 146·147호', tel: '010-8065-2325', lat: 35.2343, lng: 128.8722, geo: '김해 내외중앙로 137', booking: 'https://booking.naver.com/booking/6/bizes/1402679', kakao: 'https://open.kakao.com/o/sHM2wwsh' },
+    { name: '진주점', region: '혁신도시 충무공동', addr: '경상남도 진주시 에나로 103-7, 1층 102호', tel: '010-5654-2407', lat: 35.1802, lng: 128.1481, geo: '진주 에나로 103-7', booking: 'https://m.booking.naver.com/booking/6/bizes/1485854', kakao: 'https://open.kakao.com/o/sbxBToNh' },
+    { name: '인천점', region: '부평구 삼산동', addr: '인천광역시 부평구 체육관로 34, 4층 402호', tel: '032-283-2325', lat: 37.5074, lng: 126.7371, geo: '인천 부평구 체육관로 34', booking: 'https://m.booking.naver.com/booking/13/bizes/1039475', kakao: 'https://open.kakao.com/o/sIrXajUf' },
+    { name: '안산점', region: '단원구 고잔동', addr: '경기도 안산시 단원구 이삭5길 13, 2층', tel: '010-6591-2322', lat: 37.3101, lng: 126.8306, geo: '안산 단원구 이삭5길 13', booking: 'https://m.booking.naver.com/booking/6/bizes/1500008', kakao: 'https://open.kakao.com/o/s5l7eK5h' }
+  ];
+
+  services = [
+    { no: '01', title: '전 지점 건물 주차 완비', desc: '모든 지점이 주차 가능한 건물에 위치해, 부모님을 편히 모시고 방문하실 수 있습니다.', icon: 'P' },
+    { no: '02', title: '합리적인 대여 비용', desc: '거품 없는 합리적인 가격으로, 부담 없이 품격 있는 한복을 준비하세요.', icon: '₩' },
+    { no: '03', title: '철저한 한복 관리 시스템', desc: '체계적인 세탁·관리 시스템으로 언제나 최상의 컨디션의 한복을 제공합니다.', icon: '✦' },
+    { no: '04', title: '지점 간 대여·반납 서비스', desc: '대여한 지점이 아니어도 가까운 지점에서 반납 — 번거로움을 덜어 드립니다.', icon: '⇄' }
+  ];
+
+  accessories = ['가방', '노리개', '헤어·브로치', '신발', '속치마', '속바지'];
+
+  checklist = [
+    '매장이 깨끗하고 편안한가?',
+    '주차 공간이 확보되어 있는가?',
+    '피팅 비용이 발생하지 않는가?',
+    '피팅 벌수가 제한되어 있지 않은가?',
+    '신발·악세사리·소품 등 추가비용이 없는가?',
+    '대여 / 반납이 번거롭지 않은가?'
+  ];
+
+  sets = {
+    wedding: [
+      { code: 'W·01', src: 'assets/web/look-01.jpg' },
+      { code: 'W·02', src: 'assets/web/look-honju-pink.jpg' },
+      { code: 'W·03', src: 'assets/web/look-04.jpg' },
+      { code: 'W·04', src: 'assets/web/look-05.jpg' },
+      { code: 'W·05', src: 'assets/web/look-06.jpg' },
+      { code: 'W·06', src: 'assets/web/look-07.jpg' },
+      { code: 'W·07', src: 'assets/web/look-11.jpg' },
+      { code: 'W·08', src: 'assets/web/look-12.jpg' },
+      { code: 'W·09', src: 'assets/web/look-13.jpg' },
+      { code: 'W·10', src: 'assets/web/look-14.jpg' },
+      { code: 'W·11', src: 'assets/web/look-15.jpg' },
+      { code: 'W·12', src: 'assets/web/look-16.jpg' }
+    ],
+    honju: [
+      { code: 'H·01', src: 'assets/web/honju-01.jpg' },
+      { code: 'H·02', src: 'assets/web/honju-02.jpg' },
+      { code: 'H·03', src: 'assets/web/honju-03.jpg' },
+      { code: 'H·04', src: 'assets/web/honju-04.jpg' },
+      { code: 'H·05', src: 'assets/web/honju-05.jpg' },
+      { code: 'H·06', src: 'assets/web/honju-06.jpg' },
+      { code: 'H·07', src: 'assets/web/honju-07.jpg' },
+      { code: 'H·08', src: 'assets/web/honju-08.jpg' },
+      { code: 'H·09', src: 'assets/web/honju-09.jpg' },
+      { code: 'H·10', src: 'assets/web/honju-10.jpg' },
+      { code: 'H·11', src: 'assets/web/honju-11.jpg' },
+      { code: 'H·12', src: 'assets/web/honju-12.jpg' },
+      { code: 'H·13', src: 'assets/web/honju-13.jpg' },
+      { code: 'H·14', src: 'assets/web/honju-14.jpg' }
+    ]
+  };
+
+  componentDidMount() {
+    if (this.props.revealMotion === false) return;
+    try {
+      const els = Array.from(document.querySelectorAll('[data-reveal]'));
+      els.forEach((el) => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(26px)';
+        el.style.transition = 'opacity .85s cubic-bezier(.22,1,.36,1), transform .85s cubic-bezier(.22,1,.36,1)';
+      });
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.style.opacity = '1';
+            e.target.style.transform = 'none';
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      els.forEach((el) => io.observe(el));
+    } catch (err) {}
+    this._mapTries = 0;
+    const tryInit = () => {
+      if (this._initNaverMap()) return;
+      if (window.__hbMapAuthFail) { this._showMapFallback(); return; }
+      if (this._mapTries++ > 50) { this._showMapFallback(); return; }
+      setTimeout(tryInit, 150);
+    };
+    tryInit();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState && prevState.branch !== this.state.branch) this._focusBranch();
+  }
+
+  _showMapFallback() {
+    const f = document.getElementById('hb-map-fallback');
+    if (f) f.style.display = 'flex';
+  }
+
+  _initNaverMap() {
+    if (this._map) return true;
+    if (!(window.naver && naver.maps && naver.maps.Map)) return false;
+    const el = document.getElementById('hb-map');
+    if (!el) return false;
+    const b = this.branches[this.state.branch];
+    const ll = new naver.maps.LatLng(b.lat, b.lng);
+    this._map = new naver.maps.Map(el, { center: ll, zoom: 15, scrollWheel: false });
+    this._marker = new naver.maps.Marker({ position: ll, map: this._map });
+    this._refineGeocode(b);
+    return true;
+  }
+
+  _focusBranch() {
+    if (!this._map) return;
+    const b = this.branches[this.state.branch];
+    const ll = new naver.maps.LatLng(b.lat, b.lng);
+    this._map.setCenter(ll);
+    this._map.setZoom(15);
+    if (this._marker) this._marker.setPosition(ll);
+    this._refineGeocode(b);
+  }
+
+  _refineGeocode(b) {
+    try {
+      if (!(naver.maps.Service && naver.maps.Service.geocode)) return;
+      const q = (b.geo || b.addr || '').split(',')[0];
+      if (!q) return;
+      naver.maps.Service.geocode({ query: q }, (status, res) => {
+        if (status !== naver.maps.Service.Status.OK) return;
+        const item = res && res.v2 && res.v2.addresses && res.v2.addresses[0];
+        if (!item) return;
+        if (this.branches[this.state.branch] !== b) return;
+        const ll = new naver.maps.LatLng(parseFloat(item.y), parseFloat(item.x));
+        this._map.setCenter(ll);
+        if (this._marker) this._marker.setPosition(ll);
+      });
+    } catch (e) {}
+  }
+
+  renderVals() {
+    const acc = (Array.isArray(this.props.accent) && this.props.accent.length >= 3)
+      ? this.props.accent : ['#F4D58A', '#D6B66A', '#C9952F'];
+    const grad = 'linear-gradient(135deg,' + acc[0] + ',' + acc[2] + ')';
+    const rootVars = '--g-hi:' + acc[0] + ';--g-mid:' + acc[1] + ';--g-lo:' + acc[2] + ';--g-grad:' + grad + ';';
+
+    const tab = this.state.tab;
+    const activeTab = 'padding:11px 24px;border:none;font-family:inherit;font-size:14px;font-weight:700;color:#1A181F;background:' + grad + ';cursor:pointer;box-shadow:0 0 18px rgba(212,175,90,.3);';
+    const idleTab = 'padding:11px 24px;border:1px solid rgba(212,175,90,.45);background:transparent;font-family:inherit;font-size:14px;color:' + acc[1] + ';cursor:pointer;';
+
+    const cards = this.sets[tab].map((c) => ({
+      code: c.code,
+      src: c.src
+    }));
+
+    const branches = this.branches.map((b, i) => {
+      const active = i === this.state.branch;
+      return {
+        name: b.name,
+        style: active
+          ? 'padding:10px 18px;border:none;font-family:inherit;font-size:13.5px;font-weight:700;color:#2A2620;background:' + grad + ';cursor:pointer;white-space:nowrap;box-shadow:0 2px 10px rgba(168,132,47,.25);'
+          : 'padding:10px 18px;border:1px solid rgba(168,132,47,.45);background:#fff;font-family:inherit;font-size:13.5px;color:#6e6450;cursor:pointer;white-space:nowrap;',
+        onClick: () => this.setState({ branch: i })
+      };
+    });
+
+    const current = this.branches[this.state.branch];
+    const code = 'BR·' + String(this.state.branch + 1).padStart(2, '0');
+    const hasInfo = !!current.addr;
+    const valStyle = 'color:#4a4336;';
+    const placeholderStyle = 'color:#9a8f78;font-style:italic;';
+
+    return {
+      rootVars,
+      services: this.services,
+      accessories: this.accessories,
+      checklist: this.checklist,
+      cards,
+      branches,
+      currentName: '한빔한복 ' + current.name,
+      currentRegion: current.region || '',
+      currentLoc: hasInfo ? current.addr : '정확한 주소 입력 예정',
+      currentTel: hasInfo ? current.tel : '번호 입력 예정',
+      locStyle: hasInfo ? valStyle : placeholderStyle,
+      telStyle: hasInfo ? valStyle : placeholderStyle,
+      branchCode: code,
+      weddingTabStyle: tab === 'wedding' ? activeTab : idleTab,
+      honjuTabStyle: tab === 'honju' ? activeTab : idleTab,
+      setWedding: () => this.setState({ tab: 'wedding' }),
+      setHonju: () => this.setState({ tab: 'honju' }),
+      callBranch: () => {
+        const num = (current.tel || '').replace(/[^0-9]/g, '');
+        if (num) window.location.href = 'tel:' + num;
+      },
+      mapBranch: () => {
+        const q = '한빔한복 ' + current.name + ' ' + (current.geo || current.addr || '');
+        window.open('https://map.naver.com/p/search/' + encodeURIComponent(q.trim()), '_blank', 'noopener');
+      },
+      bookBranch: () => {
+        const url = current.booking || this.links.naverBooking;
+        if (url) { window.open(url, '_blank', 'noopener'); return; }
+        window.open('https://search.naver.com/search.naver?query=' + encodeURIComponent('한빔한복 ' + current.name + ' 예약'), '_blank', 'noopener');
+      },
+      kakaoBranch: () => {
+        const url = current.kakao || this.links.kakao;
+        if (url) { window.open(url, '_blank', 'noopener'); return; }
+        window.open('https://search.naver.com/search.naver?query=' + encodeURIComponent('한빔한복 ' + current.name), '_blank', 'noopener');
+      },
+      playFilm: () => {
+        try {
+          const v = document.getElementById('hb-film');
+          if (!v) return;
+          v.style.opacity = '1';
+          v.style.zIndex = '5';
+          v.controls = true;
+          v.muted = false;
+          const ov = document.getElementById('hb-film-overlay');
+          if (ov) ov.style.display = 'none';
+          const p = v.play();
+          if (p && p.catch) p.catch(() => {});
+        } catch (e) {}
+      }
+    };
+  }
+}
+</script>
 </body>
 </html>
